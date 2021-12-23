@@ -4,6 +4,7 @@
     Author     : PC
 --%>
 
+<%@page import="com.controlador.Controlador"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -32,7 +33,7 @@
                     </ul>
                     <ul class="navbar-nav btn-group my-2 my-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="./Controlador?accion=Login" tabindex="-1" aria-disabled="true"><i class="fas fa-user-tie"></i> Acceder</a>
+                            <a class="nav-link" href="Controlador?accion=Login" tabindex="-1" aria-disabled="true"><i class="fas fa-user-tie"></i> Acceder</a>
                        </li>
                     </ul>    
                         <%--
