@@ -1,25 +1,30 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.modelo;
 
-/**
- *
- * @author PC
- */
 public class PrecioFotocopia {
-    private String fechaDesdePrecio;
-    private Double valorFotocopia;
-    
+    int idPrecio;
+    String fechaDesdePrecio;
+    double valorFotocopia;
+
+   
     public PrecioFotocopia(){
     }
 
-    public PrecioFotocopia(String fechaDesdePrecio, Double valorFotocopia) {
+    public PrecioFotocopia(int idPrecio, String fechaDesdePrecio, double valorFotocopia) {
+        this.idPrecio = idPrecio;
         this.fechaDesdePrecio = fechaDesdePrecio;
         this.valorFotocopia = valorFotocopia;
     }
 
+    
+     public int getIdPrecio() {
+        return idPrecio;
+    }
+
+    public void setIdPrecio(int idPrecio) {
+        this.idPrecio = idPrecio;
+    }
+    
+    
     public String getFechaDesdePrecio() {
         return fechaDesdePrecio;
     }
@@ -28,11 +33,11 @@ public class PrecioFotocopia {
         this.fechaDesdePrecio = fechaDesdePrecio;
     }
 
-    public Double getValorFotocopia() {
+    public double getValorFotocopia() {
         return valorFotocopia;
     }
 
-    public void setValorFotocopia(Double valorFotocopia) {
+    public void setValorFotocopia(double valorFotocopia) {
         this.valorFotocopia = valorFotocopia;
     }
     

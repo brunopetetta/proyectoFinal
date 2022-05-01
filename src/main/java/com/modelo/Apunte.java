@@ -1,21 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.modelo;
 
-/**
- *
- * @author PC
- */
 public class Apunte {
-    private int id;
-    private String nombre;
-    private String descripcion;
-    private String carrera;
-    private String materia;
-    private int cantPaginas;
-    private Boolean upload;
+    int id;
+    String nombre;
+    String descripcion;
+    String carrera;
+    String materia;
+    int cantPaginas;
+    Boolean upload;
     
     public Apunte(){
     }

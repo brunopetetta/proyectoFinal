@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.modeloDAO;
 
 import com.configuracion.ConsultasBD;
@@ -12,10 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author PC
- */
 public class ApunteDAO {
     
     public List listar() {
@@ -39,5 +31,26 @@ public class ApunteDAO {
             
         }
         return lista;
+    }
+    
+    public Apunte listarId(int id) throws SQLException, Exception {
+        Apunte a = new Apunte();
+        String sql = "SELECT * FROM apunte WHERE idApunte="+id;
+        try {
+            PreparedStatement ps = ConsultasBD.preparedStatement(sql);
+            ResultSet rs = ConsultasBD.resultSet(ps);
+            while (rs.next()) {
+                a.setId(rs.getInt(1));
+                a.setNombre(rs.getString(2));
+                a.setDescripcion(rs.getString(3));
+                a.setCarrera(rs.getString(4));
+                a.setMateria(rs.getString(5));
+                a.setCantPaginas(rs.getInt(6));
+                a.setUpload(rs.getBoolean(7));
+            }
+        } catch (SQLException e) {
+            
+        }
+        return a;
     }
 }

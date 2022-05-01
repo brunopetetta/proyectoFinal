@@ -4,10 +4,7 @@
  */
 package com.modelo;
 
-/**
- *
- * @author PC
- */
+
 public class Carrito {
     int item;
     int idApunte;
@@ -15,17 +12,18 @@ public class Carrito {
     String descripcion;    
     int cantidadCopias;
     Double precioCompra;    
-    Boolean anillado;
-    Boolean tipoImpresion;
+    String anillado;
+    String tipoImpresion;
     Double subtotal;
     int paginaDesde;
     int paginaHasta;
+    int cantPaginas;
     String observaciones;
     
     public Carrito(){
     }
 
-    public Carrito(int item, int idApunte, String nombre, String descripcion, int cantidadCopias, Double precioCompra, Boolean anillado, Boolean tipoImpresion, Double subtotal, int paginaDesde, int paginaHasta, String observaciones) {
+    public Carrito(int item, int idApunte, String nombre, String descripcion, int cantidadCopias, Double precioCompra, String anillado, String tipoImpresion, Double subtotal, int paginaDesde, int paginaHasta, int cantPaginas, String observaciones) {
         this.item = item;
         this.idApunte = idApunte;
         this.nombre = nombre;
@@ -37,6 +35,7 @@ public class Carrito {
         this.subtotal = subtotal;
         this.paginaDesde = paginaDesde;
         this.paginaHasta = paginaHasta;
+        this.cantPaginas = cantPaginas;
         this.observaciones = observaciones;
     }
 
@@ -88,19 +87,19 @@ public class Carrito {
         this.precioCompra = precioCompra;
     }
 
-    public Boolean getAnillado() {
+    public String getAnillado() {
         return anillado;
     }
 
-    public void setAnillado(Boolean anillado) {
+    public void setAnillado(String anillado) {
         this.anillado = anillado;
     }
 
-    public Boolean getTipoImpresion() {
+    public String getTipoImpresion() {
         return tipoImpresion;
     }
 
-    public void setTipoImpresion(Boolean tipoImpresion) {
+    public void setTipoImpresion(String tipoImpresion) {
         this.tipoImpresion = tipoImpresion;
     }
 
@@ -126,6 +125,14 @@ public class Carrito {
 
     public void setPaginaHasta(int paginaHasta) {
         this.paginaHasta = paginaHasta;
+    }
+
+    public int getCantPaginas() {
+        return cantPaginas;
+    }
+
+    public void setCantPaginas(int cantPaginas) {
+        this.cantPaginas = cantPaginas;
     }
 
     public String getObservaciones() {

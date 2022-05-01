@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package com.controlador;
 
+import com.modelo.Carrito;
 import com.modeloDAO.ApunteDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -14,19 +11,19 @@ import com.utils.Constants;
 import com.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- *
- * @author PC
- */
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Controlador extends HttpServlet {
 
     ApunteDAO apudao = new ApunteDAO();
     List apuntes = new ArrayList();
+    List<Carrito> listaCarrito = new ArrayList<>();
+    Double totalPagar = 0.0;
+    Double subtotal = 0.0;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, Exception {
         
         String accion = request.getParameter("accion");
         switch (accion) {
@@ -35,7 +32,8 @@ public class Controlador extends HttpServlet {
                 break;
             
             case "Registro":
-                break;
+                Utils.distpatcherServlet(Constants.URL_REGISTRO, request, response);
+                break; 
                 
             case "Home":
                 apuntes = apudao.listar();
@@ -43,6 +41,46 @@ public class Controlador extends HttpServlet {
                 request.getRequestDispatcher(Constants.URL_INDEX).forward(request, response);
                 break;
             
+            case "Carrito":
+                totalPagar = 0.0;
+                request.setAttribute("Carrito", listaCarrito);
+                for (int i = 0; i < listaCarrito.size(); i++) {
+                    totalPagar = totalPagar + listaCarrito.get(i).getSubtotal();
+                }
+                request.setAttribute("totalPagar", totalPagar);
+                Utils.distpatcherServlet(Constants.URL_CARRITO_INICIAL, request, response);
+                break;
+                
+            case "AgregarCarrito":
+                ControladorImplements.agregarCarrito(request, listaCarrito, subtotal);
+                request.setAttribute("contador", listaCarrito.size());
+                Utils.distpatcherServlet(Constants.URL_HOME, request, response);
+                break;
+                
+            case "BorrarApunteCarrito":
+                ControladorImplements.eliminarApunte(Integer.valueOf(request.getParameter("id")), listaCarrito);
+                break;
+                
+            case "ActualizarPaginaDesde":
+                ControladorImplements.actualizarPaginaDesde(Integer.valueOf(request.getParameter("id")), Integer.valueOf(request.getParameter("cantidad")), listaCarrito);
+                break;
+                
+            case "ActualizarPaginaHasta":
+                ControladorImplements.actualizarPaginaHasta(Integer.valueOf(request.getParameter("id")), Integer.valueOf(request.getParameter("cantidad")), listaCarrito);
+                break;    
+            
+            case "ActualizarCantidadCopias":
+                ControladorImplements.actualizarCantidad(Integer.valueOf(request.getParameter("id")), Integer.valueOf(request.getParameter("cantidad")), listaCarrito);
+                break;
+            
+            case "ActualizarAnillado":
+                ControladorImplements.actualizarAnillado(Integer.valueOf(request.getParameter("id")), Integer.valueOf(request.getParameter("anillado")), listaCarrito);
+                break;
+            
+            case "ActualizarTipoImpresion":
+                ControladorImplements.actualizarTipoImpresion(Integer.valueOf(request.getParameter("id")), Integer.valueOf(request.getParameter("ti")), listaCarrito);
+            break;
+                
             default:
                 request.setAttribute("apuntes", apuntes);
                 request.getRequestDispatcher(Constants.URL_INDEX).forward(request, response);
@@ -61,7 +99,11 @@ public class Controlador extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -75,7 +117,11 @@ public class Controlador extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
