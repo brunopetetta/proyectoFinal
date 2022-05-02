@@ -25,9 +25,21 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav btn-group my-2 my-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="./Controlador?accion=Login" tabindex="-1" aria-disabled="true"><i class="fas fa-user-tie"></i> Acceder</a>
-                       </li>
+                        <c:if test="${sessionScope.admin == null && sessionScope.alumno == null}">
+                            <li class="nav-item">
+                                <a class="nav-link" href="Controlador?accion=Login" tabindex="-1" aria-disabled="true"><i class="fas fa-user-tie"></i> Acceder</a>
+                            </li>
+                        </c:if>
+                        <c:if test="${sessionScope.alumno != null}">     
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Alumno <img src=\"imagenes/user.png\" alt=\"20\" height=\"20\"/></a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="">Perfil</a></li>
+                                    <li><a class="dropdown-item" href="">Mis Pedidos</a></li>
+                                    <li><a class="dropdown-item" href="./Controlador?accion=Salir">Salir</a></li>     
+                                </ul>
+                            </li>
+                        </c:if>
                     </ul>
                 </div>
             </div>

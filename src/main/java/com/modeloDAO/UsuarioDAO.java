@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.modeloDAO;
 
 import com.configuracion.ConsultasBD;
@@ -13,10 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author PC
- */
 public class UsuarioDAO {
     PreparedStatement ps;
     ResultSet rs;

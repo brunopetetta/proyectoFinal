@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
 
 public class Controlador extends HttpServlet {
 
@@ -79,6 +80,17 @@ public class Controlador extends HttpServlet {
             
             case "ActualizarTipoImpresion":
                 ControladorImplements.actualizarTipoImpresion(Integer.valueOf(request.getParameter("id")), Integer.valueOf(request.getParameter("ti")), listaCarrito);
+            break;
+            
+            case "Salir":
+                HttpSession session = request.getSession(false);
+                if (session != null) {
+                    session.removeAttribute("admin");
+                    session.removeAttribute("alumno");
+                    session.invalidate();
+                    listaCarrito = new ArrayList();
+                    Utils.distpatcherServlet(Constants.URL_LOGIN, request, response);
+                }
             break;
                 
             default:
