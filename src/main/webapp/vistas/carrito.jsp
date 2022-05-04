@@ -32,9 +32,9 @@
                         </c:if>
                         <c:if test="${sessionScope.alumno != null}">     
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Alumno <img src=\"imagenes/user.png\" alt=\"20\" height=\"20\"/></a>
+                                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-circle-user"></i> ${sessionScope.alumno.getNombre()} </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="">Perfil</a></li>
+                                    <li><a class="dropdown-item" href="./Controlador?accion=PerfilUsuario&id=${sessionScope.alumno.getId()}">Perfil</a></li>
                                     <li><a class="dropdown-item" href="">Mis Pedidos</a></li>
                                     <li><a class="dropdown-item" href="./Controlador?accion=Salir">Salir</a></li>     
                                 </ul>

@@ -105,4 +105,22 @@ public class UsuarioDAO {
         return r;
     }
     
+    public int ActualizarUsuario(Usuario u) throws SQLException, Exception {
+        String sql = "UPDATE usuario SET legajo=?, nombre=?, apellido=?, email=?, password=? WHERE idUsuario=?";
+        int r = 0;
+        try {
+            ps = ConsultasBD.preparedStatement(sql);
+            ps.setString(1, u.getLegajo());
+            ps.setString(2, u.getNombre());
+            ps.setString(3, u.getApellido());
+            ps.setString(4, u.getEmail());
+            ps.setString(5, u.getPassword());
+            ps.setInt(6, u.getId());
+            r = ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new Exception("Error al intentar actualizar los datos del usuario", e);
+        }
+        return r;
+    }
+    
 }

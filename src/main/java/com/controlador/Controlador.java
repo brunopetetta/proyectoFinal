@@ -1,7 +1,9 @@
 package com.controlador;
 
 import com.modelo.Carrito;
+import com.modelo.Usuario;
 import com.modeloDAO.ApunteDAO;
+import com.modeloDAO.UsuarioDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,10 +20,12 @@ import javax.servlet.http.HttpSession;
 public class Controlador extends HttpServlet {
 
     ApunteDAO apudao = new ApunteDAO();
+    UsuarioDAO udao = new UsuarioDAO();
     List apuntes = new ArrayList();
     List<Carrito> listaCarrito = new ArrayList<>();
     Double totalPagar = 0.0;
     Double subtotal = 0.0;
+    int ida;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
@@ -42,6 +46,13 @@ public class Controlador extends HttpServlet {
                 request.getRequestDispatcher(Constants.URL_INDEX).forward(request, response);
                 break;
             
+            case "PerfilUsuario":
+                ida = Integer.parseInt(request.getParameter("id"));
+                Usuario usu = udao.listarId(ida);
+                request.setAttribute("alumno", usu);
+                Utils.distpatcherServlet(Constants.URL_PERFIL, request, response);
+                break;
+                
             case "Carrito":
                 totalPagar = 0.0;
                 request.setAttribute("Carrito", listaCarrito);

@@ -22,7 +22,7 @@
                             <a class="nav-link" href="./Controlador?accion=Home"><i class="fas fa-home"></i> Home<span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./Controlador?accion=Carrito"><i class="fas fa-cart-shopping">(<label style="color: orange">${contador}</label>)</i> Carrito</a>
+                            <a class="nav-link" href="./Controlador?accion=Carrito"><i class="fas fa-cart-shopping">  <label style="color: ghostwhite">${contador}</label></i>  Carrito</a>
                         </li>
                     </ul>                       
                 </div>
