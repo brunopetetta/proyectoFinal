@@ -122,6 +122,14 @@ public class ControladorImplements {
         }
     }
     
+    public static void actualizarObservaciones(int idApunte, String observaciones, List<Carrito> listaCarrito) throws Exception {
+        for (int j = 0; j < listaCarrito.size(); j++) {
+            if (listaCarrito.get(j).getIdApunte() == idApunte) {
+                listaCarrito.get(j).setObservaciones(observaciones);
+            }                
+        }
+    }
+    
     public static void eliminarApunte(int idApunte, List<Carrito> listaCarrito) {
         if (listaCarrito != null) {
             for (int j = 0; j < listaCarrito.size(); j++) {

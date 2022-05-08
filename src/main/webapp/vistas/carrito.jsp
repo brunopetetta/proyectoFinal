@@ -90,7 +90,8 @@
                                     </td>
                                     <td>${car.getSubtotal()}</td>
                                     <td>
-                                        <input type="text" name="Observaciones" value=${car.getObservaciones()}>  
+                                        <input type="hidden" id="itemObs" value="${car.getIdApunte()}">
+                                        <input type="text" id="observaciones" value="${car.getObservaciones()}">  
                                     </td>
                                     <td>
                                         <input type="hidden" id="item" value="${car.getIdApunte()}">
@@ -112,9 +113,7 @@
                             <a class="form-control text-center"><i class="fas fa-dollar-sign h4 primary"> <fmt:formatNumber  maxFractionDigits="2" value="${totalPagar}"/></i></a>
                         </div>
                         <div class="card-footer">
-                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalPago">
-                                Realizar Pedido
-                            </button>
+                            <a class="btn btn-success" href="./Controlador?accion=GenerarPedido"> Realizar Pedido </a>
                         </div>                        
                     </div>
                 </div>

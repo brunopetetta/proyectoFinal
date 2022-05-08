@@ -1,8 +1,13 @@
 package com.controlador;
 
+import com.configuracion.Fecha;
 import com.modelo.Carrito;
+import com.modelo.Compra;
+import com.modelo.Pago;
 import com.modelo.Usuario;
 import com.modeloDAO.ApunteDAO;
+import com.modeloDAO.CompraDAO;
+import com.modeloDAO.PagoDAO;
 import com.modeloDAO.UsuarioDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -92,6 +97,38 @@ public class Controlador extends HttpServlet {
             case "ActualizarTipoImpresion":
                 ControladorImplements.actualizarTipoImpresion(Integer.valueOf(request.getParameter("id")), Integer.valueOf(request.getParameter("ti")), listaCarrito);
             break;
+            
+            case "ActualizarObservaciones":
+                ControladorImplements.actualizarObservaciones(Integer.valueOf(request.getParameter("id")), String.valueOf(request.getParameter("obs")), listaCarrito);
+            break;
+            
+            case "GenerarPedido":
+                HttpSession sesion = request.getSession(true);
+                Usuario u = (Usuario) sesion.getAttribute("alumno");
+                
+                if (u != null) {
+                    CompraDAO codao = new CompraDAO();
+                    Pago pago = new Pago();
+                    totalPagar = (double) Math.round(totalPagar * 100) / 100d;
+                    pago.setMonto(totalPagar);
+                    PagoDAO padao = new PagoDAO();
+                    int idpago = padao.GenerarPago(pago);
+                    pago.setId(idpago);                    
+                    Compra compra = new Compra(u, pago, Fecha.FechaBD(), totalPagar, "En Proceso", listaCarrito);
+                    int res = codao.GenerarCompra(compra);
+                    if (res != 0 && totalPagar > 0) {
+                        listaCarrito = new ArrayList<>();
+                        ControladorImplements.response(Constants.URL_HOME, Constants.MESSAGE_SUCCESS, Constants.CONFIG_ALERT_SUCCESS, request);
+                        Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                    } else {
+                        ControladorImplements.response(Constants.URL_HOME, Constants.MESSAGE_WARNING_CARRITO, Constants.CONFIG_ALERT_WARNING, request);
+                        Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                    }
+                } else {
+                    ControladorImplements.response(Constants.URL_LOGIN, "Debe iniciar sesión para realizar el pedido", Constants.CONFIG_ALERT_WARNING, request);
+                    Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                }
+                break;
             
             case "Salir":
                 HttpSession session = request.getSession(false);

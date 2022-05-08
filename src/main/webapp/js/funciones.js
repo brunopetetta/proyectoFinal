@@ -97,7 +97,7 @@ $(document).ready(function () {
         });
     });
     
-    $("tr #tipoImpresion").click(function (e) {
+     $("tr #tipoImpresion").click(function (e) {
         var ida = $(this).parent().find('#itemTipoImpresion').val();
         var valorTI = $(this).parent().find('#tipoImpresion').prop('checked');
         var va = 0;
@@ -109,6 +109,20 @@ $(document).ready(function () {
             type: 'POST',
             url: url,
             data: "id=" + ida + "&ti=" + va,
+            success: function (data, textStatus, jqXHR) {
+                parent.location.href = "./Controlador?accion=Carrito";
+            }
+        });
+    });
+    
+    $("tr #observaciones").change(function(e) {
+        var ida = $(this).parent().find('#itemObs').val();
+        var obs = $(this).parent().find('#observaciones').val();
+        var url = "./Controlador?accion=ActualizarObservaciones";
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: "id=" + ida + "&obs=" + obs,
             success: function (data, textStatus, jqXHR) {
                 parent.location.href = "./Controlador?accion=Carrito";
             }

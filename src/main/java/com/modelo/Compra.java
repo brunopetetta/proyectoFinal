@@ -1,15 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.modelo;
 
 import java.util.List;
 
-/**
- *
- * @author PC
- */
+
 public class Compra {
     private int id;
     private Usuario usuario;
@@ -22,8 +16,7 @@ public class Compra {
     public Compra(){
     }
 
-    public Compra(int id, Usuario usuario, Pago pago, String fecha, Double monto, String estado, List<Carrito> detallecompras) {
-        this.id = id;
+    public Compra(Usuario usuario, Pago pago, String fecha, Double monto, String estado, List<Carrito> detallecompras) {
         this.usuario = usuario;
         this.pago = pago;
         this.fecha = fecha;
