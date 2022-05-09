@@ -28,4 +28,20 @@ public class PagoDAO {
         }
         return idp;
     }
+    
+    public Pago listarId(int id) throws SQLException, Exception {
+        Pago p = new Pago();
+        String sql = "SELECT * FROM pago WHERE idPago = " + id;
+        try {
+            ps = ConsultasBD.preparedStatement(sql);
+            rs = ConsultasBD.resultSet(ps);
+            while (rs.next()) {
+                p.setId(rs.getInt(1));
+                p.setMonto(rs.getDouble(2));
+            }
+        } catch (SQLException e) {
+            throw new Exception("Error al intentar obtener un cliente", e);
+        }
+        return p;
+    }
 }

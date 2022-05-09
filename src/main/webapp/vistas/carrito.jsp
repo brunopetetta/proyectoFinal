@@ -35,7 +35,7 @@
                                 <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-circle-user"></i> ${sessionScope.alumno.getNombre()} </a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="./Controlador?accion=PerfilUsuario&id=${sessionScope.alumno.getId()}">Perfil</a></li>
-                                    <li><a class="dropdown-item" href="">Mis Pedidos</a></li>
+                                    <li><a class="dropdown-item" href="./Controlador?accion=PedidosUsuario&id=${sessionScope.alumno.getId()}">Mis Pedidos</a></li>
                                     <li><a class="dropdown-item" href="./Controlador?accion=Salir">Salir</a></li>     
                                 </ul>
                             </li>

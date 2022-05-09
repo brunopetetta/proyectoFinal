@@ -26,7 +26,10 @@ public class Controlador extends HttpServlet {
 
     ApunteDAO apudao = new ApunteDAO();
     UsuarioDAO udao = new UsuarioDAO();
+    CompraDAO comdao = new CompraDAO();
     List apuntes = new ArrayList();
+    List miscompras = new ArrayList();
+    List compAdmin = new ArrayList();
     List<Carrito> listaCarrito = new ArrayList<>();
     Double totalPagar = 0.0;
     Double subtotal = 0.0;
@@ -56,6 +59,29 @@ public class Controlador extends HttpServlet {
                 Usuario usu = udao.listarId(ida);
                 request.setAttribute("alumno", usu);
                 Utils.distpatcherServlet(Constants.URL_PERFIL, request, response);
+                break;
+                
+            case "PedidosUsuario":
+                ida = Integer.parseInt(request.getParameter("id"));
+                miscompras = comdao.listarPorUsuario(ida);
+                if (miscompras.isEmpty() == true) {
+                    ControladorImplements.response(Constants.URL_HOME, "No ha realizado pedidos aún", Constants.CONFIG_ALERT_WARNING, request);
+                    Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                } else {
+                    request.setAttribute("miscompras", miscompras);
+                    Utils.distpatcherServlet(Constants.URL_USUARIOPEDIDOS, request, response);
+                }
+                break;
+                
+            case "PedidosAdmin":
+                compAdmin = comdao.listar();
+                if (compAdmin.isEmpty() == true) {
+                    ControladorImplements.response(Constants.URL_HOME, "No hay pedidos realizados", Constants.CONFIG_ALERT_WARNING, request);
+                    Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                } else {
+                    request.setAttribute("compras", compAdmin);
+                    Utils.distpatcherServlet(Constants.URL_ADMINPEDIDOS, request, response);
+                }
                 break;
                 
             case "Carrito":

@@ -4,9 +4,13 @@ package com.modeloDAO;
 import com.configuracion.ConsultasBD;
 import com.modelo.Carrito;
 import com.modelo.Compra;
+import com.modelo.Pago;
+import com.modelo.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CompraDAO {
     PreparedStatement ps;
@@ -50,5 +54,57 @@ public class CompraDAO {
         }
 
         return r;
+    }
+    
+    public List listarPorUsuario(int idu) throws Exception {
+        List lista = new ArrayList();
+        String sql = "SELECT * FROM compra WHERE idUsuario = " + idu;
+        try {
+            ps = ConsultasBD.preparedStatement(sql);
+            rs = ConsultasBD.resultSet(ps);
+            while (rs.next()) {
+                Compra com = new Compra();
+                UsuarioDAO udao = new UsuarioDAO();
+                PagoDAO pdao = new PagoDAO();
+                Pago pago = pdao.listarId(rs.getInt(3));
+                Usuario usu = udao.listarId(idu);
+                com.setId(rs.getInt(1));
+                com.setUsuario(usu);
+                com.setPago(pago);
+                com.setFecha(rs.getString(4));
+                com.setMonto(rs.getDouble(5));
+                com.setEstado(rs.getString(6));
+                lista.add(com);
+            }
+        } catch (SQLException e) {
+            throw new Exception("Error al intentar obtener los pedidos del usuario", e);
+        }
+        return lista;
+    }
+    
+    public List listar() throws Exception {
+        List lista = new ArrayList();
+        String sql = "SELECT * FROM compra";
+        try {
+            ps = ConsultasBD.preparedStatement(sql);
+            rs = ConsultasBD.resultSet(ps);
+            while (rs.next()) {
+                Compra com = new Compra();
+                UsuarioDAO udao = new UsuarioDAO();
+                PagoDAO pdao = new PagoDAO();
+                Pago pago = pdao.listarId(rs.getInt(3));
+                Usuario usu = udao.listarId(rs.getInt(2));
+                com.setId(rs.getInt(1));
+                com.setUsuario(usu);
+                com.setPago(pago);
+                com.setFecha(rs.getString(4));
+                com.setMonto(rs.getDouble(5));
+                com.setEstado(rs.getString(6));
+                lista.add(com);
+            }
+        } catch (SQLException e) {
+            throw new Exception("Error al intentar obtener los pedidos", e);
+        }
+        return lista;
     }
 }
