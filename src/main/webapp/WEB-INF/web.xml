@@ -11,6 +11,10 @@
         <servlet-name>ControladorUsuarios</servlet-name>
         <servlet-class>com.controlador.ControladorUsuarios</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControladorPedidos</servlet-name>
+        <servlet-class>com.controlador.ControladorPedidos</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Controlador</servlet-name>
         <url-pattern>/Controlador</url-pattern>
@@ -18,6 +22,10 @@
     <servlet-mapping>
         <servlet-name>ControladorUsuarios</servlet-name>
         <url-pattern>/ControladorUsuarios</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControladorPedidos</servlet-name>
+        <url-pattern>/ControladorPedidos</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

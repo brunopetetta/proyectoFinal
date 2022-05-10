@@ -107,4 +107,22 @@ public class CompraDAO {
         }
         return lista;
     }
+    
+    public int ActualizarCompra(Compra c) throws Exception {
+        String sql = "UPDATE compra SET idUsuario=?, idPago=?, fechaCompra=?, monto=?, estado=? WHERE idCompra=?";
+        r = 0;
+        try {
+            ps = ConsultasBD.preparedStatement(sql);
+            ps.setInt(1, c.getUsuario().getId());
+            ps.setInt(2, c.getPago().getId());
+            ps.setString(3, c.getFecha());
+            ps.setDouble(4, c.getMonto());
+            ps.setString(5, c.getEstado());
+            ps.setInt(6, c.getId());
+            r = ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new Exception("Error al intentar actualizar el estado de la compra", e);
+        }
+        return r;
+    }
 }

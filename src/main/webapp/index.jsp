@@ -24,7 +24,7 @@
                         </li>
                         <c:if test="${sessionScope.admin != null}">
                             <li class="nav-item">
-                               <a class="nav-link" href="./Controlador?accion=ComprasAdmin">Pedidos</a>
+                               <a class="nav-link" href="./Controlador?accion=PedidosAdmin">Pedidos</a>
                             </li>
                             <li class="nav-item">
                                <a class="nav-link" href="./Controlador?accion=ListaProductos">Apuntes</a>
@@ -35,6 +35,11 @@
                         <c:if test="${sessionScope.admin == null}">       
                             <li class="nav-item">
                                 <a class="nav-link" href="./Controlador?accion=Carrito"><i class="fas fa-cart-shopping">  <label style="color: ghostwhite">${contador}</label></i>  Carrito</a>
+                            </li>
+                        </c:if>
+                            <c:if test="${sessionScope.alumno != null}">       
+                            <li class="nav-item">
+                                <a class="nav-link" href="./Controlador?accion=SubirApuntes"><i class="fas fa-upload"> </i> Subir mis Apuntes</a>
                             </li>
                         </c:if>
                     </ul>

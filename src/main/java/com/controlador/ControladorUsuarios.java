@@ -70,7 +70,7 @@ public class ControladorUsuarios extends HttpServlet {
                 if (usu.getEmail() != null) {
                     if(usu.getRol().getId()== 1){ //Es Admin
                         session.setAttribute("admin", usu);
-                        Utils.distpatcherServlet(Constants.URL_HOME, request, response);
+                        Utils.distpatcherServlet(Constants.URL_ADMINPEDIDOS, request, response);
                     } else { //Es alumno
                         session.setAttribute("alumno", usu);
                         Utils.distpatcherServlet(Constants.URL_HOME, request, response);

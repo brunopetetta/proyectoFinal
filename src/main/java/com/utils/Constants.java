@@ -10,7 +10,8 @@ public class Constants {
     public static final String URL_REGISTRO="./vistas/usuarioRegistro.jsp";    
     public static final String URL_PERFIL="./vistas/usuarioPerfil.jsp";
     public static final String URL_USUARIOPEDIDOS="./vistas/usuarioPedidos.jsp";
-    public static final String URL_ADMINPEDIDOS="./vistas/adminPedidos.jsp";
+    public static final String URL_VISTAPEDIDOS="./vistas/adminPedidos.jsp";
+    public static final String URL_ADMINPEDIDOS="Controlador?accion=PedidosAdmin";
     
     public static final String URL_CARRITO="Controlador?accion=Carrito";
     public static final String URL_INICIOSESION = "Controlador?accion=Login";

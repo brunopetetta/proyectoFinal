@@ -61,15 +61,15 @@
                         <tbody>
                             <c:forEach var="com" items="${compras}">
                                 <tr class="text-center tr">
-                            <form action="ActualizarEstado?accion=Actualizar" method="post">
+                            <form action="ControladorPedidos" method="post">
                                 <td><input type="hidden" name="txtidcomp" value="${com.getId()}" class="form-control">
                                     ${com.getId()}
                                 </td>
-                                <td><input type="hidden" name="txtidcli" value="${com.getCliente().getId()}" class="form-control">
-                                    ${com.getCliente().getId()}
+                                <td><input type="hidden" name="txtidusu" value="${com.getUsuario().getId()}" class="form-control">
+                                    ${com.getUsuario().getId()}
                                 </td>
-                                <td><input type="hidden" name="txtidpago" value="${com.getIdpago()}" class="form-control">
-                                    ${com.getIdpago()}
+                                <td><input type="hidden" name="txtidpago" value="${com.getPago().getId()}" class="form-control">
+                                    ${com.getPago().getId()}
                                 </td>
                                 <td><input type="hidden" name="txtfecha" value="${com.getFecha()}" class="form-control">
                                     ${com.getFecha()}
@@ -80,11 +80,10 @@
                                 <td>
                                     <select name="cboEstado" class="form-select form-select-sm" aria-label=".form-select-sm example">
                                         <option selected>${com.getEstado()}</option>
+                                        <option value="Solicitado">Solicitado</option>
                                         <option value="En Proceso">En Proceso</option>
-                                        <option value="Cancelada">Cancelada</option>
-                                        <option value="Facturada">Facturada</option>
-                                        <option value="Despachada">Despachada</option>
-                                        <option value="Finalizada">Finalizada</option>
+                                        <option value="Listo para Retirar">Listo para Retirar</option>
+                                        <option value="Retirado">Retirado</option>
                                     </select>
                                 </td>
                                 <td> <input type="submit" name="accion" value="Actualizar" class="btn-outline-success btn-sm">

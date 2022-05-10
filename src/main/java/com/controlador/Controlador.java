@@ -80,7 +80,7 @@ public class Controlador extends HttpServlet {
                     Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
                 } else {
                     request.setAttribute("compras", compAdmin);
-                    Utils.distpatcherServlet(Constants.URL_ADMINPEDIDOS, request, response);
+                    Utils.distpatcherServlet(Constants.URL_VISTAPEDIDOS, request, response);
                 }
                 break;
                 
@@ -140,7 +140,7 @@ public class Controlador extends HttpServlet {
                     PagoDAO padao = new PagoDAO();
                     int idpago = padao.GenerarPago(pago);
                     pago.setId(idpago);                    
-                    Compra compra = new Compra(u, pago, Fecha.FechaBD(), totalPagar, "En Proceso", listaCarrito);
+                    Compra compra = new Compra(u, pago, Fecha.FechaBD(), totalPagar, "Solicitado", listaCarrito);
                     int res = codao.GenerarCompra(compra);
                     if (res != 0 && totalPagar > 0) {
                         listaCarrito = new ArrayList<>();
