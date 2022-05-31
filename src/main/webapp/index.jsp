@@ -27,7 +27,7 @@
                                <a class="nav-link" href="./Controlador?accion=PedidosAdmin">Pedidos</a>
                             </li>
                             <li class="nav-item">
-                               <a class="nav-link" href="./Controlador?accion=ListaProductos">Apuntes</a>
+                               <a class="nav-link" href="./Controlador?accion=ApuntesAdmin">Apuntes</a>
                             </li> 
                             <li class="nav-item">
                                <a class="nav-link" href="./Controlador?accion=ListaUsuarios">Usuarios</a>

@@ -9,11 +9,12 @@ public class Apunte {
     String materia;
     int cantPaginas;
     Boolean upload;
+    int idAlumno;
     
     public Apunte(){
     }
 
-    public Apunte(int id, String nombre, String descripcion, String carrera, String materia, int cantPaginas, Boolean upload) {
+    public Apunte(int id, String nombre, String descripcion, String carrera, String materia, int cantPaginas, Boolean upload, int idAlumno) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -21,6 +22,7 @@ public class Apunte {
         this.materia = materia;
         this.cantPaginas = cantPaginas;
         this.upload = upload;
+        this.idAlumno = idAlumno;
     }
 
     public int getId() {
@@ -77,6 +79,14 @@ public class Apunte {
 
     public void setUpload(Boolean upload) {
         this.upload = upload;
+    }
+
+    public int getIdAlumno() {
+        return idAlumno;
+    }
+
+    public void setIdAlumno(int idAlumno) {
+        this.idAlumno = idAlumno;
     }
     
     

@@ -21,10 +21,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="./Controlador?accion=ComprasAdmin">Pedidos</a>
+                            <a class="nav-link" href="./Controlador?accion=PedidosAdmin">Pedidos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./Controlador?accion=ListaProductos">Apuntes</a>
+                            <a class="nav-link" href="./Controlador?accion=ApuntesAdmin">Apuntes</a>
                         </li> 
                         <li class="nav-item">
                             <a class="nav-link" href="./Controlador?accion=ListaUsuarios">Usuarios</a>
@@ -42,7 +42,7 @@
         </nav>
         <div class="container mt-4">
             <div class ="d-flex">
-                <h2>Lista Pedidos</h2>
+                <h4>Lista Pedidos</h4>
             </div>
             <div class="row">
                 <div class="col-lg-11">

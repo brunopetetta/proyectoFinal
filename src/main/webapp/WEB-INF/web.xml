@@ -15,6 +15,10 @@
         <servlet-name>ControladorPedidos</servlet-name>
         <servlet-class>com.controlador.ControladorPedidos</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControladorApuntes</servlet-name>
+        <servlet-class>com.controlador.ControladorApuntes</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Controlador</servlet-name>
         <url-pattern>/Controlador</url-pattern>
@@ -26,6 +30,10 @@
     <servlet-mapping>
         <servlet-name>ControladorPedidos</servlet-name>
         <url-pattern>/ControladorPedidos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControladorApuntes</servlet-name>
+        <url-pattern>/ControladorApuntes</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

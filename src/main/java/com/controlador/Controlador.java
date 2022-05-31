@@ -1,6 +1,7 @@
 package com.controlador;
 
 import com.configuracion.Fecha;
+import com.modelo.Apunte;
 import com.modelo.Carrito;
 import com.modelo.Compra;
 import com.modelo.Pago;
@@ -27,6 +28,7 @@ public class Controlador extends HttpServlet {
     ApunteDAO apudao = new ApunteDAO();
     UsuarioDAO udao = new UsuarioDAO();
     CompraDAO comdao = new CompraDAO();
+    Apunte apu = new Apunte();
     List apuntes = new ArrayList();
     List miscompras = new ArrayList();
     List compAdmin = new ArrayList();
@@ -82,6 +84,24 @@ public class Controlador extends HttpServlet {
                     request.setAttribute("compras", compAdmin);
                     Utils.distpatcherServlet(Constants.URL_VISTAPEDIDOS, request, response);
                 }
+                break;
+            
+            case "ApuntesAdmin":
+                apuntes = apudao.listar();
+                if (apuntes.isEmpty() == true) {
+                    ControladorImplements.response(Constants.URL_HOME, "Error al intentar listar los apuntes", Constants.CONFIG_ALERT_WARNING, request);
+                    Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                } else {
+                    request.setAttribute("apuntes", apuntes);
+                    Utils.distpatcherServlet(Constants.URL_VISTAAPUNTES, request, response);
+                }
+                break;
+                
+            case "editarApunte":
+                ida = Integer.parseInt(request.getParameter("id"));
+                apu = apudao.listarId(ida);
+                request.setAttribute("apunte", apu);
+                Utils.distpatcherServlet(Constants.URL_VISTAEDITARAPUNTE, request, response);
                 break;
                 
             case "Carrito":
