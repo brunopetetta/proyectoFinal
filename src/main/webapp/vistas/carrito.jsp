@@ -1,11 +1,10 @@
 <%@page import="com.controlador.Controlador"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html">
         <title>Carrito</title>       
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -52,11 +51,11 @@
                             <thead class="table-primary">
                                 <tr class="text-center">
                                     <th>Apunte</th>
-                                    <th>Descripcion</th>
+                                    <th>Descripción</th>
                                     <th>Pagina Desde</th>
                                     <th>Pagina Hasta</th>
                                     <th>Anillado</th>
-                                    <th>Tipo ImpresiÃ³n</th>
+                                    <th>Tipo Impresión</th>
                                     <th>Copias</th>
                                     <th>Total</th>
                                     <th>Observaciones</th>  

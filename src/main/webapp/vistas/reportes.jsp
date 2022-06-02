@@ -1,10 +1,4 @@
-<%-- 
-    Document   : reportes
-    Created on : 22 dic 2021, 20:18:37
-    Author     : PC
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
     <head>

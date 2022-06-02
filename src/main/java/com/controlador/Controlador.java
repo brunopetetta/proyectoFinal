@@ -104,6 +104,11 @@ public class Controlador extends HttpServlet {
                 Utils.distpatcherServlet(Constants.URL_VISTAEDITARAPUNTE, request, response);
                 break;
                 
+            case "eliminarApunteBD":
+                ida = Integer.valueOf(request.getParameter("id"));
+                apudao.BorrarApunte(ida);
+                break;
+                
             case "Carrito":
                 totalPagar = 0.0;
                 request.setAttribute("Carrito", listaCarrito);
@@ -112,6 +117,9 @@ public class Controlador extends HttpServlet {
                 }
                 request.setAttribute("totalPagar", totalPagar);
                 Utils.distpatcherServlet(Constants.URL_CARRITO_INICIAL, request, response);
+                break;
+            
+            case "SubirApuntes":
                 break;
                 
             case "AgregarCarrito":

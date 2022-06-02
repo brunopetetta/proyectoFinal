@@ -20,7 +20,7 @@ public class Constants {
     public static final String URL_CARRITO="Controlador?accion=Carrito";
     public static final String URL_INICIOSESION = "Controlador?accion=Login";
     
-    public static final String MESSAGE_SUCCESS="La operaciÃ³n se realizÃ³ con Ã©xito!";
+    public static final String MESSAGE_SUCCESS="La operación se realizó con Éxito!";
     public static final String MESSAGE_WARNING_CARRITO="Debe agregar por lo menos un apunte al carrito";
     
     public static final String CONFIG_ALERT_SUCCESS="alert alert-success";

@@ -1,9 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html">
         <title>Login</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -33,7 +32,7 @@
                 <div class="card-body">
                     <form class="form-sign" action="ControladorUsuarios" method="POST">
                         <div class="form-group text-center">
-                            <h3>AutenticaciÃ³n</h3>
+                            <h3>Autenticación</h3>
                             <a href="./Controlador?accion=Registro" class="btn btn-link">No tiene una cuenta? Registrese</a>
                         </div>                        
                         <div class="form-group mb-1">
@@ -41,14 +40,14 @@
                             <input type="text" name="txtuser" class="form-control">
                         </div>
                         <div class="form-group mb-3">
-                            <label>ContraseÃ±a</label>
+                            <label>Contraseña</label>
                             <input type="password" name="txtpass" class="form-control">
                         </div>
                         <div class="form-group text-center">
                             <input type="submit" name="accion" value="Ingresar" class="btn btn-primary btn-block">
                         </div>
                         <div class="form-group text-center"> 
-                            <a href="" class="btn btn-link">OlvidÃ³ su contraseÃ±a?</a>                        
+                            <a href="" class="btn btn-link">Olvidó su contraseña?</a>                        
                         </div>
                     </form>
                 </div>

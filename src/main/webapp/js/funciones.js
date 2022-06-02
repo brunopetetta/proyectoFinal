@@ -5,14 +5,14 @@ $(document).ready(function () {
         var ida = $(this).parent().find('#item').val();
         swal({
             title: "Desea eliminar el apunte?",
-            text: "Una vez eliminado, deberÃ¡ agregar nuevamente",
+            text: "Una vez eliminado, deberá agregar nuevamente",
             icon: "warning",
             buttons: true,
             dangerMode: true
         }).then((willDelete) => {
             if (willDelete) {
                 eliminar(ida);
-                swal("Registro borrado con Ã©xito", {
+                swal("Registro borrado con Éxito", {
                     icon: "success",
                 }).then((willDelete) => {
                     if (willDelete) {
@@ -128,6 +128,39 @@ $(document).ready(function () {
             }
         });
     });
+    
+    $("tr #deleteApunte").click(function (e) {
+        e.preventDefault();
+        var ida2 = $(this).parent().find('#apu').val();
+        swal({
+            title: "Desea eliminar?",
+            text: "Una vez eliminado, perderá todos los datos del registro",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+        }).then((willDelete) => {
+            if (willDelete) {
+                eliminarApunte(ida2);
+                swal("Registro borrado con éxito", {
+                    icon: "success",
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        parent.location.href = "./Controlador?accion=ApuntesAdmin";
+                    }
+                });
+            }
+        });
+    });
+    function eliminarApunte(ida2) {
+        var url = "./Controlador?accion=eliminarApunteBD&id=" + ida2;
+        $.ajax({
+            type: 'POST',
+            url: url,
+            async: true,
+            success: function (r) {
+            }
+        });
+    }
     
 });
 

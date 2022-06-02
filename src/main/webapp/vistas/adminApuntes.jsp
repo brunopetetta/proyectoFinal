@@ -1,10 +1,9 @@
 <%@page import="com.controlador.Controlador"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html">
         <title>Admin Apuntes</title>       
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -54,11 +53,11 @@
                             <tr class="text-center">
                                 <th>Cod</th>
                                 <th>Nombre</th>
-                                <th>Descripcion</th>
+                                <th>Descripción</th>
                                 <th>Carrera</th>
                                 <th>Materia</th>
-                                <th>Cantidad de Paginas</th>
-                                <th>Accion</th>
+                                <th>Cantidad de Páginas</th>
+                                <th>Acción</th>
                             </tr>    
                         </thead>
                         <tbody>
@@ -97,17 +96,17 @@
                                 <input type="file" name="fileApunte" class="form-control">
                             </div>
                             <div class="form-group mb-1">
-                                <label>Descripcion</label>
+                                <label>Descripción</label>
                                 <input type="text" name="txtDescripcion" class="form-control">
                             </div>
                             <div class="form-group mb-1">
                                 <label>Carrera</label>
                                 <select name="cboCarrera" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                                    <option value="IngenierÃ­a Civil">IngenierÃ­a Civil</option>
-                                    <option value="Ingenieria ElÃ©ctrica">Ingenieria ElÃ©ctrica</option>
-                                    <option value="IngenierÃ­a MecÃ¡nica">IngenierÃ­a MecÃ¡nica</option>
-                                    <option value="IngenierÃ­a QuÃ­mica">IngenierÃ­a QuÃ­mica</option>
-                                    <option value="IngenierÃ­a en Sistemas de InformaciÃ³n">IngenierÃ­a en Sistemas de InformaciÃ³n</option>
+                                    <option value="Ingenierí­a Civil">Ingeniería Civil</option>
+                                    <option value="Ingenieria Eléctrica">Ingenieria Eléctrica</option>
+                                    <option value="Ingeniería Mecánica">Ingeniería Mecánica</option>
+                                    <option value="Ingeniería Química">Ingeniería Química</option>
+                                    <option value="Ingeniería en Sistemas de Información">Ingeniería en Sistemas de Información</option>
                                 </select>
                             </div>
                             <div class="form-group mb-1">
