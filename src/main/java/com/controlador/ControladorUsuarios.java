@@ -76,7 +76,7 @@ public class ControladorUsuarios extends HttpServlet {
                         Utils.distpatcherServlet(Constants.URL_HOME, request, response);
                     }                    
                 } else {
-                    ControladorImplements.response(Constants.URL_INICIOSESION, "Usuario o ContraseÃ±a incorrecta", Constants.CONFIG_ALERT_WARNING, request);
+                    ControladorImplements.response(Constants.URL_INICIOSESION, "Usuario o Contraseña incorrecta", Constants.CONFIG_ALERT_WARNING, request);
                     Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
                 }            
             break;

@@ -52,6 +52,7 @@ public class Controlador extends HttpServlet {
                 
             case "Home":
                 apuntes = apudao.listar();
+                request.setAttribute("contador", listaCarrito.size());
                 request.setAttribute("apuntespublicos", apuntes);
                 request.getRequestDispatcher(Constants.URL_INDEX).forward(request, response);
                 break;
@@ -120,6 +121,11 @@ public class Controlador extends HttpServlet {
                 break;
             
             case "SubirApuntes":
+                ida = Integer.valueOf(request.getParameter("id"));
+                apuntes = apudao.listarAlumno(ida);
+                request.setAttribute("contador", listaCarrito.size());
+                request.setAttribute("apuntesAlumno", apuntes);
+                request.getRequestDispatcher(Constants.URL_VISTAUSUARIOAPUNTES).forward(request, response);
                 break;
                 
             case "AgregarCarrito":

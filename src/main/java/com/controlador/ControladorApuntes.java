@@ -50,23 +50,24 @@ public class ControladorApuntes extends HttpServlet {
         processRequest(request, response);
     }
 
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException{
         String accion = request.getParameter("accion");        
         switch(accion){
             case "Agregar":
                 Apunte a = new Apunte();
                 ApunteDAO adao = new ApunteDAO();
+                boolean flagAlumno = false;
+                int idAlumno = 0;
                 FileItemFactory factory = new DiskFileItemFactory();
                 ServletFileUpload upload = new ServletFileUpload(factory);
                 List items = null;
                 try {
                     items = upload.parseRequest(request);
                 } catch (FileUploadException ex) {
-                    ControladorImplements.response(Constants.URL_ADMINAPUNTES, "Error al procesar el apunte", Constants.CONFIG_ALERT_WARNING, request);
-                    Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                    //ControladorImplements.response(Constants.URL_ADMINAPUNTES, "Error al procesar el apunte", Constants.CONFIG_ALERT_WARNING, request);
+                    //Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
                 }
                 for (Object item : items) {
                     FileItem uploaded = (FileItem) item;
@@ -81,8 +82,8 @@ public class ControladorApuntes extends HttpServlet {
                             a.setCantPaginas(cantPaginas);
                             a.setNombre(uploaded.getName());
                         } catch (Exception ex) {
-                            ControladorImplements.response(Constants.URL_ADMINAPUNTES, "Error al procesar el apunte", Constants.CONFIG_ALERT_WARNING, request);
-                            Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                             //ControladorImplements.response(Constants.URL_ADMINAPUNTES, "Error al procesar el apunte", Constants.CONFIG_ALERT_WARNING, request);
+                            //Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
                         }
                     } else {
                         // es un campo de formulario,
@@ -94,19 +95,37 @@ public class ControladorApuntes extends HttpServlet {
                         }
                         if ("txtMateria".equals(uploaded.getFieldName())) {
                             a.setMateria(uploaded.getString());
-                        }                        
+                        }
+                        if ("hideAlumno".equals(uploaded.getFieldName())) {
+                            idAlumno = Integer.parseInt(uploaded.getString());
+                            a.setIdAlumno(idAlumno);
+                            flagAlumno = true;
+                            a.setUpload(Boolean.TRUE);                            
+                        }
                     }
                 }
-                a.setUpload(Boolean.FALSE);
-                a.setIdAlumno(1);
-                try {
-                    adao.AgregarNuevoApunte(a);
-                    Utils.distpatcherServlet(Constants.URL_ADMINAPUNTES, request, response);
-                } catch (Exception ex) {
-                    ControladorImplements.response(Constants.URL_ADMINAPUNTES, ex.getMessage(), Constants.CONFIG_ALERT_WARNING, request);
-                    Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                if (flagAlumno == false){
+                    a.setUpload(Boolean.FALSE);                
+                    a.setIdAlumno(1);
+                    try {
+                        adao.AgregarNuevoApunte(a);
+                        Utils.distpatcherServlet(Constants.URL_ADMINAPUNTES, request, response);
+                    } catch (Exception ex) {
+                        ControladorImplements.response(Constants.URL_ADMINAPUNTES, ex.getMessage(), Constants.CONFIG_ALERT_WARNING, request);
+                        Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                    }
+                }
+                else{
+                    try {
+                        adao.AgregarNuevoApunte(a);
+                        Utils.distpatcherServlet("./Controlador?accion=SubirApuntes&id="+idAlumno, request, response);
+                    } catch (Exception ex) {
+                        ControladorImplements.response("./Controlador?accion=SubirApuntes&id="+idAlumno, ex.getMessage(), Constants.CONFIG_ALERT_WARNING, request);
+                        Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                    }
                 }
             break;
+
             case "Actualizar":
                 int ida = Integer.parseInt(request.getParameter("id"));
                 boolean flagFile = false;

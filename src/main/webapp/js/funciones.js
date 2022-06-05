@@ -151,6 +151,29 @@ $(document).ready(function () {
             }
         });
     });
+    $("tr #deleteApunteAlumno").click(function (e) {
+        e.preventDefault();
+        var ida2 = $(this).parent().find('#apa').val();
+        var idAl = $(this).parent().find('#idAl').val();
+        swal({
+            title: "Desea eliminar?",
+            text: "Una vez eliminado, perderá todos los datos del registro",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+        }).then((willDelete) => {
+            if (willDelete) {
+                eliminarApunte(ida2);
+                swal("Registro borrado con éxito", {
+                    icon: "success",
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        parent.location.href = "./Controlador?accion=SubirApuntes&id="+idAl;
+                    }
+                });
+            }
+        });
+    });
     function eliminarApunte(ida2) {
         var url = "./Controlador?accion=eliminarApunteBD&id=" + ida2;
         $.ajax({

@@ -13,7 +13,7 @@ public class ApunteDAO {
     
     public List listar() {
         List lista = new ArrayList();
-        String sql = "SELECT * FROM apunte";
+        String sql = "SELECT * FROM apunte WHERE upload = 0";
         try {
             PreparedStatement ps = ConsultasBD.preparedStatement(sql);
             ResultSet rs = ConsultasBD.resultSet(ps);
@@ -27,6 +27,30 @@ public class ApunteDAO {
                 a.setCantPaginas(rs.getInt(6));
                 a.setUpload(rs.getBoolean(7));
                 a.setIdAlumno(rs.getInt(8));
+                lista.add(a);
+            }
+        } catch (SQLException e) {
+            
+        }
+        return lista;
+    }
+    
+    public List listarAlumno(int id) {
+        List lista = new ArrayList();
+        String sql = "SELECT * FROM apunte WHERE idAlumno="+id;
+        try {
+            PreparedStatement ps = ConsultasBD.preparedStatement(sql);
+            ResultSet rs = ConsultasBD.resultSet(ps);
+            while (rs.next()) {
+                Apunte a = new Apunte();
+                a.setId(rs.getInt(1));
+                a.setNombre(rs.getString(2));
+                a.setDescripcion(rs.getString(3));
+                a.setCarrera(rs.getString(4));
+                a.setMateria(rs.getString(5));
+                a.setCantPaginas(rs.getInt(6));
+                a.setUpload(rs.getBoolean(7));
+                a.setIdAlumno(id);
                 lista.add(a);
             }
         } catch (SQLException e) {
