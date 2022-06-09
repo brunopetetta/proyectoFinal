@@ -92,7 +92,8 @@
                                 <td>${a.getCarrera()}</td>
                                 <td>${a.getMateria()}</td>                           
                                 <td class="text-center">
-                                    <a href="#" class="btn-outline-success btn-sm"><i class="fas fa-eye"></i></a>
+                                    <input type="hidden" id="nombreApu" value="${a.getNombre()}">
+                                    <a data-bs-toggle="modal" id="previewPDF" class="btn-outline-success btn-sm" data-bs-target="#exampleModal"><i class="fas fa-eye"></i></a>
                                     <a href="./Controlador?accion=AgregarCarrito&id=${a.getId()}" class="btn-outline-success btn-sm"><i class="fas fa-cart-plus"></i></a>
                                 </td>
                             </tr>
@@ -101,7 +102,22 @@
                     </table>    
                 </div>                
             </div>
-        </div>               
+        </div>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="tituloModal"></h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">          
+                <iframe id="ifrm" width="470" height="350"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
         <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
@@ -113,6 +129,14 @@
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
                     }
                 });
+            });
+        </script>
+        <script type="text/javascript">
+            $("#previewPDF").click(function () {
+                var titulo = $("#nombreApu").val();                
+                var pageurl = "apuntes/"+$("#nombreApu").val().toString();
+                $("#ifrm").attr("src", pageurl);
+                $("#tituloModal").html(titulo);
             });
         </script>
     </body>
