@@ -87,13 +87,12 @@
                         <tbody>
                         <c:forEach var="a" items="${apuntespublicos}">
                             <tr class="text-center tr">
-                                <td>${a.getNombre()}</td>   
+                                <td id="nombre${a.getId()}">${a.getNombre()}</td>   
                                 <td>${a.getDescripcion()}</td>
                                 <td>${a.getCarrera()}</td>
                                 <td>${a.getMateria()}</td>                           
                                 <td class="text-center">
-                                    <input type="hidden" id="nombreApu" value="${a.getNombre()}">
-                                    <a data-bs-toggle="modal" id="previewPDF" class="btn-outline-success btn-sm" data-bs-target="#exampleModal"><i class="fas fa-eye"></i></a>
+                                    <a data-bs-toggle="modal" id="previewPDF" class="btn-outline-success btn-sm mostrar" data-bs-target="#ModalPDF" data-id="${a.getId()}"><i class="fas fa-eye"></i></a>
                                     <a href="./Controlador?accion=AgregarCarrito&id=${a.getId()}" class="btn-outline-success btn-sm"><i class="fas fa-cart-plus"></i></a>
                                 </td>
                             </tr>
@@ -104,12 +103,11 @@
             </div>
         </div>
         
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="ModalPDF" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="tituloModal"></h5>
+                <h6 class="modal-title" id="tituloModal"></h6>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">          
@@ -129,14 +127,14 @@
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
                     }
                 });
-            });
-        </script>
-        <script type="text/javascript">
-            $("#previewPDF").click(function () {
-                var titulo = $("#nombreApu").val();                
-                var pageurl = "apuntes/"+$("#nombreApu").val().toString();
-                $("#ifrm").attr("src", pageurl);
-                $("#tituloModal").html(titulo);
+                $(".mostrar").on('click', function(){
+                    var id = $(this).data('id');
+                    var titulo = $('#nombre'+id).text();                
+                    var pageurl = "apuntes/"+titulo;
+                    $("#ifrm").attr("src", pageurl);
+                    $("#tituloModal").html(titulo);
+                    $("#ModalPDF").modal();
+                });
             });
         </script>
     </body>

@@ -185,5 +185,73 @@ $(document).ready(function () {
         });
     }
     
+    $("tr #addAdmin").click(function (e) {
+        e.preventDefault();
+        var ida = $(this).parent().find('#adm').val();
+        swal({
+            title: "Desea nombrar al usuario como administrador?",
+            text: "",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+        }).then((willAdd) => {
+            if (willAdd) {
+                agregarAdmin(ida);
+                swal("El usuario ya es administrador", {
+                    icon: "success",
+                }).then((willAdd) => {
+                    if (willAdd) {
+                        parent.location.href = "./Controlador?accion=ListaUsuarios";
+                    }
+                });
+            }
+        });
+    });
+    function agregarAdmin(ida) {
+        var url = "./Controlador?accion=agregarAdminBD&id=" + ida;
+        $.ajax({
+            type: 'POST',
+            url: url,
+            async: true,
+            success: function (r) {
+            }
+        });
+    }
+
+    $("tr #deleteAdmin").click(function (e) {
+        e.preventDefault();
+        var ida = $(this).parent().find('#adm').val();
+        swal({
+            title: "Desea que el usuario deje de ser administrador?",
+            text: "",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+        }).then((willDelete) => {
+            if (willDelete) {
+                eliminarAdmin(ida);
+                swal("El usuario ya no es más administrador", {
+                    icon: "success",
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        parent.location.href = "./Controlador?accion=ListaUsuarios";
+                    }
+                });
+            }
+        });
+    });
+    function eliminarAdmin(ida) {
+        var url = "./Controlador?accion=eliminarAdminBD&id=" + ida;
+        $.ajax({
+            type: 'POST',
+            url: url,
+            async: true,
+            success: function (r) {
+            }
+        });
+    }
+    
+    
+    
 });
 

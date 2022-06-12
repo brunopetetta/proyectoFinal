@@ -106,7 +106,7 @@ public class UsuarioDAO {
     }
     
     public int ActualizarUsuario(Usuario u) throws SQLException, Exception {
-        String sql = "UPDATE usuario SET legajo=?, nombre=?, apellido=?, email=?, password=? WHERE idUsuario=?";
+        String sql = "UPDATE usuario SET legajo=?, nombre=?, apellido=?, email=?, password=?, idRol=? WHERE idUsuario=?";
         int r = 0;
         try {
             ps = ConsultasBD.preparedStatement(sql);
@@ -115,7 +115,8 @@ public class UsuarioDAO {
             ps.setString(3, u.getApellido());
             ps.setString(4, u.getEmail());
             ps.setString(5, u.getPassword());
-            ps.setInt(6, u.getId());
+            ps.setInt(6, u.getRol().getId());
+            ps.setInt(7, u.getId());
             r = ps.executeUpdate();
         } catch (SQLException e) {
             throw new Exception("Error al intentar actualizar los datos del usuario", e);

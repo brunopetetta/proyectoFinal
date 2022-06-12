@@ -5,10 +5,12 @@ import com.modelo.Apunte;
 import com.modelo.Carrito;
 import com.modelo.Compra;
 import com.modelo.Pago;
+import com.modelo.Rol;
 import com.modelo.Usuario;
 import com.modeloDAO.ApunteDAO;
 import com.modeloDAO.CompraDAO;
 import com.modeloDAO.PagoDAO;
+import com.modeloDAO.RolDAO;
 import com.modeloDAO.UsuarioDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -28,8 +30,11 @@ public class Controlador extends HttpServlet {
     ApunteDAO apudao = new ApunteDAO();
     UsuarioDAO udao = new UsuarioDAO();
     CompraDAO comdao = new CompraDAO();
+    RolDAO rdao = new RolDAO();
     Apunte apu = new Apunte();
+    Rol r = new Rol();
     List apuntes = new ArrayList();
+    List usuarios = new ArrayList();
     List miscompras = new ArrayList();
     List compAdmin = new ArrayList();
     List<Carrito> listaCarrito = new ArrayList<>();
@@ -43,6 +48,7 @@ public class Controlador extends HttpServlet {
         String accion = request.getParameter("accion");
         switch (accion) {
             case "Login":
+                request.setAttribute("contador", listaCarrito.size());
                 Utils.distpatcherServlet(Constants.URL_LOGIN, request, response);
                 break;
             
@@ -68,7 +74,7 @@ public class Controlador extends HttpServlet {
                 ida = Integer.parseInt(request.getParameter("id"));
                 miscompras = comdao.listarPorUsuario(ida);
                 if (miscompras.isEmpty() == true) {
-                    ControladorImplements.response(Constants.URL_HOME, "No ha realizado pedidos aÃºn", Constants.CONFIG_ALERT_WARNING, request);
+                    ControladorImplements.response(Constants.URL_HOME, "No ha realizado pedidos aún", Constants.CONFIG_ALERT_WARNING, request);
                     Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
                 } else {
                     request.setAttribute("miscompras", miscompras);
@@ -96,6 +102,33 @@ public class Controlador extends HttpServlet {
                     request.setAttribute("apuntes", apuntes);
                     Utils.distpatcherServlet(Constants.URL_VISTAAPUNTES, request, response);
                 }
+                break;
+            
+            case "ListaUsuarios":
+                usuarios = udao.listar();
+                if (usuarios.isEmpty() == true) {
+                    ControladorImplements.response(Constants.URL_HOME, "Error al intentar listar los usuarios.", Constants.CONFIG_ALERT_WARNING, request);
+                    Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                } else {
+                    request.setAttribute("usuarios", usuarios);
+                    Utils.distpatcherServlet(Constants.URL_VISTAADMINUSUARIOS, request, response);
+                }
+                break;
+            
+            case "agregarAdminBD":
+                ida = Integer.valueOf(request.getParameter("id"));
+                usu = udao.listarId(ida);
+                r = rdao.listarId(1);
+                usu.setRol(r);
+                udao.ActualizarUsuario(usu);
+                break;
+
+            case "eliminarAdminBD":
+                ida = Integer.valueOf(request.getParameter("id"));
+                usu = udao.listarId(ida);                
+                r = rdao.listarId(2);
+                usu.setRol(r);
+                udao.ActualizarUsuario(usu);
                 break;
                 
             case "editarApunte":
@@ -185,7 +218,7 @@ public class Controlador extends HttpServlet {
                         Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
                     }
                 } else {
-                    ControladorImplements.response(Constants.URL_LOGIN, "Debe iniciar sesiÃ³n para realizar el pedido", Constants.CONFIG_ALERT_WARNING, request);
+                    ControladorImplements.response(Constants.URL_LOGIN, "Debe iniciar sesión para realizar el pedido", Constants.CONFIG_ALERT_WARNING, request);
                     Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
                 }
                 break;
