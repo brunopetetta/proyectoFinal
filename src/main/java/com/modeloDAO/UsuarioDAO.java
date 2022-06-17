@@ -21,7 +21,7 @@ public class UsuarioDAO {
             rs = ConsultasBD.resultSet(ps);
             while (rs.next()) {
                 RolDAO rdao = new RolDAO();
-                Rol r = rdao.listarId(rs.getInt(7));
+                Rol r = rdao.listarId(rs.getInt(8));
                 u.setId(rs.getInt(1));
                 u.setDni(rs.getString(2));
                 u.setLegajo(rs.getString(3));

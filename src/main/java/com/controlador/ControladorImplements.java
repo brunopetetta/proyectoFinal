@@ -27,7 +27,7 @@ public class ControladorImplements {
                 if(listaCarrito.get(j).getTipoImpresion().equals("checked")){
                     valorTI = 2;
                 }
-                int cantPaginas = listaCarrito.get(j).getPaginaHasta() - listaCarrito.get(j).getPaginaDesde();
+                int cantPaginas = listaCarrito.get(j).getPaginaHasta() - listaCarrito.get(j).getPaginaDesde() + 1;
                 double subtotal = (cantPaginas * listaCarrito.get(j).getCantidadCopias() * listaCarrito.get(j).getPrecioCompra()*valorTI)+valorAnillado; 
                 listaCarrito.get(j).setSubtotal(subtotal);
             }
@@ -49,7 +49,7 @@ public class ControladorImplements {
                 if(listaCarrito.get(j).getTipoImpresion().equals("checked")){
                     valorTI = 2;
                 }
-                int cantPaginas = listaCarrito.get(j).getPaginaHasta() - listaCarrito.get(j).getPaginaDesde();
+                int cantPaginas = listaCarrito.get(j).getPaginaHasta() - listaCarrito.get(j).getPaginaDesde() + 1;
                 double subtotal = (cantPaginas * listaCarrito.get(j).getCantidadCopias() * listaCarrito.get(j).getPrecioCompra()*valorTI)+valorAnillado; 
                 listaCarrito.get(j).setSubtotal(subtotal);
             }
@@ -71,7 +71,7 @@ public class ControladorImplements {
                 if(listaCarrito.get(j).getTipoImpresion().equals("checked")){
                     valorTI = 2;
                 }
-                int cantPaginas = listaCarrito.get(j).getPaginaHasta() - listaCarrito.get(j).getPaginaDesde();
+                int cantPaginas = listaCarrito.get(j).getPaginaHasta() - listaCarrito.get(j).getPaginaDesde() + 1;
                 double subtotal = (cantPaginas * cantCopias * listaCarrito.get(j).getPrecioCompra()*valorTI)+valorAnillado; 
                 listaCarrito.get(j).setSubtotal(subtotal);
             }
@@ -108,12 +108,12 @@ public class ControladorImplements {
                 }
                 if(tipoImpresion == 1){
                     listaCarrito.get(j).setTipoImpresion("checked");
-                    int cantPaginas = listaCarrito.get(j).getPaginaHasta() - listaCarrito.get(j).getPaginaDesde();
+                    int cantPaginas = listaCarrito.get(j).getPaginaHasta() - listaCarrito.get(j).getPaginaDesde() + 1;
                     double subtotal = (cantPaginas * listaCarrito.get(j).getCantidadCopias() * listaCarrito.get(j).getPrecioCompra() * 2)+valorAnillado;
                     listaCarrito.get(j).setSubtotal(subtotal);
                 } else{
                     listaCarrito.get(j).setTipoImpresion("");
-                    int cantPaginas = listaCarrito.get(j).getPaginaHasta() - listaCarrito.get(j).getPaginaDesde();
+                    int cantPaginas = listaCarrito.get(j).getPaginaHasta() - listaCarrito.get(j).getPaginaDesde() + 1;
                     double subtotal = (cantPaginas * listaCarrito.get(j).getCantidadCopias()* listaCarrito.get(j).getPrecioCompra())+valorAnillado;
                     listaCarrito.get(j).setSubtotal(subtotal);
                 }
@@ -174,7 +174,7 @@ public class ControladorImplements {
                 car.setPaginaDesde(1);
                 car.setPaginaHasta(a.getCantPaginas());
                 car.setCantPaginas(a.getCantPaginas());
-                subtotal = cantidad * preciofo.getValorFotocopia() * (a.getCantPaginas()-1);
+                subtotal = cantidad * preciofo.getValorFotocopia() * (a.getCantPaginas());
                 car.setSubtotal(subtotal);
                 car.setObservaciones("");
                 listaCarrito.add(car);
@@ -191,7 +191,7 @@ public class ControladorImplements {
             car.setPaginaDesde(1);
             car.setPaginaHasta(a.getCantPaginas());
             car.setCantPaginas(a.getCantPaginas());
-            subtotal = cantidad * preciofo.getValorFotocopia() * (a.getCantPaginas()-1);
+            subtotal = cantidad * preciofo.getValorFotocopia() * (a.getCantPaginas());
             car.setSubtotal(subtotal);
             car.setObservaciones("");
             listaCarrito.add(car);

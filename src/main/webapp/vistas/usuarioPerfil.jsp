@@ -67,7 +67,7 @@
                             <input type="email" name="txtemail" value="${alumno.getEmail()}" class="form-control">
                         </div>
                         <div class="form-group mb-3">
-                            <label>Contrase?a</label>
+                            <label>Contraseña</label>
                             <input type="password" name="txtpass" value="${alumno.getPassword()}" class="form-control">
                         </div>
                         <input type="submit" name="accion" value="Actualizar" class="btn btn-primary btn-block">

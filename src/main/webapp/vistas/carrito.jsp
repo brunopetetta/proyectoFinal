@@ -69,11 +69,11 @@
                                     <td>${car.getDescripcion()}</td>
                                     <td>
                                         <input type="hidden" id="itemPagDesde" value="${car.getIdApunte()}">
-                                        <input type="number" id="PagDesde" min="1" max="${car.getPaginaHasta()-1}" value="${car.getPaginaDesde()}">
+                                        <input type="number" id="PagDesde" min="1" max="${car.getPaginaHasta()}" value="${car.getPaginaDesde()}">
                                     </td>
                                     <td>
                                         <input type="hidden" id="itemPagHasta" value="${car.getIdApunte()}">
-                                        <input type="number" id="PagHasta" min="${car.getPaginaDesde()+1}" max="${car.getCantPaginas()}" value="${car.getPaginaHasta()}">
+                                        <input type="number" id="PagHasta" min="${car.getPaginaDesde()}" max="${car.getCantPaginas()}" value="${car.getPaginaHasta()}">
                                     </td>
                                     <td>
                                         <input type="hidden" id="itemAnillado" value="${car.getIdApunte()}">
