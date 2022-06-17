@@ -47,6 +47,10 @@
                             <h3>Perfil</h3>
                         </div>
                         <div class="form-group mb-1">
+                            <label>Dni</label>
+                            <input type="text" name="txtdni" value="${alumno.getDni()}" class="form-control">
+                        </div>
+                        <div class="form-group mb-1">
                             <label>Legajo</label>
                             <input type="text" name="txtlegajo" value="${alumno.getLegajo()}" class="form-control">
                         </div>
@@ -63,7 +67,7 @@
                             <input type="email" name="txtemail" value="${alumno.getEmail()}" class="form-control">
                         </div>
                         <div class="form-group mb-3">
-                            <label>Contraseña</label>
+                            <label>Contrase?a</label>
                             <input type="password" name="txtpass" value="${alumno.getPassword()}" class="form-control">
                         </div>
                         <input type="submit" name="accion" value="Actualizar" class="btn btn-primary btn-block">

@@ -21,6 +21,7 @@ public class ControladorUsuarios extends HttpServlet {
     UsuarioDAO udao = new UsuarioDAO();
     Usuario usu = new Usuario();
     Rol rol = new Rol();
+    String dni;
     String legajo;
     String nombre;
     String apellido;
@@ -82,14 +83,16 @@ public class ControladorUsuarios extends HttpServlet {
             break;
             
             case "Registrar":
+                dni = request.getParameter("txtdni");
                 legajo = request.getParameter("txtlegajo");
                 nombre = request.getParameter("txtnombre");
                 apellido = request.getParameter("txtapellido");
                 email = request.getParameter("txtemail");
                 password = request.getParameter("txtpass");
-                if (legajo != null && nombre != null && apellido != null && email != null && password != null) {
+                if (dni != null && legajo != null && nombre != null && apellido != null && email != null && password != null) {
                     rol.setId(2);
                     rol.setDescripcion("alumno");
+                    usu.setDni(dni);
                     usu.setLegajo(legajo);
                     usu.setNombre(nombre);
                     usu.setApellido(apellido);
@@ -98,7 +101,7 @@ public class ControladorUsuarios extends HttpServlet {
                     usu.setRol(rol);
                     try {
                         udao.AgregarNuevoUsuario(usu);
-                        ControladorImplements.response(Constants.URL_LOGIN, "Se registro su usuario con Ã©xito!", Constants.CONFIG_ALERT_SUCCESS, request);
+                        ControladorImplements.response(Constants.URL_LOGIN, "Se registro su usuario con Éxito!", Constants.CONFIG_ALERT_SUCCESS, request);
                         Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
                     } catch (Exception ex) {
                         ControladorImplements.response(Constants.URL_REGISTRO, ex.getMessage(), Constants.CONFIG_ALERT_WARNING, request);
@@ -112,13 +115,15 @@ public class ControladorUsuarios extends HttpServlet {
             
             case "Actualizar":
                 int idu = Integer.parseInt(request.getParameter("id"));
+                dni = request.getParameter("txtdni");
                 legajo = request.getParameter("txtlegajo");
                 nombre = request.getParameter("txtnombre");
                 apellido = request.getParameter("txtapellido");
                 email = request.getParameter("txtemail");
                 password = request.getParameter("txtpass");
-                if (legajo != null && nombre != null && apellido != null && email != null && password != null) {
+                if (dni!=null && legajo != null && nombre != null && apellido != null && email != null && password != null) {
                     usu.setId(idu);
+                    usu.setDni(dni);
                     usu.setLegajo(legajo);
                     usu.setNombre(nombre);
                     usu.setApellido(apellido);
@@ -126,7 +131,7 @@ public class ControladorUsuarios extends HttpServlet {
                     usu.setPassword(password);
                     try {
                         udao.ActualizarUsuario(usu);
-                        ControladorImplements.response(Constants.URL_HOME, "Se actualizaron los campos con Ã©xito!", Constants.CONFIG_ALERT_SUCCESS, request);
+                        ControladorImplements.response(Constants.URL_HOME, "Se actualizaron los campos con Éxito!", Constants.CONFIG_ALERT_SUCCESS, request);
                         Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
                     } catch (Exception ex) {
                         ControladorImplements.response(Constants.URL_PERFIL, ex.getMessage(), Constants.CONFIG_ALERT_WARNING, request);

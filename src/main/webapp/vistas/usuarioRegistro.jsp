@@ -40,6 +40,10 @@
                             <input type="text" name="txtlegajo" class="form-control">
                         </div>
                         <div class="form-group mb-1">
+                            <label>Dni</label>
+                            <input type="text" name="txtdni" class="form-control">
+                        </div>
+                        <div class="form-group mb-1">
                             <label>Nombre</label>
                             <input type="text" name="txtnombre" class="form-control">
                         </div>
