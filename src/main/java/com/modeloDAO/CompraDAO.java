@@ -2,6 +2,7 @@
 package com.modeloDAO;
 
 import com.configuracion.ConsultasBD;
+import com.modelo.Apunte;
 import com.modelo.Carrito;
 import com.modelo.Compra;
 import com.modelo.Pago;
@@ -10,7 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class CompraDAO {
     PreparedStatement ps;
@@ -36,7 +39,7 @@ public class CompraDAO {
             rs.close();
 
             for (Carrito detalle : compra.getDetallecompras()) {
-                sql = "INSERT INTO detalle_compra(idApunte,idCompra,cantidadCopias,precioCompra,anillado,tipoImpresion,paginaDesde,paginaHasta,observaciones)values(?,?,?,?,?,?,?,?,?)";
+                sql = "INSERT INTO detalle_compra(idApunte,idCompra,cantidadCopias,precioCompra,anillado,tipoImpresion,paginaDesde,paginaHasta,observaciones,subtotal)values(?,?,?,?,?,?,?,?,?,?)";
                 ps = ConsultasBD.preparedStatement(sql);
                 ps.setInt(1, detalle.getIdApunte());
                 ps.setInt(2, idcompra);
@@ -47,13 +50,41 @@ public class CompraDAO {
                 ps.setInt(7, detalle.getPaginaDesde());
                 ps.setInt(8, detalle.getPaginaHasta());
                 ps.setString(9, detalle.getObservaciones());
+                ps.setDouble(10, detalle.getSubtotal());
                 r = ps.executeUpdate();
             }
         } catch (SQLException e) {
-            throw new Exception("Error al intentar procesar la compra", e);
+            throw new Exception("Error al intentar procesar el pedido", e);
         }
 
         return r;
+    }
+    
+    public List listarDetallePedido(int idp) throws Exception {
+        List lista = new ArrayList();
+        String sql = "SELECT * FROM detalle_compra WHERE idCompra = " + idp;
+        try {
+            ps = ConsultasBD.preparedStatement(sql);
+            rs = ConsultasBD.resultSet(ps);
+            while (rs.next()) {
+                Carrito car = new Carrito();
+                Apunte apu = new Apunte();
+                ApunteDAO apudao = new ApunteDAO();
+                apu = apudao.listarId(rs.getInt(2));
+                car.setNombre(apu.getNombre());
+                car.setCantidadCopias(rs.getInt(4));
+                car.setAnillado(rs.getString(6));
+                car.setTipoImpresion(rs.getString(7));
+                car.setPaginaDesde(rs.getInt(8));
+                car.setPaginaHasta(rs.getInt(9));
+                car.setObservaciones(rs.getString(10));
+                car.setSubtotal(rs.getDouble(11));
+                lista.add(car);
+            }
+        } catch (SQLException e) {
+            throw new Exception("Error al intentar detallar el pedido", e);
+        }
+        return lista;
     }
     
     public List listarPorUsuario(int idu) throws Exception {
@@ -121,7 +152,7 @@ public class CompraDAO {
             ps.setInt(6, c.getId());
             r = ps.executeUpdate();
         } catch (SQLException e) {
-            throw new Exception("Error al intentar actualizar el estado de la compra", e);
+            throw new Exception("Error al intentar actualizar el estado del pedido", e);
         }
         return r;
     }

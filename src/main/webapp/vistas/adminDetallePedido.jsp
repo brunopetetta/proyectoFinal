@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html">
-        <title>Admin Pedidos</title>       
+        <title>Admin Detalle Pedido</title>       
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
@@ -42,66 +42,55 @@
         </nav>
         <div class="container mt-4">
             <div class ="d-flex">
-                <h4>Lista Pedidos</h4>
+                <h5>Detalle Pedido ${idPedido}</h5>
             </div>
             <div class="row">
                 <div class="col-lg-11">
-                    <table class="table table-responsive" id="tablaAdminPedidos">
+                    <table class="table table-responsive" id="tablaAdminDetallePedido">
                         <thead class="table-primary">
                             <tr class="text-center">
-                                <th></th>
-                                <th>Cod Pedido</th>
-                                <th>DNI</th>
-                                <th>Legajo</th>
-                                <th>Nombre y Apellido</th>                                
-                                <th>Cod Pago</th>
-                                <th>Fecha</th>
-                                <th>Monto</th>
-                                <th>Estado</th>
-                                <th>Acción</th>
+                                <th>Apunte</th>
+                                <th>Pagina Desde</th>
+                                <th>Pagina Hasta</th>
+                                <th>Anillado</th>                                
+                                <th>Tipo Impresión</th>
+                                <th>Cantidad de Copias</th>
+                                <th>Observaciones</th>
+                                <th>Subtotal</th>
                             </tr>    
                         </thead>
                         <tbody>
-                            <c:forEach var="com" items="${compras}">
-                                <tr class="text-center tr">
-                            <form action="ControladorPedidos" method="post">
+                            <c:forEach var="d" items="${detallePedido}">
+                                <tr class="text-center tr">                                
                                 <td>
-                                    <a href="./Controlador?accion=DetallePedidoAdmin&id=${com.getId()}" class="btn-outline-primary btn-sm"><i class="fas fa-list-ul"></i></a>
-                                </td>
-                                <td><input type="hidden" name="txtidcomp" value="${com.getId()}" class="form-control">
-                                    ${com.getId()}
+                                    ${d.getNombre()}
                                 </td>
                                 <td>
-                                    ${com.getUsuario().getDni()}
+                                    ${d.getPaginaDesde()}
                                 </td>
                                 <td>
-                                    ${com.getUsuario().getLegajo()}
+                                    ${d.getPaginaHasta()}
                                 </td>
-                                <td><input type="hidden" name="txtidusu" value="${com.getUsuario().getId()}" class="form-control">
-                                    ${com.getUsuario().getNombre()} ${com.getUsuario().getApellido()}
+                                <td><c:if test="${d.getAnillado() == 'checked'}">
+                                    Si
+                                    </c:if>
                                 </td>
-                                <td><input type="hidden" name="txtidpago" value="${com.getPago().getId()}" class="form-control">
-                                    ${com.getPago().getId()}
-                                </td>
-                                <td><input type="hidden" name="txtfecha" value="${com.getFecha()}" class="form-control">
-                                    ${com.getFecha()}
-                                </td>
-                                <td><input type="hidden" name="txtmonto" value="${com.getMonto()}" class="form-control"><i class="fas fa-dollar-sign">
-                                        ${com.getMonto()} </i>
+                                <td><c:if test="${d.getTipoImpresion() == 'checked'}">
+                                    Simple Faz
+                                    </c:if>
+                                    <c:if test="${d.getTipoImpresion() == ''}">
+                                    Doble Faz
+                                    </c:if>
                                 </td>
                                 <td>
-                                    <select name="cboEstado" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                                        <option selected>${com.getEstado()}</option>
-                                        <option value="Solicitado">Solicitado</option>
-                                        <option value="En Proceso">En Proceso</option>
-                                        <option value="Listo para Retirar">Listo para Retirar</option>
-                                        <option value="Retirado">Retirado</option>
-                                    </select>
+                                    ${d.getCantidadCopias()}
                                 </td>
-                                <td> 
-                                    <input type="submit" name="accion" value="Actualizar" class="btn-success btn-sm">
+                                <td>
+                                    ${d.getObservaciones()}
                                 </td>
-                            </form>
+                                <td>
+                                    <i class="fas fa-dollar-sign">${d.getSubtotal()}</i>
+                                </td>
                             </tr>
                         </c:forEach>                            
                         </tbody>    
@@ -118,7 +107,7 @@
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
         <script>
             $(document).ready( function () {
-                $('#tablaAdminPedidos').DataTable({
+                $('#tablaAdminDetallePedido').DataTable({
                     "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
                     }

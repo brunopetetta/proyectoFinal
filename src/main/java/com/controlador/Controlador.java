@@ -37,10 +37,12 @@ public class Controlador extends HttpServlet {
     List usuarios = new ArrayList();
     List miscompras = new ArrayList();
     List compAdmin = new ArrayList();
+    List detallePedido = new ArrayList();
     List<Carrito> listaCarrito = new ArrayList<>();
     Double totalPagar = 0.0;
     Double subtotal = 0.0;
     int ida;
+    int idd;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
@@ -91,6 +93,14 @@ public class Controlador extends HttpServlet {
                     request.setAttribute("compras", compAdmin);
                     Utils.distpatcherServlet(Constants.URL_VISTAPEDIDOS, request, response);
                 }
+                break;
+            
+            case "DetallePedidoAdmin":
+                idd = Integer.parseInt(request.getParameter("id"));
+                detallePedido = comdao.listarDetallePedido(idd);
+                request.setAttribute("detallePedido", detallePedido);
+                request.setAttribute("idPedido", idd);
+                Utils.distpatcherServlet(Constants.URL_VISTADETALLEPEDIDO, request, response);
                 break;
             
             case "ApuntesAdmin":
