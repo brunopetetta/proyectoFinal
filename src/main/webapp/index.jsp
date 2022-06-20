@@ -92,7 +92,7 @@
                                 <td>${a.getCarrera()}</td>
                                 <td>${a.getMateria()}</td>                           
                                 <td class="text-center">
-                                    <a data-bs-toggle="modal" id="previewPDF" class="btn-outline-success btn-sm mostrar" data-bs-target="#ModalPDF" data-id="${a.getId()}"><i class="fas fa-eye"></i></a>
+                                    <a href="./Controlador?accion=MostrarPDF&id=${a.getId()}" target="_blank" class="btn-outline-success btn-sm" ><i class="fas fa-eye"></i></a>
                                     <a href="./Controlador?accion=AgregarCarrito&id=${a.getId()}" class="btn-outline-success btn-sm"><i class="fas fa-cart-plus"></i></a>
                                 </td>
                             </tr>
@@ -101,20 +101,6 @@
                     </table>    
                 </div>                
             </div>
-        </div>
-        
-        <div class="modal fade" id="ModalPDF" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h6 class="modal-title" id="tituloModal"></h6>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">          
-                <iframe id="ifrm" width="470" height="350"></iframe>
-              </div>
-            </div>
-          </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -126,14 +112,6 @@
                     "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
                     }
-                });
-                $(".mostrar").on('click', function(){
-                    var id = $(this).data('id');
-                    var titulo = $('#nombre'+id).text();                
-                    var pageurl = "apuntes/"+titulo;
-                    $("#ifrm").attr("src", pageurl);
-                    $("#tituloModal").html(titulo);
-                    $("#ModalPDF").modal();
                 });
             });
         </script>

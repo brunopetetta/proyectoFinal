@@ -5,14 +5,16 @@ public class Constants {
     public static final String URL_HOME="Controlador?accion=Home";
     public static final String URL_INDEX="index.jsp";
     public static final String URL_MESSAGE="./vistas/mensaje.jsp";
+    public static final String URL_PDF="./vistas/showPDF.jsp";
     public static final String URL_CARRITO_INICIAL="./vistas/carrito.jsp";
     public static final String URL_LOGIN="login.jsp";
     public static final String URL_REGISTRO="./vistas/usuarioRegistro.jsp";    
     public static final String URL_PERFIL="./vistas/usuarioPerfil.jsp";
     public static final String URL_USUARIOPEDIDOS="./vistas/usuarioPedidos.jsp";
+    public static final String URL_VISTAUSUARIODETALLEPEDIDO="./vistas/usuarioDetallePedido.jsp";
     public static final String URL_VISTAPEDIDOS="./vistas/adminPedidos.jsp";
     public static final String URL_ADMINPEDIDOS="Controlador?accion=PedidosAdmin";
-    public static final String URL_VISTADETALLEPEDIDO="./vistas/adminDetallePedido.jsp";
+    public static final String URL_VISTAADMINDETALLEPEDIDO="./vistas/adminDetallePedido.jsp";
     public static final String URL_VISTAAPUNTES="./vistas/adminApuntes.jsp";
     public static final String URL_ADMINAPUNTES="Controlador?accion=ApuntesAdmin";
     public static final String URL_VISTAEDITARAPUNTE="./vistas/adminEditarApuntes.jsp";

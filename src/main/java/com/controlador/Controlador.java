@@ -56,7 +56,15 @@ public class Controlador extends HttpServlet {
             
             case "Registro":
                 Utils.distpatcherServlet(Constants.URL_REGISTRO, request, response);
-                break; 
+                break;
+            
+            case "MostrarPDF":
+                ida = Integer.parseInt(request.getParameter("id"));
+                apu = apudao.listarId(ida);
+                String nombreApunte = apu.getNombre();
+                request.setAttribute("nombreApunte", nombreApunte);                
+                Utils.distpatcherServlet(Constants.URL_PDF, request, response);
+                break;
                 
             case "Home":
                 apuntes = apudao.listar();
@@ -84,6 +92,14 @@ public class Controlador extends HttpServlet {
                 }
                 break;
                 
+            case "DetallePedidoUsuario":
+                idd = Integer.parseInt(request.getParameter("id"));
+                detallePedido = comdao.listarDetallePedido(idd);
+                request.setAttribute("detallePedido", detallePedido);
+                request.setAttribute("idPedido", idd);
+                Utils.distpatcherServlet(Constants.URL_VISTAUSUARIODETALLEPEDIDO, request, response);
+                break;
+                
             case "PedidosAdmin":
                 compAdmin = comdao.listar();
                 if (compAdmin.isEmpty() == true) {
@@ -100,7 +116,7 @@ public class Controlador extends HttpServlet {
                 detallePedido = comdao.listarDetallePedido(idd);
                 request.setAttribute("detallePedido", detallePedido);
                 request.setAttribute("idPedido", idd);
-                Utils.distpatcherServlet(Constants.URL_VISTADETALLEPEDIDO, request, response);
+                Utils.distpatcherServlet(Constants.URL_VISTAADMINDETALLEPEDIDO, request, response);
                 break;
             
             case "ApuntesAdmin":

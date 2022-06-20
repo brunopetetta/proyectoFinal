@@ -70,7 +70,8 @@
                                 <td>${a.getCarrera()}</td>
                                 <td>${a.getMateria()}</td>
                                 <td>${a.getCantPaginas()}</td>
-                                <td><a href="./Controlador?accion=editarApunte&id=${a.getId()}" class="btn-outline-warning btn-sm"><i class="fas fa-edit"></i></a>
+                                <td><a href="./Controlador?accion=MostrarPDF&id=${a.getId()}" target="_blank" class="btn-outline-success btn-sm" ><i class="fas fa-eye"></i></a>
+                                    <a href="./Controlador?accion=editarApunte&id=${a.getId()}" class="btn-outline-warning btn-sm"><i class="fas fa-edit"></i></a>
                                     <input type="hidden" id="apu" value="${a.getId()}">
                                     <a id="deleteApunte" href="#" class="btn-outline-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
                                 </td>

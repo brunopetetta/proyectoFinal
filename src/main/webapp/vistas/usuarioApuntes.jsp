@@ -71,7 +71,8 @@
                                 <td>${a.getCarrera()}</td>
                                 <td>${a.getMateria()}</td>
                                 <td>${a.getCantPaginas()}</td>
-                                <td><a href="./Controlador?accion=AgregarCarrito&id=${a.getId()}" class="btn-outline-success btn-sm"><i class="fas fa-cart-plus"></i></a>
+                                <td><a href="./Controlador?accion=MostrarPDF&id=${a.getId()}" target="_blank" class="btn-outline-success btn-sm" ><i class="fas fa-eye"></i></a>
+                                    <a href="./Controlador?accion=AgregarCarrito&id=${a.getId()}" class="btn-outline-success btn-sm"><i class="fas fa-cart-plus"></i></a>
                                     <input type="hidden" id="idAl" value="${a.getIdAlumno()}">
                                     <input type="hidden" id="apa" value="${a.getId()}">
                                     <a id="deleteApunteAlumno" href="#" class="btn-outline-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
