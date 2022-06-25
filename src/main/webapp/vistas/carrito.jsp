@@ -112,7 +112,12 @@
                             <a class="form-control text-center"><i class="fas fa-dollar-sign h4 primary"> <fmt:formatNumber  maxFractionDigits="2" value="${totalPagar}"/></i></a>
                         </div>
                         <div class="card-footer">
+                            <c:if test="${sessionScope.editFlag == null}">
                             <a class="btn btn-success" href="./Controlador?accion=GenerarPedido"> Realizar Pedido </a>
+                            </c:if>
+                            <c:if test="${sessionScope.editFlag != null}">
+                            <a class="btn btn-success" href="./Controlador?accion=ActualizarPedido"> Actualizar Pedido </a>
+                            </c:if>
                         </div>                        
                     </div>
                 </div>

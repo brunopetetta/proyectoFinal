@@ -72,6 +72,8 @@ public class CompraDAO {
                 ApunteDAO apudao = new ApunteDAO();
                 apu = apudao.listarId(rs.getInt(2));
                 car.setNombre(apu.getNombre());
+                car.setIdApunte(apu.getId());
+                car.setDescripcion(apu.getDescripcion());
                 car.setCantidadCopias(rs.getInt(4));
                 car.setAnillado(rs.getString(6));
                 car.setTipoImpresion(rs.getString(7));

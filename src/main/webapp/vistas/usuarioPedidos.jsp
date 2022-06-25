@@ -67,7 +67,7 @@
                                     <td>${com.getEstado()}</td>
                                     <td><i class="fas fa-dollar-sign">${com.getMonto()}</i></td>
                                     <td><c:if test="${com.getEstado() == 'Solicitado'}">
-                                            <a href="./Controlador?accion=editarPedido&id=${com.getId()}" class="btn-outline-warning btn-sm"><i class="fas fa-edit"></i></a>
+                                            <a href="./Controlador?accion=EditarPedidoUsuario&id=${com.getId()}" class="btn-outline-warning btn-sm"><i class="fas fa-edit"></i></a>
                                         </c:if>
                                     </td>
                                 </tr>

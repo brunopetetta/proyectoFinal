@@ -43,6 +43,8 @@ public class Controlador extends HttpServlet {
     Double subtotal = 0.0;
     int ida;
     int idd;
+    int idc;
+    int editFlag;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
@@ -98,6 +100,16 @@ public class Controlador extends HttpServlet {
                 request.setAttribute("detallePedido", detallePedido);
                 request.setAttribute("idPedido", idd);
                 Utils.distpatcherServlet(Constants.URL_VISTAUSUARIODETALLEPEDIDO, request, response);
+                break;
+            
+            case "EditarPedidoUsuario":
+                editFlag = 1;
+                idc = Integer.parseInt(request.getParameter("id"));
+                listaCarrito = comdao.listarDetallePedido(idc);
+                //ControladorImplements.agregarCarrito(request, listaCarrito, subtotal);
+                request.setAttribute("contador", listaCarrito.size());
+                request.getSession(true).setAttribute("editFlag", editFlag);
+                Utils.distpatcherServlet(Constants.URL_CARRITO_INICIAL, request, response);
                 break;
                 
             case "PedidosAdmin":
