@@ -68,6 +68,9 @@
                                     <td><i class="fas fa-dollar-sign">${com.getMonto()}</i></td>
                                     <td><c:if test="${com.getEstado() == 'Solicitado'}">
                                             <a href="./Controlador?accion=EditarPedidoUsuario&id=${com.getId()}" class="btn-outline-warning btn-sm"><i class="fas fa-edit"></i></a>
+                                            <input type="hidden" id="numPedido" value="${com.getId()}">
+                                            <input type="hidden" id="idUser" value ="${com.getUsuario().getId()}">
+                                            <a id="cancelPedido" href="#" class="btn-outline-danger btn-sm"><i class="fas fa-xmark"></i></a>
                                         </c:if>
                                     </td>
                                 </tr>

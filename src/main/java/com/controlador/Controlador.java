@@ -20,7 +20,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.utils.Constants;
 import com.utils.Utils;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
@@ -103,13 +106,22 @@ public class Controlador extends HttpServlet {
                 break;
             
             case "EditarPedidoUsuario":
+                int idPedido;
                 editFlag = 1;
                 idc = Integer.parseInt(request.getParameter("id"));
                 listaCarrito = comdao.listarDetallePedido(idc);
-                //ControladorImplements.agregarCarrito(request, listaCarrito, subtotal);
+                idPedido = idc;
                 request.setAttribute("contador", listaCarrito.size());
-                request.getSession(true).setAttribute("editFlag", editFlag);
-                Utils.distpatcherServlet(Constants.URL_CARRITO_INICIAL, request, response);
+                request.getSession(true).setAttribute("editFlag", editFlag);                
+                request.getSession(true).setAttribute("idPedido", idPedido);
+                Utils.distpatcherServlet(Constants.URL_CARRITO, request, response);
+                break;
+                
+            case "CancelarPedidoBD":
+                idc = Integer.valueOf(request.getParameter("id"));
+                Compra comp = comdao.listarId(idc);
+                comp.setEstado("Cancelado");
+                comdao.ActualizarCompra(comp);
                 break;
                 
             case "PedidosAdmin":
@@ -257,6 +269,35 @@ public class Controlador extends HttpServlet {
                     }
                 } else {
                     ControladorImplements.response(Constants.URL_LOGIN, "Debe iniciar sesión para realizar el pedido", Constants.CONFIG_ALERT_WARNING, request);
+                    Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                }
+                break;
+            
+            case "ActualizarPedido":
+                idc = Integer.valueOf(request.getParameter("id"));
+                CompraDAO compradao = new CompraDAO();
+                Compra compra = compradao.listarId(idc);
+                Pago pago = new Pago();
+                PagoDAO pdao = new PagoDAO();
+                pago = compra.getPago();
+                totalPagar = (double) Math.round(totalPagar * 100) / 100d;
+                pago.setMonto(totalPagar);
+                pdao.ActualizarPago(pago);
+                compra.setPago(pago);
+                compra.setMonto(totalPagar);
+                compra.setDetallecompras(listaCarrito);
+                int res = compradao.ActualizarDetalleCompra(compra);
+                if (res != 0 && totalPagar > 0) {
+                    HttpSession session2 = request.getSession(false);
+                    if (session2 != null) {
+                        session2.removeAttribute("editFlag");
+                        session2.removeAttribute("idPedido");
+                        listaCarrito = new ArrayList();
+                        ControladorImplements.response(Constants.URL_HOME, Constants.MESSAGE_SUCCESS, Constants.CONFIG_ALERT_SUCCESS, request);
+                        Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                    }
+                } else {
+                    ControladorImplements.response(Constants.URL_HOME, Constants.MESSAGE_WARNING_CARRITO, Constants.CONFIG_ALERT_WARNING, request);
                     Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
                 }
                 break;

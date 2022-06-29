@@ -11,9 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
+
 
 public class CompraDAO {
     PreparedStatement ps;
@@ -60,6 +60,45 @@ public class CompraDAO {
         return r;
     }
     
+    public int ActualizarDetalleCompra(Compra compra) throws Exception {
+        String sql = "UPDATE compra SET idUsuario=?, idPago=?, fechaCompra=?, monto=?, estado=? WHERE idCompra=?";
+        try {
+            ps = ConsultasBD.preparedStatement(sql);
+            ps.setInt(1, compra.getUsuario().getId());
+            ps.setInt(2, compra.getPago().getId());
+            ps.setString(3, compra.getFecha());
+            ps.setDouble(4, compra.getMonto());
+            ps.setString(5, compra.getEstado());
+            ps.setInt(6, compra.getId());
+            r = ps.executeUpdate();
+            
+            sql = "DELETE FROM detalle_compra WHERE idCompra = ?";
+            ps = ConsultasBD.preparedStatement(sql);
+            ps.setInt(1, compra.getId());
+            r = ps.executeUpdate();
+            
+            for (Carrito detalle : compra.getDetallecompras()) {
+                sql = "INSERT INTO detalle_compra(idApunte,idCompra,cantidadCopias,precioCompra,anillado,tipoImpresion,paginaDesde,paginaHasta,observaciones,subtotal)values(?,?,?,?,?,?,?,?,?,?)";
+                ps = ConsultasBD.preparedStatement(sql);
+                ps.setInt(1, detalle.getIdApunte());
+                ps.setInt(2, compra.getId());
+                ps.setInt(3, detalle.getCantidadCopias());
+                ps.setDouble(4, detalle.getPrecioCompra());
+                ps.setString(5, detalle.getAnillado());
+                ps.setString(6, detalle.getTipoImpresion());
+                ps.setInt(7, detalle.getPaginaDesde());
+                ps.setInt(8, detalle.getPaginaHasta());
+                ps.setString(9, detalle.getObservaciones());
+                ps.setDouble(10, detalle.getSubtotal());
+                r = ps.executeUpdate();
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al intentar actualizar el pedido", e);
+        }
+
+        return r;
+    }
+    
     public List listarDetallePedido(int idp) throws Exception {
         List lista = new ArrayList();
         String sql = "SELECT * FROM detalle_compra WHERE idCompra = " + idp;
@@ -73,6 +112,8 @@ public class CompraDAO {
                 apu = apudao.listarId(rs.getInt(2));
                 car.setNombre(apu.getNombre());
                 car.setIdApunte(apu.getId());
+                car.setCantPaginas(apu.getCantPaginas());
+                car.setPrecioCompra(rs.getDouble(5));
                 car.setDescripcion(apu.getDescripcion());
                 car.setCantidadCopias(rs.getInt(4));
                 car.setAnillado(rs.getString(6));
@@ -113,6 +154,31 @@ public class CompraDAO {
             throw new Exception("Error al intentar obtener los pedidos del usuario", e);
         }
         return lista;
+    }
+    
+    public Compra listarId(int id) throws Exception {
+        Compra c = new Compra();
+        String sql = "SELECT * FROM compra WHERE idCompra="+id;
+        try {
+            PreparedStatement ps = ConsultasBD.preparedStatement(sql);
+            ResultSet rs = ConsultasBD.resultSet(ps);
+            while (rs.next()) {
+                c.setId(rs.getInt(1));
+                UsuarioDAO udao = new UsuarioDAO();
+                PagoDAO pdao = new PagoDAO();
+                Pago pago = pdao.listarId(rs.getInt(3));
+                Usuario usu = udao.listarId(rs.getInt(2));
+                c.setPago(pago);
+                c.setUsuario(usu);
+                c.setFecha(rs.getString(4));
+                c.setMonto(rs.getDouble(5));
+                c.setEstado(rs.getString(6));                
+            }            
+        }
+        catch (SQLException e) {
+            throw new Exception("Error al intentar obtener el pedido del usuario", e);
+        }
+        return c;
     }
     
     public List listar() throws Exception {

@@ -113,10 +113,10 @@
                         </div>
                         <div class="card-footer">
                             <c:if test="${sessionScope.editFlag == null}">
-                            <a class="btn btn-success" href="./Controlador?accion=GenerarPedido"> Realizar Pedido </a>
+                                <a class="btn btn-success" href="./Controlador?accion=GenerarPedido"> Realizar Pedido </a>
                             </c:if>
                             <c:if test="${sessionScope.editFlag != null}">
-                            <a class="btn btn-success" href="./Controlador?accion=ActualizarPedido"> Actualizar Pedido </a>
+                                <a class="btn btn-success" href="./Controlador?accion=ActualizarPedido&id=${sessionScope.idPedido}"> Actualizar Pedido </a>
                             </c:if>
                         </div>                        
                     </div>

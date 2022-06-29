@@ -44,4 +44,17 @@ public class PagoDAO {
         }
         return p;
     }
+    public int ActualizarPago(Pago p) throws SQLException, Exception {
+        String sql = "UPDATE pago SET monto=? WHERE idPago=?";
+        int rs = 0;
+        try {
+            PreparedStatement ps = ConsultasBD.preparedStatement(sql);
+            ps.setDouble(1, p.getMonto());
+            ps.setInt(2, p.getId());
+            rs = ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new Exception("Error al intentar actualizar un pago", e);
+        }
+        return rs;
+    }
 }

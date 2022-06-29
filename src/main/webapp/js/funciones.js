@@ -251,6 +251,39 @@ $(document).ready(function () {
         });
     }
     
+    $("tr #cancelPedido").click(function (e) {
+        e.preventDefault();
+        var idp = $(this).parent().find('#numPedido').val();
+        var idu = $(this).parent().find('#idUser').val();
+        swal({
+            title: "Desea cancelar el pedido?",
+            text: "Una vez cancelado deberá realizar el pedido nuevamente",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+        }).then((willDelete) => {
+            if (willDelete) {
+                cancelarPedido(idp);
+                swal("El pedido ha sido cancelado", {
+                    icon: "success",
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        parent.location.href = "./Controlador?accion=PedidosUsuario&id="+idu;
+                    }
+                });
+            }
+        });
+    });
+    function cancelarPedido(idp) {
+        var url = "./Controlador?accion=CancelarPedidoBD&id=" + idp;
+        $.ajax({
+            type: 'POST',
+            url: url,
+            async: true,
+            success: function (r) {
+            }
+        });
+    }
     
     
 });
