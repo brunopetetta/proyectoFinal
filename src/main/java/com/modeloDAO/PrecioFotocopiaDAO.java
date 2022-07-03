@@ -1,6 +1,7 @@
 package com.modeloDAO;
 
 import com.configuracion.ConsultasBD;
+import com.configuracion.Fecha;
 import com.modelo.PrecioFotocopia;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,4 +27,19 @@ public class PrecioFotocopiaDAO {
         }
         return p;
     }
+    
+    public int ActualizarPrecio(PrecioFotocopia p) throws SQLException, Exception {
+        String sql = "INSERT INTO precio_fotocopia(fechaDesdePrecio, valorFotocopia)VALUES(?,?)";
+        int r = 0;
+        try {
+            PreparedStatement ps = ConsultasBD.preparedStatement(sql);
+            ps.setString(1, p.getFechaDesdePrecio());
+            ps.setDouble(2, p.getValorFotocopia());
+            r = ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new Exception("Error al intentar actualizar el valor de la fotocopia", e);
+        }
+        return r;
+    }
+    
 }

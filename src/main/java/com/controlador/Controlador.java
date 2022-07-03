@@ -5,11 +5,13 @@ import com.modelo.Apunte;
 import com.modelo.Carrito;
 import com.modelo.Compra;
 import com.modelo.Pago;
+import com.modelo.PrecioFotocopia;
 import com.modelo.Rol;
 import com.modelo.Usuario;
 import com.modeloDAO.ApunteDAO;
 import com.modeloDAO.CompraDAO;
 import com.modeloDAO.PagoDAO;
+import com.modeloDAO.PrecioFotocopiaDAO;
 import com.modeloDAO.RolDAO;
 import com.modeloDAO.UsuarioDAO;
 import java.io.IOException;
@@ -126,11 +128,16 @@ public class Controlador extends HttpServlet {
                 
             case "PedidosAdmin":
                 compAdmin = comdao.listar();
+                PrecioFotocopiaDAO precioDAO = new PrecioFotocopiaDAO();
+                PrecioFotocopia preciofo = new PrecioFotocopia();
+                preciofo = precioDAO.listarMax();
+                Double precio = preciofo.getValorFotocopia();
                 if (compAdmin.isEmpty() == true) {
                     ControladorImplements.response(Constants.URL_HOME, "No hay pedidos realizados", Constants.CONFIG_ALERT_WARNING, request);
                     Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
                 } else {
                     request.setAttribute("compras", compAdmin);
+                    request.setAttribute("precioFotocopia", precio);
                     Utils.distpatcherServlet(Constants.URL_VISTAPEDIDOS, request, response);
                 }
                 break;

@@ -41,6 +41,19 @@
             </div>
         </nav>
         <div class="container mt-4">
+            <div class="card text-center" style="width: 18rem;">
+                <form action="ControladorPedidos" method="post">
+                    <div class="card-header">
+                        Precio Fotocopia
+                    </div>
+                    <div class="card-body">
+                        <input type="number" min="1" name="precioFoto" value="${precioFotocopia}">                    
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" name="accion" value="Actualizar Valor" class="btn-success btn-sm">
+                    </div>
+                </form>
+            </div>            
             <div class ="d-flex">
                 <h4>Lista Pedidos</h4>
             </div>
@@ -53,7 +66,7 @@
                                 <th>Cod Pedido</th>
                                 <th>DNI</th>
                                 <th>Legajo</th>
-                                <th>Nombre y Apellido</th>                                
+                                <th>Nombre</th>                                
                                 <th>Cod Pago</th>
                                 <th>Fecha</th>
                                 <th>Monto</th>
