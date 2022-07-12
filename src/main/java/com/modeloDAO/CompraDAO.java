@@ -224,4 +224,19 @@ public class CompraDAO {
         }
         return r;
     }
+    public int listarEstado(String estado) throws Exception {
+        int cont = 0;
+        String sql = "SELECT COUNT(*) FROM compra WHERE estado='"+estado+"'";
+        try {
+            PreparedStatement ps = ConsultasBD.preparedStatement(sql);
+            ResultSet rs = ConsultasBD.resultSet(ps);
+            while (rs.next()) {
+                cont = rs.getInt(1);
+            }            
+        }
+        catch (SQLException e) {
+            throw new Exception("Error al intentar los pedidos", e);
+        }
+        return cont;
+    }
 }

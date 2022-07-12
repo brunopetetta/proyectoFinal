@@ -27,6 +27,10 @@
                         </li> 
                         <li class="nav-item">
                             <a class="nav-link" href="./Controlador?accion=ListaUsuarios">Usuarios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./Controlador?accion=Reportes">Reportes</a>
+                        </li>
                     </ul>
                     <ul class="navbar-nav btn-group my-2 my-lg-0">   
                         <li class="nav-item dropdown">

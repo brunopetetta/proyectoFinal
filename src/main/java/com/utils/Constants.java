@@ -20,6 +20,7 @@ public class Constants {
     public static final String URL_VISTAEDITARAPUNTE="./vistas/adminEditarApuntes.jsp";
     public static final String URL_VISTAUSUARIOAPUNTES="./vistas/usuarioApuntes.jsp";    
     public static final String URL_VISTAADMINUSUARIOS="./vistas/adminUsuarios.jsp";
+    public static final String URL_VISTAREPORTES="./vistas/reportes.jsp";
     
     public static final String URL_CARRITO="Controlador?accion=Carrito";
     public static final String URL_INICIOSESION = "Controlador?accion=Login";

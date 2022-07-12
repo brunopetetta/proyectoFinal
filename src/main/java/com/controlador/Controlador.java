@@ -200,6 +200,20 @@ public class Controlador extends HttpServlet {
                 apudao.BorrarApunte(ida);
                 break;
                 
+            case "Reportes":
+                int cancelados = comdao.listarEstado("Cancelado");
+                int enproceso = comdao.listarEstado("En Proceso");
+                int solicitados = comdao.listarEstado("Solicitado");
+                int retirados = comdao.listarEstado("Retirado");
+                int listopararetirar = comdao.listarEstado("Listo para Retirar");                
+                request.setAttribute("cancelados", cancelados);
+                request.setAttribute("enproceso", enproceso);
+                request.setAttribute("solicitados", solicitados);
+                request.setAttribute("retirados", retirados);
+                request.setAttribute("listopararetirar", listopararetirar);
+                Utils.distpatcherServlet(Constants.URL_VISTAREPORTES, request, response);
+                break;
+                
             case "Carrito":
                 totalPagar = 0.0;
                 request.setAttribute("Carrito", listaCarrito);
@@ -251,6 +265,7 @@ public class Controlador extends HttpServlet {
             case "ActualizarObservaciones":
                 ControladorImplements.actualizarObservaciones(Integer.valueOf(request.getParameter("id")), String.valueOf(request.getParameter("obs")), listaCarrito);
             break;
+            
             
             case "GenerarPedido":
                 HttpSession sesion = request.getSession(true);
