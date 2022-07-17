@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <jsp-config>
         <jsp-property-group>
-        <url-pattern>*.jsp</url-pattern>
-        <page-encoding>ISO-8859-1</page-encoding>
-      </jsp-property-group>
-    </jsp-config>    
+            <url-pattern>*.jsp</url-pattern>
+            <page-encoding>ISO-8859-1</page-encoding>
+        </jsp-property-group>
+    </jsp-config>
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
@@ -25,6 +25,10 @@
         <servlet-name>ControladorApuntes</servlet-name>
         <servlet-class>com.controlador.ControladorApuntes</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControladorReportes</servlet-name>
+        <servlet-class>com.controlador.ControladorReportes</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Controlador</servlet-name>
         <url-pattern>/Controlador</url-pattern>
@@ -40,6 +44,10 @@
     <servlet-mapping>
         <servlet-name>ControladorApuntes</servlet-name>
         <url-pattern>/ControladorApuntes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControladorReportes</servlet-name>
+        <url-pattern>/ControladorReportes</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

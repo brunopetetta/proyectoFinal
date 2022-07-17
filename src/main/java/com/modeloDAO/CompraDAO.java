@@ -224,9 +224,10 @@ public class CompraDAO {
         }
         return r;
     }
-    public int listarEstado(String estado) throws Exception {
+    public int listarEstado(String estado, String fechaDesde, String fechaHasta) throws Exception {
         int cont = 0;
-        String sql = "SELECT COUNT(*) FROM compra WHERE estado='"+estado+"'";
+        String sql = "SELECT COUNT(*) FROM compra WHERE estado='"+estado+"' AND ";
+        sql = sql + "STR_TO_DATE(fechaCompra, '%d-%m-%Y') BETWEEN STR_TO_DATE('"+fechaDesde+"', '%d-%m-%Y') AND STR_TO_DATE('"+fechaHasta+"', '%d-%m-%Y')";
         try {
             PreparedStatement ps = ConsultasBD.preparedStatement(sql);
             ResultSet rs = ConsultasBD.resultSet(ps);

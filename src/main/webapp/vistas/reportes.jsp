@@ -47,7 +47,10 @@
         </nav>
         <div class="container mt-4">
             <div class="container-sm mb-2">
-                <input type="text" id="date_range" name="date_range"><a href="#" class="btn-success btn-sm"><i class="fa-solid fa-filter"></i></a>
+                <form action="ControladorReportes" method="post">
+                    <input type="text" id="date_range" name="date_range">
+                    <input type="submit" name="accion" value="Filtrar" class="btn-primary btn-sm">
+                </form>
             </div> 
             <div class="card-group">
                 <div class="card text-center">
@@ -110,7 +113,7 @@
             $(function () {
                 $('#date_range').daterangepicker({
                     "locale": {
-                        "format": "DD/MM/YYYY",
+                        "format": "DD-MM-YYYY",
                         "separator": " - ",
                         "applyLabel": "Aplicar",
                         "cancelLabel": "Cancelar",
@@ -142,8 +145,8 @@
                         ],
                         "firstDay": 1
                     },
-                    "startDate": "01/01/2022",
-                    "endDate": "31/12/2022",
+                    "startDate": "${fechaDesde}",
+                    "endDate": "${fechaHasta}",
                     "opens": "center"
                 });
             });

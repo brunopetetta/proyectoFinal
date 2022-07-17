@@ -2,6 +2,7 @@
 package com.controlador;
 
 import com.configuracion.Fecha;
+import com.configuracion.SendMail;
 import com.modelo.Compra;
 import com.modelo.Pago;
 import com.modelo.PrecioFotocopia;
@@ -14,8 +15,6 @@ import com.utils.Constants;
 import com.utils.Utils;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -67,6 +66,12 @@ public class ControladorPedidos extends HttpServlet {
                     com.setMonto(montoc);
                     com.setEstado(estado);
                     compdao.ActualizarCompra(com);
+                    if("Listo para Retirar".equals(estado)){
+                        String destinatario = "brunopetetta@gmail.com";
+                        String asunto = "El pedido n° "+id+" está listo para retirar";
+                        String mensaje = "Hola "+usu.getNombre()+", el pedido "+id+" está listo para ser retirado. Recorda que el monto es $"+montoc+" y se retira en fotocopiadora del 2do piso.";
+                        SendMail.enviarEmail(destinatario, asunto, mensaje);
+                    }
                     ControladorImplements.response(Constants.URL_ADMINPEDIDOS, Constants.MESSAGE_SUCCESS, Constants.CONFIG_ALERT_SUCCESS, request);
                     Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
                 } catch (Exception e) {

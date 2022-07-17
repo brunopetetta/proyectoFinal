@@ -45,18 +45,18 @@
             </div>
         </nav>
         <div class="container mt-4">
-            <div class="card text-center" style="width: 18rem;">
-                <form action="ControladorPedidos" method="post">
-                    <div class="card-header">
-                        Precio Fotocopia
-                    </div>
+            <div class="input-group mb-3">
+                <div class="card" style="height:8rem;">
                     <div class="card-body">
-                        <input type="number" min="1" name="precioFoto" value="${precioFotocopia}">                    
+                        <p class="card-text">Precio Fotocopia</p>
+                        <form action="ControladorPedidos" method="post">                    
+                            <input type="number" min="1" name="precioFoto" value="${precioFotocopia}">
+                            <div class="card-footer">
+                                <input type="submit" name="accion" value="Actualizar Valor" class="btn-success btn-sm">
+                            </div>
+                        </form>
                     </div>
-                    <div class="card-footer">
-                        <input type="submit" name="accion" value="Actualizar Valor" class="btn-success btn-sm">
-                    </div>
-                </form>
+                </div>
             </div>            
             <div class ="d-flex">
                 <h4>Lista Pedidos</h4>

@@ -201,16 +201,20 @@ public class Controlador extends HttpServlet {
                 break;
                 
             case "Reportes":
-                int cancelados = comdao.listarEstado("Cancelado");
-                int enproceso = comdao.listarEstado("En Proceso");
-                int solicitados = comdao.listarEstado("Solicitado");
-                int retirados = comdao.listarEstado("Retirado");
-                int listopararetirar = comdao.listarEstado("Listo para Retirar");                
+                String fechaDesde = "25-06-2022";
+                String fechaHasta = "09-07-2022";
+                int cancelados = comdao.listarEstado("Cancelado", fechaDesde, fechaHasta);
+                int enproceso = comdao.listarEstado("En Proceso", fechaDesde, fechaHasta);
+                int solicitados = comdao.listarEstado("Solicitado", fechaDesde, fechaHasta);
+                int retirados = comdao.listarEstado("Retirado", fechaDesde, fechaHasta);
+                int listopararetirar = comdao.listarEstado("Listo para Retirar", fechaDesde, fechaHasta);                
                 request.setAttribute("cancelados", cancelados);
                 request.setAttribute("enproceso", enproceso);
                 request.setAttribute("solicitados", solicitados);
                 request.setAttribute("retirados", retirados);
                 request.setAttribute("listopararetirar", listopararetirar);
+                request.setAttribute("fechaDesde", fechaDesde);
+                request.setAttribute("fechaHasta", fechaHasta);
                 Utils.distpatcherServlet(Constants.URL_VISTAREPORTES, request, response);
                 break;
                 
