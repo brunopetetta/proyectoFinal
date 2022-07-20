@@ -68,8 +68,14 @@ public class ControladorPedidos extends HttpServlet {
                     compdao.ActualizarCompra(com);
                     if("Listo para Retirar".equals(estado)){
                         String destinatario = "brunopetetta@gmail.com";
-                        String asunto = "El pedido n° "+id+" está listo para retirar";
+                        String asunto = "Tu pedido n° "+id+" está listo para retirar";
                         String mensaje = "Hola "+usu.getNombre()+", el pedido "+id+" está listo para ser retirado. Recorda que el monto es $"+montoc+" y se retira en fotocopiadora del 2do piso.";
+                        SendMail.enviarEmail(destinatario, asunto, mensaje);
+                    }
+                    if("En Proceso".equals(estado)){
+                        String destinatario = "brunopetetta@gmail.com";
+                        String asunto = "Tu pedido n° "+id+" ha sido confirmado";
+                        String mensaje = "Hola "+usu.getNombre()+", el pedido "+id+" fue confirmado y está siendo procesado. Recorda que no debes ir a retirar tu pedido hasta que recibas un mail de confirmación de retiro.";
                         SendMail.enviarEmail(destinatario, asunto, mensaje);
                     }
                     ControladorImplements.response(Constants.URL_ADMINPEDIDOS, Constants.MESSAGE_SUCCESS, Constants.CONFIG_ALERT_SUCCESS, request);

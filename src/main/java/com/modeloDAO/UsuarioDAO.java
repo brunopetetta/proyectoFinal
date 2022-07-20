@@ -36,6 +36,31 @@ public class UsuarioDAO {
         }
         return u;
     }
+    public Usuario listarEmail(String email) throws SQLException, Exception {
+        Usuario u = new Usuario();
+        String sql = "SELECT * FROM usuario WHERE email = ?";
+        try {
+            ps = ConsultasBD.preparedStatement(sql);
+            ps.setString(1, email);
+            rs = ConsultasBD.resultSet(ps);
+            while (rs.next()) {
+                RolDAO rdao = new RolDAO();
+                Rol r = rdao.listarId(rs.getInt(8));
+                u.setId(rs.getInt(1));
+                u.setDni(rs.getString(2));
+                u.setLegajo(rs.getString(3));
+                u.setNombre(rs.getString(4));
+                u.setApellido(rs.getString(5));
+                u.setEmail(rs.getString(6));
+                u.setPassword(rs.getString(7));
+                u.setRol(r);
+            }
+        } catch (SQLException e) {
+            throw new Exception("Error al intentar obtener un usuario", e);
+        }
+        return u;
+    }
+    
     
     public List listar() throws SQLException, Exception {
         List lista = new ArrayList();

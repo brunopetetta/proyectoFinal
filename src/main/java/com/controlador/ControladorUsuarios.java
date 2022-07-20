@@ -1,5 +1,6 @@
 package com.controlador;
 
+import com.configuracion.SendMail;
 import com.modelo.Rol;
 import com.modelo.Usuario;
 import com.modeloDAO.UsuarioDAO;
@@ -7,6 +8,8 @@ import com.utils.Constants;
 import com.utils.Utils;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -141,6 +144,28 @@ public class ControladorUsuarios extends HttpServlet {
                     Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
                 }
             break;
+            
+            case "Recuperar":
+                email = request.getParameter("txtemail");
+                try {
+                    usu = udao.listarEmail(email);
+                    usu.setPassword("mg19fayt91b0");
+                    udao.ActualizarUsuario(usu);
+                    String destinatario = email;
+                    String asunto = "Nueva Contraseña";
+                    String mensaje = "Hola "+usu.getNombre()+", su nueva contraseña es mg19fayt91b0. Puede ingresar y cambiarla si lo desea.";
+                    SendMail.enviarEmail(destinatario, asunto, mensaje);
+                    ControladorImplements.response(Constants.URL_LOGIN, "Se ha enviado su nueva contraseña a su correo", Constants.CONFIG_ALERT_SUCCESS, request);
+                    Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                } catch (Exception ex) {
+                    ControladorImplements.response(Constants.URL_LOGIN, ex.getMessage(), Constants.CONFIG_ALERT_WARNING, request);
+                    Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                }            
+               
+            break;
+
+
+            
         }
     }
 

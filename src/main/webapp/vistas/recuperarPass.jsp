@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html">
-        <title>Login</title>
+        <title>Recuperar Contraseña</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link href="css/estilos.css" rel="stylesheet" type="text/css"/>
@@ -27,33 +27,24 @@
                 </div>
             </div>
         </nav>
-        <div class="container mt-4 col-lg-4">
+        <div class="container mt-4 col-lg-6">
             <div class="card col-sm-10">
                 <div class="card-body">
                     <form class="form-sign" action="ControladorUsuarios" method="POST">
-                        <div class="form-group text-center">
-                            <h3>Autenticación</h3>
-                            <a href="./Controlador?accion=Registro" class="btn btn-link">No tiene una cuenta? Registrese</a>
+                        <div class="form-group text-center mb-1">
+                            <h3>Recuperar contraseña</h3>
+                            <h6>Si ha olvidado su contraseña, ingrese el mail con el que iniciaba sesión en apunteca. En breve estará recibiendo un email con su nueva contraseña.</h6>
                         </div>                        
-                        <div class="form-group mb-1">
-                            <label>Usuario</label>
-                            <input type="text" name="txtuser" class="form-control">
-                        </div>
-                        <div class="form-group mb-3">
-                            <label>Contraseña</label>
-                            <input type="password" name="txtpass" class="form-control">
-                        </div>
-                        <div class="form-group text-center">
-                            <input type="submit" name="accion" value="Ingresar" class="btn btn-primary btn-block">
-                        </div>
-                        <div class="form-group text-center"> 
-                            <a href="./Controlador?accion=RecuperarPass" class="btn btn-link">Olvidó su contraseña?</a>                        
-                        </div>
+                        <div class="form-group mb-2">
+                            <input type="email" name="txtemail" class="form-control">
+                        </div>                        
+                        <div class="form-group text-center mb-1">
+                            <input type="submit" name="accion" value="Recuperar" class="btn btn-primary btn-block">
+                        </div>                        
                     </form>
                 </div>
             </div>
-        </div>
-        
+        </div>        
         <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>                

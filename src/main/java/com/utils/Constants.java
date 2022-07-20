@@ -8,7 +8,8 @@ public class Constants {
     public static final String URL_PDF="./vistas/showPDF.jsp";
     public static final String URL_CARRITO_INICIAL="./vistas/carrito.jsp";
     public static final String URL_LOGIN="login.jsp";
-    public static final String URL_REGISTRO="./vistas/usuarioRegistro.jsp";    
+    public static final String URL_REGISTRO="./vistas/usuarioRegistro.jsp";
+    public static final String URL_RECUPERARPASS="./vistas/recuperarPass.jsp";    
     public static final String URL_PERFIL="./vistas/usuarioPerfil.jsp";
     public static final String URL_USUARIOPEDIDOS="./vistas/usuarioPedidos.jsp";
     public static final String URL_VISTAUSUARIODETALLEPEDIDO="./vistas/usuarioDetallePedido.jsp";

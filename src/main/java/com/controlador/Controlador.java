@@ -64,6 +64,10 @@ public class Controlador extends HttpServlet {
             case "Registro":
                 Utils.distpatcherServlet(Constants.URL_REGISTRO, request, response);
                 break;
+                
+            case "RecuperarPass":
+                Utils.distpatcherServlet(Constants.URL_RECUPERARPASS, request, response);
+                break;
             
             case "MostrarPDF":
                 ida = Integer.parseInt(request.getParameter("id"));
