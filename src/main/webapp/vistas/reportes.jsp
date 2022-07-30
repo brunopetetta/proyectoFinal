@@ -51,51 +51,32 @@
                     <input type="text" id="date_range" name="date_range">
                     <input type="submit" name="accion" value="Filtrar" class="btn-primary btn-sm">
                 </form>
-            </div> 
+            </div>
             <div class="card-group">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h2 class="card-title">${solicitados}</h2>
-                    </div>
-                    <div class="card-footer">
-                        Solicitados
-                    </div>
-                </div>
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h2 class="card-title">${enproceso}</h2>
-                    </div>
-                    <div class="card-footer">
-                        En Proceso
+                <div class="card text-center bg-success text-white mb-2">
+                    <div class="card-body">                    
+                        <i class="fa fa-sack-dollar fa-3x"></i>
+                        <h2 class="card-title">$${recaudacion}</h2>
+                        <h5>Recaudación</h5>
                     </div>
                 </div>
-                <div class="card text-center">
+                <div class="card text-center bg-success text-white mb-2">
                     <div class="card-body">
-                        <h2 class="card-title">${listopararetirar}</h2>
+                        <i class="fa fa-percent fa-3x"></i>
+                        <h2 class="card-title">${porcRetirados}</h2>
+                        <h5>Retirados</h5>
                     </div>
-                    <div class="card-footer">
-                        Listos Para Retirar
-                    </div>
-                </div>
-                <div class="card text-center">
+                </div>  
+                <div class="card text-center bg-success text-white mb-2">
                     <div class="card-body">
-                        <h2 class="card-title">${retirados}</h2>
+                        <i class="fa fa-file-lines fa-3x"></i>
+                        <h2 class="card-title">238</h2>
+                        <h5>Cantidad de copias</h5>
                     </div>
-                    <div class="card-footer">
-                        Retirados
-                    </div>
-                </div>
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h2 class="card-title">${cancelados}</h2>
-                    </div>
-                    <div class="card-footer">
-                        Cancelados
-                    </div>
-                </div>                
+                </div>                              
             </div>
             <div class="container-sm">
-                <canvas id="myChart" height="100"></canvas>
+                <canvas id="myChart" height="70"></canvas>
             </div>            
         </div>
         <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>

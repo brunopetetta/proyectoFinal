@@ -28,7 +28,7 @@ public class ControladorImplements {
                     valorTI = 2;
                 }
                 int cantPaginas = listaCarrito.get(j).getPaginaHasta() - listaCarrito.get(j).getPaginaDesde() + 1;
-                double subtotal = (cantPaginas * listaCarrito.get(j).getCantidadCopias() * listaCarrito.get(j).getPrecioCompra()*valorTI)+valorAnillado; 
+                double subtotal = (valorAnillado + cantPaginas *  listaCarrito.get(j).getPrecioCompra() * valorTI) * listaCarrito.get(j).getCantidadCopias() ; 
                 listaCarrito.get(j).setSubtotal(subtotal);
             }
         }
@@ -50,7 +50,7 @@ public class ControladorImplements {
                     valorTI = 2;
                 }
                 int cantPaginas = listaCarrito.get(j).getPaginaHasta() - listaCarrito.get(j).getPaginaDesde() + 1;
-                double subtotal = (cantPaginas * listaCarrito.get(j).getCantidadCopias() * listaCarrito.get(j).getPrecioCompra()*valorTI)+valorAnillado; 
+                double subtotal = (valorAnillado + cantPaginas * listaCarrito.get(j).getPrecioCompra() * valorTI) * listaCarrito.get(j).getCantidadCopias(); 
                 listaCarrito.get(j).setSubtotal(subtotal);
             }
         }
@@ -72,7 +72,7 @@ public class ControladorImplements {
                     valorTI = 2;
                 }
                 int cantPaginas = listaCarrito.get(j).getPaginaHasta() - listaCarrito.get(j).getPaginaDesde() + 1;
-                double subtotal = (cantPaginas * cantCopias * listaCarrito.get(j).getPrecioCompra()*valorTI)+valorAnillado; 
+                double subtotal = (valorAnillado + cantPaginas * listaCarrito.get(j).getPrecioCompra() * valorTI) * cantCopias; 
                 listaCarrito.get(j).setSubtotal(subtotal);
             }
         }
@@ -84,15 +84,23 @@ public class ControladorImplements {
                 ApunteDAO adao = new ApunteDAO();
                 Apunte a = new Apunte();
                 a = adao.listarId(idApunte);
+                int valorAnillado;
+                double subtotal;
+                int valorTI = 1;
+                if(listaCarrito.get(j).getTipoImpresion().equals("checked")){
+                    valorTI = 2;
+                }
                 if(anillado == 1){
                     listaCarrito.get(j).setAnillado("checked");
-                    listaCarrito.get(j).setSubtotal(listaCarrito.get(j).getSubtotal()+20);
+                    valorAnillado = 20;
                 } else {
                     listaCarrito.get(j).setAnillado("");
-                    listaCarrito.get(j).setSubtotal(listaCarrito.get(j).getSubtotal()-20);
+                    valorAnillado = 0;
                 }
-            }
-                
+                int cantPaginas = listaCarrito.get(j).getPaginaHasta() - listaCarrito.get(j).getPaginaDesde() + 1;
+                subtotal = (valorAnillado + cantPaginas * listaCarrito.get(j).getPrecioCompra() * valorTI) * listaCarrito.get(j).getCantidadCopias();
+                listaCarrito.get(j).setSubtotal(subtotal); 
+            }                
         }
     }
     
@@ -109,16 +117,15 @@ public class ControladorImplements {
                 if(tipoImpresion == 1){
                     listaCarrito.get(j).setTipoImpresion("checked");
                     int cantPaginas = listaCarrito.get(j).getPaginaHasta() - listaCarrito.get(j).getPaginaDesde() + 1;
-                    double subtotal = (cantPaginas * listaCarrito.get(j).getCantidadCopias() * listaCarrito.get(j).getPrecioCompra() * 2)+valorAnillado;
+                    double subtotal = (valorAnillado + cantPaginas * listaCarrito.get(j).getPrecioCompra() * 2) * listaCarrito.get(j).getCantidadCopias();
                     listaCarrito.get(j).setSubtotal(subtotal);
                 } else{
                     listaCarrito.get(j).setTipoImpresion("");
                     int cantPaginas = listaCarrito.get(j).getPaginaHasta() - listaCarrito.get(j).getPaginaDesde() + 1;
-                    double subtotal = (cantPaginas * listaCarrito.get(j).getCantidadCopias()* listaCarrito.get(j).getPrecioCompra())+valorAnillado;
+                    double subtotal = (valorAnillado + cantPaginas * listaCarrito.get(j).getPrecioCompra()) * listaCarrito.get(j).getCantidadCopias();
                     listaCarrito.get(j).setSubtotal(subtotal);
                 }
-            }
-                
+            }                
         }
     }
     

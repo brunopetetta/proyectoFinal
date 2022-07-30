@@ -55,7 +55,9 @@ public class ControladorReportes extends HttpServlet {
                     int enproceso = comdao.listarEstado("En Proceso", fechaDesde, fechaHasta);
                     int solicitados = comdao.listarEstado("Solicitado", fechaDesde, fechaHasta);
                     int retirados = comdao.listarEstado("Retirado", fechaDesde, fechaHasta);
-                    int listopararetirar = comdao.listarEstado("Listo para Retirar", fechaDesde, fechaHasta);                    
+                    int listopararetirar = comdao.listarEstado("Listo para Retirar", fechaDesde, fechaHasta);
+                    double porcRetirados = (retirados * 100) / (retirados+cancelados+enproceso+solicitados+listopararetirar);                    
+                    double recaudacion = comdao.listarRecaudado(fechaDesde, fechaHasta);
                     request.setAttribute("cancelados", cancelados);
                     request.setAttribute("enproceso", enproceso);
                     request.setAttribute("solicitados", solicitados);
@@ -63,6 +65,8 @@ public class ControladorReportes extends HttpServlet {
                     request.setAttribute("listopararetirar", listopararetirar);
                     request.setAttribute("fechaDesde", fechaDesde);
                     request.setAttribute("fechaHasta", fechaHasta);
+                    request.setAttribute("recaudacion", recaudacion);
+                    request.setAttribute("porcRetirados", porcRetirados);
                     Utils.distpatcherServlet(Constants.URL_VISTAREPORTES, request, response);
                 }
                 catch (Exception e) {

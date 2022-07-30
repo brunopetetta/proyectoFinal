@@ -22,9 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.utils.Constants;
 import com.utils.Utils;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -205,13 +203,15 @@ public class Controlador extends HttpServlet {
                 break;
                 
             case "Reportes":
-                String fechaDesde = "25-06-2022";
-                String fechaHasta = "09-07-2022";
+                String fechaDesde = comdao.listarMinFecha();
+                String fechaHasta = comdao.listarMaxFecha();
                 int cancelados = comdao.listarEstado("Cancelado", fechaDesde, fechaHasta);
                 int enproceso = comdao.listarEstado("En Proceso", fechaDesde, fechaHasta);
                 int solicitados = comdao.listarEstado("Solicitado", fechaDesde, fechaHasta);
                 int retirados = comdao.listarEstado("Retirado", fechaDesde, fechaHasta);
-                int listopararetirar = comdao.listarEstado("Listo para Retirar", fechaDesde, fechaHasta);                
+                int listopararetirar = comdao.listarEstado("Listo para Retirar", fechaDesde, fechaHasta); 
+                double porcRetirados = (retirados * 100) / (retirados+cancelados+enproceso+solicitados+listopararetirar);
+                double recaudacion = comdao.listarRecaudado(fechaDesde, fechaHasta);
                 request.setAttribute("cancelados", cancelados);
                 request.setAttribute("enproceso", enproceso);
                 request.setAttribute("solicitados", solicitados);
@@ -219,6 +219,8 @@ public class Controlador extends HttpServlet {
                 request.setAttribute("listopararetirar", listopararetirar);
                 request.setAttribute("fechaDesde", fechaDesde);
                 request.setAttribute("fechaHasta", fechaHasta);
+                request.setAttribute("recaudacion", recaudacion);
+                request.setAttribute("porcRetirados", porcRetirados);
                 Utils.distpatcherServlet(Constants.URL_VISTAREPORTES, request, response);
                 break;
                 

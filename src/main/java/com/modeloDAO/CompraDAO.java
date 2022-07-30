@@ -133,6 +133,8 @@ public class CompraDAO {
     public List listarPorUsuario(int idu) throws Exception {
         List lista = new ArrayList();
         String sql = "SELECT * FROM compra WHERE idUsuario = " + idu;
+        sql = sql + " ORDER BY FIELD(estado, 'Solicitado', 'En Proceso', 'Listo para Retirar', 'Retirado', 'Cancelado'),";
+        sql = sql + "STR_TO_DATE(fechaCompra, '%d-%m-%Y')";
         try {
             ps = ConsultasBD.preparedStatement(sql);
             rs = ConsultasBD.resultSet(ps);
@@ -183,7 +185,8 @@ public class CompraDAO {
     
     public List listar() throws Exception {
         List lista = new ArrayList();
-        String sql = "SELECT * FROM compra";
+        String sql = "SELECT * FROM compra ORDER BY FIELD(estado, 'Solicitado', 'En Proceso', 'Listo para Retirar', 'Retirado', 'Cancelado'),";
+        sql = sql + "STR_TO_DATE(fechaCompra, '%d-%m-%Y')";
         try {
             ps = ConsultasBD.preparedStatement(sql);
             rs = ConsultasBD.resultSet(ps);
@@ -240,4 +243,52 @@ public class CompraDAO {
         }
         return cont;
     }
+    public String listarMaxFecha() throws Exception {
+        String fechaHasta="";
+        String sql = "SELECT fechaCompra FROM compra WHERE STR_TO_DATE(fechaCompra, '%d-%m-%Y') = (SELECT MAX(STR_TO_DATE(fechaCompra, '%d-%m-%Y')) from compra)";
+        try {
+            PreparedStatement ps = ConsultasBD.preparedStatement(sql);
+            ResultSet rs = ConsultasBD.resultSet(ps);
+            while (rs.next()) {
+                fechaHasta = rs.getString(1);
+            }            
+        }
+        catch (SQLException e) {
+            throw new Exception("Error al intentar los pedidos", e);
+        }
+        return fechaHasta;
+    }
+    public String listarMinFecha() throws Exception {
+        String fechaDesde="";
+        String sql = "SELECT fechaCompra FROM compra WHERE STR_TO_DATE(fechaCompra, '%d-%m-%Y') = (SELECT MIN(STR_TO_DATE(fechaCompra, '%d-%m-%Y')) from compra)";
+        try {
+            PreparedStatement ps = ConsultasBD.preparedStatement(sql);
+            ResultSet rs = ConsultasBD.resultSet(ps);
+            while (rs.next()) {
+                fechaDesde = rs.getString(1);
+            }            
+        }
+        catch (SQLException e) {
+            throw new Exception("Error al intentar los pedidos", e);
+        }
+        return fechaDesde;
+    }
+    public double listarRecaudado(String fechaDesde, String fechaHasta) throws Exception {
+        double recaudacion= 0.0;
+        String sql = "SELECT SUM(monto) as suma from compra WHERE estado = 'Retirado' ";
+        sql = sql + "AND STR_TO_DATE(fechaCompra, '%d-%m-%Y') BETWEEN STR_TO_DATE('"+fechaDesde+"', '%d-%m-%Y') AND STR_TO_DATE('"+fechaHasta+"', '%d-%m-%Y')";
+        try {
+            PreparedStatement ps = ConsultasBD.preparedStatement(sql);
+            ResultSet rs = ConsultasBD.resultSet(ps);
+            while (rs.next()) {
+                recaudacion = rs.getDouble(1);
+            }            
+        }
+        catch (SQLException e) {
+            throw new Exception("Error al intentar mostrar los reportes", e);
+        }
+        return recaudacion;
+    }
+    
+    
 }
