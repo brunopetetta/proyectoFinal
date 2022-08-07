@@ -21,7 +21,9 @@ public class Constants {
     public static final String URL_VISTAEDITARAPUNTE="./vistas/adminEditarApuntes.jsp";
     public static final String URL_VISTAUSUARIOAPUNTES="./vistas/usuarioApuntes.jsp";    
     public static final String URL_VISTAADMINUSUARIOS="./vistas/adminUsuarios.jsp";
-    public static final String URL_VISTAREPORTES="./vistas/reportes.jsp";
+    public static final String URL_VISTAREPORTES1="./vistas/reportes1.jsp";
+    public static final String URL_VISTAREPORTES2="./vistas/reportes2.jsp";
+    public static final String URL_VISTAREPORTES3="./vistas/reportes3.jsp";
     
     public static final String URL_CARRITO="Controlador?accion=Carrito";
     public static final String URL_INICIOSESION = "Controlador?accion=Login";

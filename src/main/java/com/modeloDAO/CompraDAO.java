@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import com.modelo.topPedidos;
 
 
 public class CompraDAO {
@@ -227,6 +227,7 @@ public class CompraDAO {
         }
         return r;
     }
+    
     public int listarEstado(String estado, String fechaDesde, String fechaHasta) throws Exception {
         int cont = 0;
         String sql = "SELECT COUNT(*) FROM compra WHERE estado='"+estado+"' AND ";
@@ -243,6 +244,25 @@ public class CompraDAO {
         }
         return cont;
     }
+    
+    public int listarCarrera(String carrera, String fechaDesde, String fechaHasta) throws Exception {
+        int cont = 0;
+        String sql = "SELECT COUNT(*) FROM apunteca.detalle_compra dc INNER JOIN compra c ON c.idCompra = dc.idCompra ";
+        sql = sql + "INNER JOIN apunte a ON a.idApunte = dc.idApunte WHERE c.estado <> 'Cancelado' AND a.carrera = '"+carrera+"' AND ";
+        sql = sql + "STR_TO_DATE(c.fechaCompra, '%d-%m-%Y') BETWEEN STR_TO_DATE('"+fechaDesde+"', '%d-%m-%Y') AND STR_TO_DATE('"+fechaHasta+"', '%d-%m-%Y')";
+        try {
+            PreparedStatement ps = ConsultasBD.preparedStatement(sql);
+            ResultSet rs = ConsultasBD.resultSet(ps);
+            while (rs.next()) {
+                cont = rs.getInt(1);
+            }            
+        }
+        catch (SQLException e) {
+            throw new Exception("Error al intentar los pedidos", e);
+        }
+        return cont;
+    }
+    
     public String listarMaxFecha() throws Exception {
         String fechaHasta="";
         String sql = "SELECT fechaCompra FROM compra WHERE STR_TO_DATE(fechaCompra, '%d-%m-%Y') = (SELECT MAX(STR_TO_DATE(fechaCompra, '%d-%m-%Y')) from compra)";
@@ -258,6 +278,7 @@ public class CompraDAO {
         }
         return fechaHasta;
     }
+    
     public String listarMinFecha() throws Exception {
         String fechaDesde="";
         String sql = "SELECT fechaCompra FROM compra WHERE STR_TO_DATE(fechaCompra, '%d-%m-%Y') = (SELECT MIN(STR_TO_DATE(fechaCompra, '%d-%m-%Y')) from compra)";
@@ -273,6 +294,7 @@ public class CompraDAO {
         }
         return fechaDesde;
     }
+    
     public double listarRecaudado(String fechaDesde, String fechaHasta) throws Exception {
         double recaudacion= 0.0;
         String sql = "SELECT SUM(monto) as suma from compra WHERE estado = 'Retirado' ";
@@ -289,6 +311,69 @@ public class CompraDAO {
         }
         return recaudacion;
     }
+    
+    public int listarHojas(String fechaDesde, String fechaHasta) throws Exception {
+        int cantHojas = 0;
+        String sql = "SELECT SUM(cantidad) FROM(SELECT dc.paginaDesde, dc.paginaHasta, dc.cantidadCopias, dc.tipoImpresion," +
+        "CASE WHEN tipoImpresion = 'checked' THEN ((dc.paginaHasta - dc.PaginaDesde + 1) * dc.cantidadCopias) " +
+        "ELSE ( CEIL( (dc.paginaHasta - dc.PaginaDesde + 1) /2 )  * dc.cantidadCopias) END AS cantidad " +
+        "FROM apunteca.detalle_compra dc INNER JOIN compra c ON c.idCompra = dc.idCompra " +
+        "WHERE c.estado = 'Retirado' AND STR_TO_DATE(fechaCompra, '%d-%m-%Y') " +
+        "BETWEEN STR_TO_DATE('"+fechaDesde+"', '%d-%m-%Y') AND STR_TO_DATE('"+fechaHasta+"', '%d-%m-%Y')) AS Tabla";
+        try {
+            PreparedStatement ps = ConsultasBD.preparedStatement(sql);
+            ResultSet rs = ConsultasBD.resultSet(ps);
+            while (rs.next()) {
+                cantHojas = rs.getInt(1);
+            }            
+        }
+        catch (SQLException e) {
+            throw new Exception("Error al intentar mostrar los reportes", e);
+        }
+        return cantHojas;
+    }
+    public int listarAnillados(String fechaDesde, String fechaHasta) throws Exception {
+        int cantAnillado = 0;
+        String sql = "SELECT SUM(cantidad) FROM(SELECT dc.paginaDesde, dc.paginaHasta, dc.cantidadCopias, dc.anillado," +
+        "CASE WHEN dc.anillado = 'checked' THEN (1 * dc.cantidadCopias) ELSE 0 END AS cantidad " +
+        "FROM apunteca.detalle_compra dc INNER JOIN compra c ON c.idCompra = dc.idCompra " +
+        "WHERE c.estado = 'Retirado' AND STR_TO_DATE(fechaCompra, '%d-%m-%Y') " +
+        "BETWEEN STR_TO_DATE('"+fechaDesde+"', '%d-%m-%Y') AND STR_TO_DATE('"+fechaHasta+"', '%d-%m-%Y')) AS Tabla";
+        try {
+            PreparedStatement ps = ConsultasBD.preparedStatement(sql);
+            ResultSet rs = ConsultasBD.resultSet(ps);
+            while (rs.next()) {
+                cantAnillado = rs.getInt(1);
+            }            
+        }
+        catch (SQLException e) {
+            throw new Exception("Error al intentar mostrar los reportes", e);
+        }
+        return cantAnillado;
+    }
+    
+    public List listarTopPedidos(String fechaDesde, String fechaHasta) throws Exception {
+        List lista = new ArrayList();
+        String sql = "SELECT a.nombre, COUNT(dc.idApunte) as cant FROM apunteca.detalle_compra dc " +
+        "INNER JOIN compra c ON c.idCompra = dc.idCompra INNER JOIN apunte a ON a.idApunte = dc.idApunte " +
+        "WHERE c.estado = 'Retirado' AND STR_TO_DATE(fechaCompra, '%d-%m-%Y') " +
+        "BETWEEN STR_TO_DATE('"+fechaDesde+"', '%d-%m-%Y') AND STR_TO_DATE('"+fechaHasta+"', '%d-%m-%Y') " +
+        "GROUP BY a.nombre ORDER BY cant DESC LIMIT 5";        
+        try {
+            ps = ConsultasBD.preparedStatement(sql);
+            rs = ConsultasBD.resultSet(ps);
+            while (rs.next()) {
+                topPedidos tp = new topPedidos();
+                tp.setNombre(rs.getString(1));
+                tp.setCantidad(rs.getInt(2));
+                lista.add(tp);                
+            }
+        } catch (SQLException e) {
+            throw new Exception("Error al intentar obtener los precios", e);
+        }
+        return lista;
+    }
+    
     
     
 }

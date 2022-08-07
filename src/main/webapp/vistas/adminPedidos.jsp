@@ -29,8 +29,15 @@
                         <li class="nav-item">
                             <a class="nav-link" href="./Controlador?accion=ListaUsuarios">Usuarios</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./Controlador?accion=Reportes">Reportes</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Reportes
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="./Controlador?accion=Reportes1">Reportes 1</a></li>
+                                <li><a class="dropdown-item" href="./Controlador?accion=Reportes2">Reportes 2</a></li>
+                                <li><a class="dropdown-item" href="./Controlador?accion=Reportes3">Reportes 3</a></li>
+                            </ul>
                         </li>
                     </ul>
                     <ul class="navbar-nav btn-group my-2 my-lg-0">   

@@ -8,6 +8,7 @@ import com.modelo.Pago;
 import com.modelo.PrecioFotocopia;
 import com.modelo.Rol;
 import com.modelo.Usuario;
+import com.modelo.topPedidos;
 import com.modeloDAO.ApunteDAO;
 import com.modeloDAO.CompraDAO;
 import com.modeloDAO.PagoDAO;
@@ -41,6 +42,8 @@ public class Controlador extends HttpServlet {
     List miscompras = new ArrayList();
     List compAdmin = new ArrayList();
     List detallePedido = new ArrayList();
+    List valoresFotocopia = new ArrayList();
+    List<topPedidos> topCincoPed = new ArrayList<>();
     List<Carrito> listaCarrito = new ArrayList<>();
     Double totalPagar = 0.0;
     Double subtotal = 0.0;
@@ -202,7 +205,7 @@ public class Controlador extends HttpServlet {
                 apudao.BorrarApunte(ida);
                 break;
                 
-            case "Reportes":
+            case "Reportes1":
                 String fechaDesde = comdao.listarMinFecha();
                 String fechaHasta = comdao.listarMaxFecha();
                 int cancelados = comdao.listarEstado("Cancelado", fechaDesde, fechaHasta);
@@ -210,8 +213,6 @@ public class Controlador extends HttpServlet {
                 int solicitados = comdao.listarEstado("Solicitado", fechaDesde, fechaHasta);
                 int retirados = comdao.listarEstado("Retirado", fechaDesde, fechaHasta);
                 int listopararetirar = comdao.listarEstado("Listo para Retirar", fechaDesde, fechaHasta); 
-                double porcRetirados = (retirados * 100) / (retirados+cancelados+enproceso+solicitados+listopararetirar);
-                double recaudacion = comdao.listarRecaudado(fechaDesde, fechaHasta);
                 request.setAttribute("cancelados", cancelados);
                 request.setAttribute("enproceso", enproceso);
                 request.setAttribute("solicitados", solicitados);
@@ -219,9 +220,51 @@ public class Controlador extends HttpServlet {
                 request.setAttribute("listopararetirar", listopararetirar);
                 request.setAttribute("fechaDesde", fechaDesde);
                 request.setAttribute("fechaHasta", fechaHasta);
+                Utils.distpatcherServlet(Constants.URL_VISTAREPORTES1, request, response);
+                break;
+                
+            case "Reportes2":
+                String fechaDesde2 = comdao.listarMinFecha();
+                String fechaHasta2 = comdao.listarMaxFecha();
+                int isi = comdao.listarCarrera("Ingeniería en Sistemas de Información", fechaDesde2, fechaHasta2);
+                int im = comdao.listarCarrera("Ingeniería Mecánica", fechaDesde2, fechaHasta2);
+                int ic = comdao.listarCarrera("Ingeniería Civil", fechaDesde2, fechaHasta2);
+                int ie = comdao.listarCarrera("Ingenieria Eléctrica", fechaDesde2, fechaHasta2);
+                int iq = comdao.listarCarrera("Ingeniería Química", fechaDesde2, fechaHasta2); 
+                double porcISI = (isi * 100) / (isi+im+ic+ie+iq);
+                double porcIM = (im * 100) / (isi+im+ic+ie+iq);
+                double porcIC = (ic * 100) / (isi+im+ic+ie+iq);
+                double porcIE = (ie * 100) / (isi+im+ic+ie+iq);
+                double porcIQ = (iq * 100) / (isi+im+ic+ie+iq);
+                topCincoPed = comdao.listarTopPedidos(fechaDesde2, fechaHasta2);
+                String prueba = topCincoPed.get(1).getNombre();
+                int prueba2 = topCincoPed.get(1).getCantidad();
+                request.setAttribute("fechaDesde", fechaDesde2);
+                request.setAttribute("fechaHasta", fechaHasta2);
+                request.setAttribute("topPedidos", topCincoPed);
+                request.setAttribute("porcISI", porcISI);
+                request.setAttribute("porcIM", porcIM);
+                request.setAttribute("porcIC", porcIC);
+                request.setAttribute("porcIE", porcIE);
+                request.setAttribute("porcIQ", porcIQ);
+                Utils.distpatcherServlet(Constants.URL_VISTAREPORTES2, request, response);
+                break;
+                
+            case "Reportes3":
+                String fechaDesde3 = comdao.listarMinFecha();
+                String fechaHasta3 = comdao.listarMaxFecha();                
+                int cantHojas = comdao.listarHojas(fechaDesde3, fechaHasta3);
+                int cantAnillados = comdao.listarAnillados(fechaDesde3, fechaHasta3);
+                double recaudacion = comdao.listarRecaudado(fechaDesde3, fechaHasta3);
+                PrecioFotocopiaDAO prDAO = new PrecioFotocopiaDAO();
+                valoresFotocopia = prDAO.listar();
+                request.setAttribute("fechaDesde", fechaDesde3);
+                request.setAttribute("fechaHasta", fechaHasta3);
                 request.setAttribute("recaudacion", recaudacion);
-                request.setAttribute("porcRetirados", porcRetirados);
-                Utils.distpatcherServlet(Constants.URL_VISTAREPORTES, request, response);
+                request.setAttribute("cantHojas", cantHojas);
+                request.setAttribute("cantAnillados", cantAnillados);
+                request.setAttribute("valoresFotocopia", valoresFotocopia);
+                Utils.distpatcherServlet(Constants.URL_VISTAREPORTES3, request, response);
                 break;
                 
             case "Carrito":

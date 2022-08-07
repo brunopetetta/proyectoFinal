@@ -1,11 +1,12 @@
 package com.modeloDAO;
 
 import com.configuracion.ConsultasBD;
-import com.configuracion.Fecha;
 import com.modelo.PrecioFotocopia;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PrecioFotocopiaDAO {
     PreparedStatement ps;
@@ -40,6 +41,24 @@ public class PrecioFotocopiaDAO {
             throw new Exception("Error al intentar actualizar el valor de la fotocopia", e);
         }
         return r;
+    }
+    public List listar() throws Exception {
+        List lista = new ArrayList();
+        String sql = "SELECT * FROM precio_fotocopia";        
+        try {
+            ps = ConsultasBD.preparedStatement(sql);
+            rs = ConsultasBD.resultSet(ps);
+            while (rs.next()) {
+                PrecioFotocopia p = new PrecioFotocopia();
+                p.setIdPrecio(rs.getInt(1));
+                p.setFechaDesdePrecio(rs.getString(2));
+                p.setValorFotocopia(rs.getDouble(3));
+                lista.add(p);
+            }
+        } catch (SQLException e) {
+            throw new Exception("Error al intentar obtener los precios", e);
+        }
+        return lista;
     }
     
 }
