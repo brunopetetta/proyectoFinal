@@ -6,6 +6,7 @@
         <title>Elegir alumno</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         <link href="css/estilos.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
@@ -64,8 +65,7 @@
                     </div> 
                     <form action="ControladorUsuarios" method="post">
                         <div class="form-group mb-2">
-                            <select name="cboAlumno" class="form-select" aria-label="lblAlumno">
-                                <option selected>Elija el alumno</option>
+                            <select id="selectAlumno" name="cboAlumno" class="form-select" aria-label="lblAlumno">
                                 <c:forEach var="a" items="${alumnos}">
                                     <option value="${a.getId()}">${a.getLegajo()} - ${a.getNombre()} ${a.getApellido()}</option>
                                 </c:forEach>
@@ -83,7 +83,13 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>                
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script src="js/funciones.js" type="text/javascript"></script>    
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script src="js/funciones.js" type="text/javascript"></script>
+        <script>
+        $(document).ready(function() {
+            $('#selectAlumno').select2();
+        });    
+        </script>
     </c:if>
     </body>
 </html>
