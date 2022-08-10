@@ -82,7 +82,7 @@ public class ControladorUsuarios extends HttpServlet {
                     ControladorImplements.response(Constants.URL_INICIOSESION, "Usuario o Contraseña incorrecta", Constants.CONFIG_ALERT_WARNING, request);
                     Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
                 }            
-            break;
+                break;
             
             case "Registrar":
                 dni = request.getParameter("txtdni");
@@ -113,7 +113,7 @@ public class ControladorUsuarios extends HttpServlet {
                     ControladorImplements.response(Constants.URL_REGISTRO, "Faltan completar campos", Constants.CONFIG_ALERT_WARNING, request);
                     Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
                 }
-            break;
+                break;
             
             case "Actualizar":
                 int idu = Integer.parseInt(request.getParameter("id"));
@@ -143,7 +143,7 @@ public class ControladorUsuarios extends HttpServlet {
                     ControladorImplements.response(Constants.URL_PERFIL, "Faltan completar campos", Constants.CONFIG_ALERT_WARNING, request);
                     Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
                 }
-            break;
+                break;
             
             case "Recuperar":
                 email = request.getParameter("txtemail");
@@ -162,7 +162,20 @@ public class ControladorUsuarios extends HttpServlet {
                     Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
                 }            
                
-            break;
+                break;
+            
+            case "Elegir":
+                int id = Integer.parseInt(request.getParameter("cboAlumno"));                
+                HttpSession sesion = request.getSession(true);
+                try {
+                    usu = udao.listarId(id);
+                    sesion.setAttribute("alumnoPedido", usu);
+                    Utils.distpatcherServlet(Constants.URL_HOME, request, response);
+                } catch (Exception ex) {
+
+                }               
+                break;
+
 
 
             

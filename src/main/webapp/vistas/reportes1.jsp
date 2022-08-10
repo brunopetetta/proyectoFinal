@@ -21,8 +21,14 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="./Controlador?accion=PedidosAdmin">Pedidos</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Pedidos
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="./Controlador?accion=PedidosAdmin">Lista Pedidos</a></li>
+                                <li><a class="dropdown-item" href="./Controlador?accion=ElegirAlumno">Cargar Pedido</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./Controlador?accion=ApuntesAdmin">Apuntes</a>

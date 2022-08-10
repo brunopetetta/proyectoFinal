@@ -39,6 +39,7 @@ public class Controlador extends HttpServlet {
     Rol r = new Rol();
     List apuntes = new ArrayList();
     List usuarios = new ArrayList();
+    List alumnos = new ArrayList();
     List miscompras = new ArrayList();
     List compAdmin = new ArrayList();
     List detallePedido = new ArrayList();
@@ -90,6 +91,12 @@ public class Controlador extends HttpServlet {
                 Usuario usu = udao.listarId(ida);
                 request.setAttribute("alumno", usu);
                 Utils.distpatcherServlet(Constants.URL_PERFIL, request, response);
+                break;
+                
+            case "ElegirAlumno":
+                alumnos = udao.listarAlumnos();
+                request.setAttribute("alumnos",alumnos);
+                Utils.distpatcherServlet(Constants.URL_ELEGIRALUMNO, request, response);
                 break;
                 
             case "PedidosUsuario":
@@ -237,8 +244,6 @@ public class Controlador extends HttpServlet {
                 double porcIE = (ie * 100) / (isi+im+ic+ie+iq);
                 double porcIQ = (iq * 100) / (isi+im+ic+ie+iq);
                 topCincoPed = comdao.listarTopPedidos(fechaDesde2, fechaHasta2);
-                String prueba = topCincoPed.get(1).getNombre();
-                int prueba2 = topCincoPed.get(1).getCantidad();
                 request.setAttribute("fechaDesde", fechaDesde2);
                 request.setAttribute("fechaHasta", fechaHasta2);
                 request.setAttribute("topPedidos", topCincoPed);
@@ -375,6 +380,30 @@ public class Controlador extends HttpServlet {
                     ControladorImplements.response(Constants.URL_HOME, Constants.MESSAGE_WARNING_CARRITO, Constants.CONFIG_ALERT_WARNING, request);
                     Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
                 }
+                break;
+                
+            case "CargarPedido":
+                HttpSession sesion2 = request.getSession(true);
+                Usuario alu = (Usuario) sesion2.getAttribute("alumnoPedido");
+                CompraDAO codao = new CompraDAO();
+                Pago pago2 = new Pago();
+                totalPagar = (double) Math.round(totalPagar * 100) / 100d;
+                pago2.setMonto(totalPagar);
+                PagoDAO padao = new PagoDAO();
+                int idpago = padao.GenerarPago(pago2);
+                pago2.setId(idpago);                    
+                Compra compra2 = new Compra(alu, pago2, Fecha.FechaBD(), totalPagar, "Solicitado", listaCarrito);
+                int res2 = codao.GenerarCompra(compra2);
+                if (res2 != 0 && totalPagar > 0) {
+                    sesion2.removeAttribute("alumnoPedido");
+                    listaCarrito = new ArrayList<>();
+                    ControladorImplements.response(Constants.URL_ADMINPEDIDOS, Constants.MESSAGE_SUCCESS, Constants.CONFIG_ALERT_SUCCESS, request);
+                    Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                } else {
+                    ControladorImplements.response(Constants.URL_ADMINPEDIDOS, Constants.MESSAGE_WARNING_CARRITO, Constants.CONFIG_ALERT_WARNING, request);
+                    Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                }
+
                 break;
             
             case "Salir":

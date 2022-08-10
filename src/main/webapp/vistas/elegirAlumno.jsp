@@ -1,10 +1,9 @@
-<%@page import="com.controlador.Controlador"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html">
-        <title>Admin Apuntes</title>       
+        <title>Elegir alumno</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link href="css/estilos.css" rel="stylesheet" type="text/css"/>
@@ -56,53 +55,35 @@
                 </div>
             </div>
         </nav>
-        <div class="container mt-4">
-            <div class ="d-flex">
-                <h4>Editar Apunte</h4>
-            </div>
-            <div class="row">
-                <form action="ControladorApuntes?accion=Actualizar&id=${apunte.getId()}" class="form-sign" method="post" enctype="multipart/form-data">
-                        <div class="card-body">
-                            <div class="form-group mb-1">
-                                <label>Archivo</label>
-                                <input type="file" name="fileApunte" class="form-control">
-                                <input type="hidden" value="${apunte.getNombre()}" name="txtNombre">
-                            </div>
-                            <div class="form-group mb-1">
-                                <label>Descripcion</label>
-                                <input type="text" name="txtDescripcion" value="${apunte.getDescripcion()}" class="form-control">
-                            </div>
-                            <div class="form-group mb-1">
-                                <label>Carrera</label>
-                                <select name="cboCarrera" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                                    <option selected>${apunte.getCarrera()}</option>
-                                    <option value="Ingenierí­a Civil">Ingenierí­a Civil</option>
-                                    <option value="Ingenieria Eléctrica">Ingeniería Eléctrica</option>
-                                    <option value="Ingeniería Mecánica">Ingeniería Mecánica</option>
-                                    <option value="Ingeniería Química">Ingeniería Química</option>
-                                    <option value="Ingeniería en Sistemas de Información">Ingeniería en Sistemas de Información</option>
-                                </select>
-                            </div>
-                            <div class="form-group mb-1">
-                                <label>Materia</label>
-                                <input type="hidden" name="numCantPaginas" value="${apunte.getCantPaginas()}">
-                                <input type="text" name="txtMateria" value="${apunte.getMateria()}" class="form-control">
-                            </div>
+        <div class="container mt-4 col-lg-6">
+            <div class="card col-sm-10">
+                <div class="card-body">                    
+                    <div class="form-group text-center mb-1">
+                        <h3>Elegir alumno</h3>
+                        <h6>Seleccione el alumno para cargarle un pedido</h6>
+                    </div> 
+                    <form action="ControladorUsuarios" method="post">
+                        <div class="form-group mb-2">
+                            <select name="cboAlumno" class="form-select" aria-label="lblAlumno">
+                                <option selected>Elija el alumno</option>
+                                <c:forEach var="a" items="${alumnos}">
+                                    <option value="${a.getId()}">${a.getLegajo()} - ${a.getNombre()} ${a.getApellido()}</option>
+                                </c:forEach>
+                            </select>
                         </div>
-                        <div class="card-footer">
-                            <input type="submit" name="accion" value="Actualizar" class="btn btn-primary btn-block">
-                        </div>                
+                    <div class="form-group text-center mb-1">
+                        <input type="submit" name="accion" value="Elegir" class="btn btn-primary btn-block">
+                    </div>
+                    </form>
                 </div>
-                </form>
             </div>
-        </div>
+        </div>        
         <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>                
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script src="js/funciones.js" type="text/javascript"></script>  
-        </c:if>
+        <script src="js/funciones.js" type="text/javascript"></script>    
+    </c:if>
     </body>
 </html>
-         

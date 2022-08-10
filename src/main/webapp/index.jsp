@@ -23,21 +23,36 @@
                             <a class="nav-link" href="./Controlador?accion=Home"><i class="fas fa-home"></i> Home<span class="sr-only">(current)</span></a>
                         </li>
                         <c:if test="${sessionScope.admin != null}">
-                            <li class="nav-item">
-                               <a class="nav-link" href="./Controlador?accion=PedidosAdmin">Pedidos</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Pedidos
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="./Controlador?accion=PedidosAdmin">Lista Pedidos</a></li>
+                                    <li><a class="dropdown-item" href="./Controlador?accion=ElegirAlumno">Cargar Pedido</a></li>
+                                </ul>
                             </li>
                             <li class="nav-item">
-                               <a class="nav-link" href="./Controlador?accion=ApuntesAdmin">Apuntes</a>
+                                <a class="nav-link" href="./Controlador?accion=ApuntesAdmin">Apuntes</a>
                             </li> 
                             <li class="nav-item">
-                               <a class="nav-link" href="./Controlador?accion=ListaUsuarios">Usuarios</a>
-                        </c:if> 
-                        <c:if test="${sessionScope.admin == null}">       
-                            <li class="nav-item">
-                                <a class="nav-link" href="./Controlador?accion=Carrito"><i class="fas fa-cart-shopping">  <label style="color: ghostwhite">${contador}</label></i>  Carrito</a>
+                                <a class="nav-link" href="./Controlador?accion=ListaUsuarios">Usuarios</a>
                             </li>
-                        </c:if>
-                            <c:if test="${sessionScope.alumno != null}">       
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Reportes
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="./Controlador?accion=Reportes1">Reportes 1</a></li>
+                                    <li><a class="dropdown-item" href="./Controlador?accion=Reportes2">Reportes 2</a></li>
+                                    <li><a class="dropdown-item" href="./Controlador?accion=Reportes3">Reportes 3</a></li>
+                                </ul>
+                            </li>
+                        </c:if> 
+                        <li class="nav-item">
+                            <a class="nav-link" href="./Controlador?accion=Carrito"><i class="fas fa-cart-shopping">  <label style="color: ghostwhite">${contador}</label></i>  Carrito</a>
+                        </li>                        
+                        <c:if test="${sessionScope.alumno != null}">       
                             <li class="nav-item">
                                 <a class="nav-link" href="./Controlador?accion=SubirApuntes&id=${sessionScope.alumno.getId()}"><i class="fas fa-upload"> </i> Subir mis Apuntes</a>
                             </li>

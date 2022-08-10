@@ -29,6 +29,14 @@
                                 <a class="nav-link" href="Controlador?accion=Login" tabindex="-1" aria-disabled="true"><i class="fas fa-user-tie"></i> Acceder</a>
                             </li>
                         </c:if>
+                        <c:if test="${sessionScope.admin != null}">    
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user-gear"></i> ${sessionScope.admin.getNombre()} </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="./Controlador?accion=Salir"> Salir </a></li>     
+                                </ul>
+                            </li>
+                        </c:if>
                         <c:if test="${sessionScope.alumno != null}">     
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-circle-user"></i> ${sessionScope.alumno.getNombre()} </a>
@@ -112,11 +120,16 @@
                             <a class="form-control text-center"><i class="fas fa-dollar-sign h4 primary"> <fmt:formatNumber  maxFractionDigits="2" value="${totalPagar}"/></i></a>
                         </div>
                         <div class="card-footer">
-                            <c:if test="${sessionScope.editFlag == null}">
-                                <a class="btn btn-success" href="./Controlador?accion=GenerarPedido"> Realizar Pedido </a>
+                            <c:if test="${sessionScope.admin != null}">                            
+                            <a class="btn btn-success" href="./Controlador?accion=CargarPedido"> Cargar Pedido </a>
                             </c:if>
-                            <c:if test="${sessionScope.editFlag != null}">
-                                <a class="btn btn-success" href="./Controlador?accion=ActualizarPedido&id=${sessionScope.idPedido}"> Actualizar Pedido </a>
+                            <c:if test="${sessionScope.alumno != null}">
+                                <c:if test="${sessionScope.editFlag == null}">
+                                    <a class="btn btn-success" href="./Controlador?accion=GenerarPedido"> Realizar Pedido </a>
+                                </c:if>
+                                <c:if test="${sessionScope.editFlag != null}">
+                                    <a class="btn btn-success" href="./Controlador?accion=ActualizarPedido&id=${sessionScope.idPedido}"> Actualizar Pedido </a>
+                                </c:if>
                             </c:if>
                         </div>                        
                     </div>

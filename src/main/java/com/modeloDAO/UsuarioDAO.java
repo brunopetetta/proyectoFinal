@@ -88,6 +88,32 @@ public class UsuarioDAO {
         return lista;
     }
     
+    public List listarAlumnos() throws SQLException, Exception {
+        List lista = new ArrayList();
+        String sql = "SELECT * FROM usuario WHERE idRol=2";
+        try {
+            ps = ConsultasBD.preparedStatement(sql);
+            rs = ConsultasBD.resultSet(ps);
+            while (rs.next()) {
+                Usuario u = new Usuario();
+                RolDAO rdao = new RolDAO();
+                Rol r = rdao.listarId(rs.getInt(8));
+                u.setId(rs.getInt(1));
+                u.setDni(rs.getString(2));
+                u.setLegajo(rs.getString(3));
+                u.setNombre(rs.getString(4));
+                u.setApellido(rs.getString(5));
+                u.setEmail(rs.getString(6));
+                u.setPassword(rs.getString(7));
+                u.setRol(r);
+                lista.add(u);
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al intentar obtener los alumnos", e);
+        }
+        return lista;
+    }
+    
     public Usuario validar(String user, String password) throws SQLException, Exception {
         Usuario u = new Usuario();
         String sql = "SELECT * FROM usuario WHERE (email=? OR legajo=? OR dni=?) AND password=?";

@@ -13,6 +13,7 @@ public class Constants {
     public static final String URL_PERFIL="./vistas/usuarioPerfil.jsp";
     public static final String URL_USUARIOPEDIDOS="./vistas/usuarioPedidos.jsp";
     public static final String URL_VISTAUSUARIODETALLEPEDIDO="./vistas/usuarioDetallePedido.jsp";
+    public static final String URL_ELEGIRALUMNO="./vistas/elegirAlumno.jsp";
     public static final String URL_VISTAPEDIDOS="./vistas/adminPedidos.jsp";
     public static final String URL_ADMINPEDIDOS="Controlador?accion=PedidosAdmin";
     public static final String URL_VISTAADMINDETALLEPEDIDO="./vistas/adminDetallePedido.jsp";
