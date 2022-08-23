@@ -41,9 +41,9 @@
                                 Reportes
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="./Controlador?accion=Reportes1">Reportes 1</a></li>
-                                <li><a class="dropdown-item" href="./Controlador?accion=Reportes2">Reportes 2</a></li>
-                                <li><a class="dropdown-item" href="./Controlador?accion=Reportes3">Reportes 3</a></li>
+                                <li><a class="dropdown-item" href="./Controlador?accion=Reportes1">Pedidos</a></li>
+                                <li><a class="dropdown-item" href="./Controlador?accion=Reportes2">Carreras</a></li>
+                                <li><a class="dropdown-item" href="./Controlador?accion=Reportes3">Insumos</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -129,6 +129,7 @@
                                         <option value="En Proceso">En Proceso</option>
                                         <option value="Listo para Retirar">Listo para Retirar</option>
                                         <option value="Retirado">Retirado</option>
+                                        <option value="Cancelado">Cancelado</option>
                                     </select>
                                 </td>
                                 <td> 

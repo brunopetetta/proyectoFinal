@@ -4,7 +4,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html">
-        <title>Reportes</title>       
+        <title>Reportes Carreras</title>
+        <style>
+            @media print{
+                .parte01, .btn-primary, .navbar-brand{
+                    display:none;
+                }
+            }
+        </style>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css"> 
@@ -41,9 +48,9 @@
                                 Reportes
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="./Controlador?accion=Reportes1">Reportes 1</a></li>
-                                <li><a class="dropdown-item" href="./Controlador?accion=Reportes2">Reportes 2</a></li>
-                                <li><a class="dropdown-item" href="./Controlador?accion=Reportes3">Reportes 3</a></li>
+                                <li><a class="dropdown-item" href="./Controlador?accion=Reportes1">Pedidos</a></li>
+                                <li><a class="dropdown-item" href="./Controlador?accion=Reportes2">Carreras</a></li>
+                                <li><a class="dropdown-item" href="./Controlador?accion=Reportes3">Insumos</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -59,12 +66,18 @@
             </div>
         </nav>
         <div class="container mt-4">
+            <div class="container-sm mb-2 mt-2 parte01">
+                <a href="#" class="btn-success btn-sm" onclick="print()"><i class="fas fa-print"></i> Generar Reporte </a>
+            </div>
             <div class="container-sm mb-2">
                 <form action="ControladorReportes" method="post">
                     <input type="text" id="date_range" name="date_range">
                     <input type="submit" name="accion" value="Filtrar" class="btn-primary btn-sm">
                     <input type="hidden" name="reporte" value="2">
                 </form>
+            </div>
+            <div class ="d-flex">
+                <h5>Porcentaje de apuntes pedidos por carrera</h5>
             </div>
             <div class="card-group">
                 <div class="card text-center bg-light mb-2">

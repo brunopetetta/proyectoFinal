@@ -332,6 +332,47 @@ public class CompraDAO {
         }
         return cantHojas;
     }
+    
+    public int listarSimpleFaz(String fechaDesde, String fechaHasta) throws Exception {
+        int cantHojas = 0;
+        String sql = "SELECT SUM(cantidad) FROM(SELECT dc.paginaDesde, dc.paginaHasta, dc.cantidadCopias, dc.tipoImpresion," +
+        "CASE WHEN tipoImpresion = 'checked' THEN ((dc.paginaHasta - dc.PaginaDesde + 1) * dc.cantidadCopias) END AS cantidad " +
+        "FROM apunteca.detalle_compra dc INNER JOIN compra c ON c.idCompra = dc.idCompra " +
+        "WHERE c.estado = 'Retirado' AND STR_TO_DATE(fechaCompra, '%d-%m-%Y') " +
+        "BETWEEN STR_TO_DATE('"+fechaDesde+"', '%d-%m-%Y') AND STR_TO_DATE('"+fechaHasta+"', '%d-%m-%Y')) AS Tabla";
+        try {
+            PreparedStatement ps = ConsultasBD.preparedStatement(sql);
+            ResultSet rs = ConsultasBD.resultSet(ps);
+            while (rs.next()) {
+                cantHojas = rs.getInt(1);
+            }            
+        }
+        catch (SQLException e) {
+            throw new Exception("Error al intentar mostrar los reportes", e);
+        }
+        return cantHojas;
+    }
+    
+    public int listarDobleFaz(String fechaDesde, String fechaHasta) throws Exception {
+        int cantHojas = 0;
+        String sql = "SELECT SUM(cantidad) FROM(SELECT dc.paginaDesde, dc.paginaHasta, dc.cantidadCopias, dc.tipoImpresion," +
+        "CASE WHEN tipoImpresion != 'checked' THEN   (dc.paginaHasta - dc.PaginaDesde + 1)   * dc.cantidadCopias END AS cantidad " +
+        "FROM apunteca.detalle_compra dc INNER JOIN compra c ON c.idCompra = dc.idCompra " +
+        "WHERE c.estado = 'Retirado' AND STR_TO_DATE(fechaCompra, '%d-%m-%Y') " +
+        "BETWEEN STR_TO_DATE('"+fechaDesde+"', '%d-%m-%Y') AND STR_TO_DATE('"+fechaHasta+"', '%d-%m-%Y')) AS Tabla";
+        try {
+            PreparedStatement ps = ConsultasBD.preparedStatement(sql);
+            ResultSet rs = ConsultasBD.resultSet(ps);
+            while (rs.next()) {
+                cantHojas = rs.getInt(1);
+            }            
+        }
+        catch (SQLException e) {
+            throw new Exception("Error al intentar mostrar los reportes", e);
+        }
+        return cantHojas;
+    }
+    
     public int listarAnillados(String fechaDesde, String fechaHasta) throws Exception {
         int cantAnillado = 0;
         String sql = "SELECT SUM(cantidad) FROM(SELECT dc.paginaDesde, dc.paginaHasta, dc.cantidadCopias, dc.anillado," +

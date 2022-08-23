@@ -107,6 +107,8 @@ public class ControladorReportes extends HttpServlet {
                             String fechaHasta3 = fechaRango3.substring(13);
                             int cantHojas = comdao.listarHojas(fechaDesde3, fechaHasta3);
                             int cantAnillados = comdao.listarAnillados(fechaDesde3, fechaHasta3);
+                            int cantSimple = comdao.listarSimpleFaz(fechaDesde3, fechaHasta3);
+                            int cantDoble = comdao.listarDobleFaz(fechaDesde3, fechaHasta3);
                             double recaudacion = comdao.listarRecaudado(fechaDesde3, fechaHasta3);
                             PrecioFotocopiaDAO prDAO = new PrecioFotocopiaDAO();
                             valoresFotocopia = prDAO.listar();
@@ -116,6 +118,8 @@ public class ControladorReportes extends HttpServlet {
                             request.setAttribute("cantHojas", cantHojas);
                             request.setAttribute("cantAnillados", cantAnillados);
                             request.setAttribute("valoresFotocopia", valoresFotocopia);
+                            request.setAttribute("cantSimple", cantSimple);
+                            request.setAttribute("cantDoble", cantDoble);
                             Utils.distpatcherServlet(Constants.URL_VISTAREPORTES3, request, response);                
                             break;
                     }

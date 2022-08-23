@@ -37,11 +37,11 @@
                         </div>
                         <div class="form-group mb-1">
                             <label>Legajo</label>
-                            <input type="text" name="txtlegajo" class="form-control">
+                            <input type="text" pattern="\d*" maxlength="5" name="txtlegajo" class="form-control">
                         </div>
                         <div class="form-group mb-1">
                             <label>Dni</label>
-                            <input type="text" name="txtdni" class="form-control">
+                            <input type="text" pattern="\d*" maxlength="8" name="txtdni" class="form-control">
                         </div>
                         <div class="form-group mb-1">
                             <label>Nombre</label>
