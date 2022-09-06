@@ -131,6 +131,9 @@
                                     <a class="btn btn-success" href="./Controlador?accion=ActualizarPedido&id=${sessionScope.idPedido}"> Actualizar Pedido </a>
                                 </c:if>
                             </c:if>
+                            <c:if test="${sessionScope.admin == null && sessionScope.alumno == null }">
+                                <a class="btn btn-success" href="./Controlador?accion=GenerarPedido"> Realizar Pedido </a>
+                            </c:if>
                         </div>                        
                     </div>
                 </div>
