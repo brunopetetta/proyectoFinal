@@ -15,6 +15,8 @@ import com.utils.Constants;
 import com.utils.Utils;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -53,33 +55,44 @@ public class ControladorPedidos extends HttpServlet {
                     int id = Integer.parseInt(request.getParameter("txtidcomp"));
                     int idu = Integer.parseInt(request.getParameter("txtidusu"));
                     int idp = Integer.parseInt(request.getParameter("txtidpago"));
-                    Compra com = new Compra();
-                    CompraDAO compdao = new CompraDAO();
-                    UsuarioDAO udao = new UsuarioDAO();
-                    Usuario usu = udao.listarId(idu);
-                    PagoDAO pdao = new PagoDAO();
-                    Pago p = pdao.listarId(idp);
-                    com.setId(id);
-                    com.setUsuario(usu);
-                    com.setPago(p);
-                    com.setFecha(fechac);
-                    com.setMonto(montoc);
-                    com.setEstado(estado);
-                    compdao.ActualizarCompra(com);
-                    if("Listo para Retirar".equals(estado)){
-                        String destinatario = usu.getEmail();
-                        String asunto = "Tu pedido n° "+id+" está listo para retirar";
-                        String mensaje = "Hola "+usu.getNombre()+", el pedido "+id+" está listo para ser retirado. Recorda que el monto es $"+montoc+" y se retira en fotocopiadora del 2do piso.";
-                        SendMail.enviarEmail(destinatario, asunto, mensaje);
+                    if("Cancelado".equals(estado)){
+                        request.setAttribute("fechaCompra", fechac);
+                        request.setAttribute("monto", montoc);
+                        request.setAttribute("estado", estado);
+                        request.setAttribute("idCompra", id);
+                        request.setAttribute("idAlumno", idu);
+                        request.setAttribute("idpago", idp);
+                        Utils.distpatcherServlet(Constants.URL_VISTAADMINCANCELAR, request, response);
                     }
-                    if("En Proceso".equals(estado)){
-                        String destinatario = usu.getEmail();
-                        String asunto = "Tu pedido n° "+id+" ha sido confirmado";
-                        String mensaje = "Hola "+usu.getNombre()+", el pedido "+id+" fue confirmado y está siendo procesado. Recorda que no debes ir a retirar tu pedido hasta que recibas un mail de confirmación de retiro.";
-                        SendMail.enviarEmail(destinatario, asunto, mensaje);
-                    }
-                    ControladorImplements.response(Constants.URL_ADMINPEDIDOS, Constants.MESSAGE_SUCCESS, Constants.CONFIG_ALERT_SUCCESS, request);
-                    Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                    else{
+                        Compra com = new Compra();
+                        CompraDAO compdao = new CompraDAO();
+                        UsuarioDAO udao = new UsuarioDAO();
+                        Usuario usu = udao.listarId(idu);
+                        PagoDAO pdao = new PagoDAO();
+                        Pago p = pdao.listarId(idp);
+                        com.setId(id);
+                        com.setUsuario(usu);
+                        com.setPago(p);
+                        com.setFecha(fechac);
+                        com.setMonto(montoc);
+                        com.setEstado(estado);
+                        compdao.ActualizarCompra(com);
+                        if("Listo para Retirar".equals(estado)){
+                            String destinatario = usu.getEmail();
+                            String asunto = "Tu pedido n° "+id+" está listo para retirar";
+                            String mensaje = "Hola "+usu.getNombre()+", el pedido "+id+" está listo para ser retirado. Recorda que el monto es $"+montoc+" y se retira en fotocopiadora del 2do piso.";
+                            SendMail.enviarEmail(destinatario, asunto, mensaje);
+                        }
+                        if("En Proceso".equals(estado)){
+                            String destinatario = usu.getEmail();
+                            String asunto = "Tu pedido n° "+id+" ha sido confirmado";
+                            String mensaje = "Hola "+usu.getNombre()+", el pedido "+id+" fue confirmado y está siendo procesado. Recorda que no debes ir a retirar tu pedido hasta que recibas un mail de confirmación de retiro.";
+                            SendMail.enviarEmail(destinatario, asunto, mensaje);
+                        }
+                            ControladorImplements.response(Constants.URL_ADMINPEDIDOS, Constants.MESSAGE_SUCCESS, Constants.CONFIG_ALERT_SUCCESS, request);
+                            Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                    }                    
                 } catch (Exception e) {
                     ControladorImplements.response(Constants.URL_ADMINPEDIDOS, e.getMessage(), Constants.CONFIG_ALERT_WARNING, request);
                     Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
@@ -106,7 +119,42 @@ public class ControladorPedidos extends HttpServlet {
                         Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
                     }
                 }
-                break;       
+                break;
+            case "Enviar":
+                try {
+                    String fechac = request.getParameter("hidefecha");
+                    Double montoc = Double.parseDouble(request.getParameter("hidemonto"));
+                    String estado = request.getParameter("hideestado");
+                    int id = Integer.parseInt(request.getParameter("hideidCompra"));
+                    int idu = Integer.parseInt(request.getParameter("hideidAlumno"));
+                    int idp = Integer.parseInt(request.getParameter("hideidpago"));
+                    String motivo = request.getParameter("txtmotivo");
+                    Compra com = new Compra();
+                    CompraDAO compdao = new CompraDAO();
+                    UsuarioDAO udao = new UsuarioDAO();
+                    Usuario usu = udao.listarId(idu);
+                    PagoDAO pdao = new PagoDAO();
+                    Pago p;
+                    p = pdao.listarId(idp);
+                    com.setId(id);
+                    com.setUsuario(usu);
+                    com.setPago(p);
+                    com.setFecha(fechac);
+                    com.setMonto(montoc);
+                    com.setEstado(estado);
+                    compdao.ActualizarCompra(com);
+                    String destinatario = usu.getEmail();
+                    String asunto = "Tu pedido n° "+id+" ha sido cancelado";
+                    String mensaje = "Hola "+usu.getNombre()+", el pedido "+id+" que tenía un importe de $"+montoc+" ha sido cancelado. La razón es la siguiente: "+motivo+"";
+                    SendMail.enviarEmail(destinatario, asunto, mensaje);
+                    ControladorImplements.response(Constants.URL_ADMINPEDIDOS, Constants.MESSAGE_SUCCESS, Constants.CONFIG_ALERT_SUCCESS, request);
+                    Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);                    
+                } catch (Exception ex) {
+                    ControladorImplements.response(Constants.URL_ADMINPEDIDOS, ex.getMessage(), Constants.CONFIG_ALERT_WARNING, request);
+                    Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                }               
+                
+                break;
         }
     }
 

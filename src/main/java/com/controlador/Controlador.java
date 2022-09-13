@@ -50,6 +50,7 @@ public class Controlador extends HttpServlet {
     Double totalPagar = 0.0;
     Double subtotal = 0.0;
     int ida;
+    int idal;
     int idd;
     int idc;
     int editFlag;
@@ -208,12 +209,27 @@ public class Controlador extends HttpServlet {
                 Utils.distpatcherServlet(Constants.URL_VISTAEDITARAPUNTE, request, response);
                 break;
                 
-            case "eliminarApunteBD":
+            case "eliminarApunteAdmin":
                 ida = Integer.valueOf(request.getParameter("id"));
                 try{
                     apudao.BorrarApunte(ida);
+                    ControladorImplements.response(Constants.URL_ADMINAPUNTES, "El apunte se eliminó con éxito!", Constants.CONFIG_ALERT_SUCCESS, request);
+                    Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
                 } catch (Exception ex) {
-                    ControladorImplements.response(Constants.URL_HOME, ex.getMessage(), Constants.CONFIG_ALERT_WARNING, request);
+                    ControladorImplements.response(Constants.URL_ADMINAPUNTES, ex.getMessage(), Constants.CONFIG_ALERT_WARNING, request);
+                    Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                }
+                break;
+                
+            case "eliminarApunteAlumno":
+                ida = Integer.valueOf(request.getParameter("id"));
+                idal = Integer.valueOf(request.getParameter("idal"));
+                try{
+                    apudao.BorrarApunte(ida);
+                    ControladorImplements.response("./Controlador?accion=SubirApuntes&id="+idal, "El apunte se eliminó con éxito!", Constants.CONFIG_ALERT_SUCCESS, request);
+                    Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                } catch (Exception ex) {
+                    ControladorImplements.response("./Controlador?accion=SubirApuntes&id="+idal, ex.getMessage(), Constants.CONFIG_ALERT_WARNING, request);
                     Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
                 }
                 break;
