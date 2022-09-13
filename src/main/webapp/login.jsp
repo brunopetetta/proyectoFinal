@@ -36,7 +36,7 @@
                             <a href="./Controlador?accion=Registro" class="btn btn-link">No tiene una cuenta? Registrese</a>
                         </div>                        
                         <div class="form-group mb-1">
-                            <label>Usuario</label>
+                            <label>Usuario (DNI, Legajo o Email)</label>
                             <input type="text" name="txtuser" class="form-control">
                         </div>
                         <div class="form-group mb-3">

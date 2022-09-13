@@ -62,12 +62,13 @@
                     <div class="form-group text-center mb-1">
                         <h3>Elegir alumno</h3>
                         <h6>Seleccione el alumno para cargarle un pedido</h6>
+                        <a href="./Controlador?accion=Registro" class="btn btn-link"> Dar de alta un nuevo alumno </a>
                     </div> 
                     <form action="ControladorUsuarios" method="post">
                         <div class="form-group mb-2">
                             <select id="selectAlumno" name="cboAlumno" class="form-select" aria-label="lblAlumno">
                                 <c:forEach var="a" items="${alumnos}">
-                                    <option value="${a.getId()}">${a.getLegajo()} - ${a.getNombre()} ${a.getApellido()}</option>
+                                    <option value="${a.getId()}">${a.getApellido()} ${a.getNombre()}</option>
                                 </c:forEach>
                             </select>
                         </div>

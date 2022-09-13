@@ -88,8 +88,8 @@
                                 <th>Legajo</th>
                                 <th>Nombre</th>                                
                                 <th>Cod Pago</th>
-                                <th>Fecha</th>
-                                <th>Monto</th>
+                                <th>Fecha Pedido</th>
+                                <th>Importe</th>
                                 <th>Estado</th>
                                 <th>Acción</th>
                             </tr>    

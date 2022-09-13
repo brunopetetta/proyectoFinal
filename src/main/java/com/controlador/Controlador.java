@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.utils.Constants;
 import com.utils.Utils;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -209,7 +210,12 @@ public class Controlador extends HttpServlet {
                 
             case "eliminarApunteBD":
                 ida = Integer.valueOf(request.getParameter("id"));
-                apudao.BorrarApunte(ida);
+                try{
+                    apudao.BorrarApunte(ida);
+                } catch (Exception ex) {
+                    ControladorImplements.response(Constants.URL_HOME, ex.getMessage(), Constants.CONFIG_ALERT_WARNING, request);
+                    Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                }
                 break;
                 
             case "Reportes1":
@@ -461,6 +467,8 @@ public class Controlador extends HttpServlet {
             processRequest(request, response);
         } catch (Exception ex) {
             Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+            ControladorImplements.response(Constants.URL_HOME, ex.getMessage(), Constants.CONFIG_ALERT_WARNING, request);
+            Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
         }
     }
 

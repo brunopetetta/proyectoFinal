@@ -90,7 +90,7 @@ public class UsuarioDAO {
     
     public List listarAlumnos() throws SQLException, Exception {
         List lista = new ArrayList();
-        String sql = "SELECT * FROM usuario WHERE idRol=2";
+        String sql = "SELECT * FROM usuario WHERE idRol=2 ORDER BY apellido, nombre";
         try {
             ps = ConsultasBD.preparedStatement(sql);
             rs = ConsultasBD.resultSet(ps);

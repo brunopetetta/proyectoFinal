@@ -17,14 +17,53 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="./Controlador?accion=Home"><i class="fas fa-home"></i> Home<span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./Controlador?accion=Carrito"><i class="fas fa-cart-shopping">  <label style="color: ghostwhite">${contador}</label></i>  Carrito</a>
-                        </li>
-                    </ul>                       
+                    <c:if test="${sessionScope.admin == null}">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="./Controlador?accion=Home"><i class="fas fa-home"></i> Home<span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./Controlador?accion=Carrito"><i class="fas fa-cart-shopping">  <label style="color: ghostwhite">${contador}</label></i>  Carrito</a>
+                            </li>
+                        </ul>
+                    </c:if>
+                    <c:if test="${sessionScope.admin != null}">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Pedidos
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="./Controlador?accion=PedidosAdmin">Lista Pedidos</a></li>
+                                    <li><a class="dropdown-item" href="./Controlador?accion=ElegirAlumno">Cargar Pedido</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./Controlador?accion=ApuntesAdmin">Apuntes</a>
+                            </li> 
+                            <li class="nav-item">
+                                <a class="nav-link" href="./Controlador?accion=ListaUsuarios">Usuarios</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Reportes
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="./Controlador?accion=Reportes1">Pedidos</a></li>
+                                    <li><a class="dropdown-item" href="./Controlador?accion=Reportes2">Carreras</a></li>
+                                    <li><a class="dropdown-item" href="./Controlador?accion=Reportes3">Insumos</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav btn-group my-2 my-lg-0">   
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user-gear"></i> ${sessionScope.admin.getNombre()} </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="./Controlador?accion=Salir"> Salir </a></li>     
+                                </ul>
+                            </li>                        
+                        </ul>
+                    </c:if>
                 </div>
             </div>
         </nav>
@@ -34,6 +73,9 @@
                     <form class="form-sign" action="ControladorUsuarios" method="POST">
                         <div class="form-group text-center">
                             <h3>Registro</h3>
+                            <c:if test="${sessionScope.admin != null}">
+                            <input type="hidden" value="1" name="hideadmin">
+                            </c:if>
                         </div>
                         <div class="form-group mb-1">
                             <label>Legajo</label>

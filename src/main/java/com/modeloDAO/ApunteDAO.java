@@ -126,8 +126,8 @@ public class ApunteDAO {
         try {
             PreparedStatement ps = ConsultasBD.preparedStatement(sql);
             rs = ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new Exception("Error al intentar borrar un apunte", e);
+        } catch (Exception e) {
+            throw new Exception("El apunte no puede ser borrado porque tiene un pedido asignado", e);
         }
         return rs;
     }

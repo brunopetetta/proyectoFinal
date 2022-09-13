@@ -22,6 +22,7 @@ public class ControladorUsuarios extends HttpServlet {
     
     UsuarioDAO udao = new UsuarioDAO();
     Usuario usu = new Usuario();
+    Usuario usu2 = new Usuario();
     Rol rol = new Rol();
     String dni;
     String legajo;
@@ -29,6 +30,7 @@ public class ControladorUsuarios extends HttpServlet {
     String apellido;
     String email;
     String password;
+    String esadmin;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -91,26 +93,39 @@ public class ControladorUsuarios extends HttpServlet {
                 apellido = request.getParameter("txtapellido");
                 email = request.getParameter("txtemail");
                 password = request.getParameter("txtpass");
-                if (dni != null && legajo != null && nombre != null && apellido != null && email != null && password != null) {
+                esadmin = request.getParameter("hideadmin");
+                if (dni != "" && legajo != "" && nombre != "" && apellido != "" && email != "" && password != "") {
                     rol.setId(2);
                     rol.setDescripcion("alumno");
-                    usu.setDni(dni);
-                    usu.setLegajo(legajo);
-                    usu.setNombre(nombre);
-                    usu.setApellido(apellido);
-                    usu.setEmail(email);
-                    usu.setPassword(password);
-                    usu.setRol(rol);
-                    try {
-                        udao.AgregarNuevoUsuario(usu);
-                        ControladorImplements.response(Constants.URL_LOGIN, "Se registro su usuario con Éxito!", Constants.CONFIG_ALERT_SUCCESS, request);
-                        Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
-                    } catch (Exception ex) {
-                        ControladorImplements.response(Constants.URL_REGISTRO, ex.getMessage(), Constants.CONFIG_ALERT_WARNING, request);
-                        Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                    usu2.setDni(dni);
+                    usu2.setLegajo(legajo);
+                    usu2.setNombre(nombre);
+                    usu2.setApellido(apellido);
+                    usu2.setEmail(email);
+                    usu2.setPassword(password);
+                    usu2.setRol(rol);
+                    if(esadmin.equals("1")){
+                        try {
+                            udao.AgregarNuevoUsuario(usu2);
+                            ControladorImplements.response("./Controlador?accion=ElegirAlumno", "Se registro su usuario con Éxito!", Constants.CONFIG_ALERT_SUCCESS, request);
+                            Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                        } catch (Exception ex) {
+                            ControladorImplements.response(Constants.URL_REGISTRO, ex.getMessage(), Constants.CONFIG_ALERT_WARNING, request);
+                            Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                        }
                     }
+                    else{
+                        try {
+                        udao.AgregarNuevoUsuario(usu2);
+                            ControladorImplements.response(Constants.URL_LOGIN, "Se registro su usuario con Éxito!", Constants.CONFIG_ALERT_SUCCESS, request);
+                            Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                        } catch (Exception ex) {
+                            ControladorImplements.response(Constants.URL_REGISTRO, ex.getMessage(), Constants.CONFIG_ALERT_WARNING, request);
+                            Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                        }
+                    }                    
                 } else {
-                    ControladorImplements.response(Constants.URL_REGISTRO, "Faltan completar campos", Constants.CONFIG_ALERT_WARNING, request);
+                    ControladorImplements.response("./Controlador?accion=Registro", "Faltan completar campos", Constants.CONFIG_ALERT_WARNING, request);
                     Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
                 }
                 break;
@@ -123,7 +138,7 @@ public class ControladorUsuarios extends HttpServlet {
                 apellido = request.getParameter("txtapellido");
                 email = request.getParameter("txtemail");
                 password = request.getParameter("txtpass");
-                if (dni!=null && legajo != null && nombre != null && apellido != null && email != null && password != null) {
+                if (dni != "" && legajo != "" && nombre != "" && apellido != "" && email != "" && password != "") {
                     usu.setId(idu);
                     usu.setDni(dni);
                     usu.setLegajo(legajo);

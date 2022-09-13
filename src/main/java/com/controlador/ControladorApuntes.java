@@ -59,6 +59,7 @@ public class ControladorApuntes extends HttpServlet {
                 Apunte a = new Apunte();
                 ApunteDAO adao = new ApunteDAO();
                 boolean flagAlumno = false;
+                boolean archivoVacio = false;
                 int idAlumno = 0;
                 FileItemFactory factory = new DiskFileItemFactory();
                 ServletFileUpload upload = new ServletFileUpload(factory);
@@ -74,6 +75,10 @@ public class ControladorApuntes extends HttpServlet {
                     // Hay que comprobar si es un campo de formulario. Si no lo es, se guarda el fichero                
                     if (!uploaded.isFormField()) {
                         // No es campo de formulario, guardamos el fichero
+                        if(uploaded.getSize() == 0){
+                            archivoVacio = true;
+                            break;
+                        }                            
                         File fichero = new File("C:\\Users\\PC\\Documents\\NetBeansProjects\\apunteca\\src\\main\\webapp\\apuntes\\", uploaded.getName());
                         try {
                             uploaded.write(fichero);
@@ -107,22 +112,34 @@ public class ControladorApuntes extends HttpServlet {
                 if (flagAlumno == false){
                     a.setUpload(Boolean.FALSE);                
                     a.setIdAlumno(1);
-                    try {
-                        adao.AgregarNuevoApunte(a);
-                        Utils.distpatcherServlet(Constants.URL_ADMINAPUNTES, request, response);
-                    } catch (Exception ex) {
-                        ControladorImplements.response(Constants.URL_ADMINAPUNTES, ex.getMessage(), Constants.CONFIG_ALERT_WARNING, request);
+                    if(archivoVacio == true){
+                        ControladorImplements.response(Constants.URL_ADMINAPUNTES, "Debe subir un archivo", Constants.CONFIG_ALERT_WARNING, request);
                         Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
                     }
+                    else{
+                        try {
+                            adao.AgregarNuevoApunte(a);
+                            Utils.distpatcherServlet(Constants.URL_ADMINAPUNTES, request, response);
+                        } catch (Exception ex) {
+                            ControladorImplements.response(Constants.URL_ADMINAPUNTES, ex.getMessage(), Constants.CONFIG_ALERT_WARNING, request);
+                            Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                        }                        
+                    }                    
                 }
                 else{
-                    try {
-                        adao.AgregarNuevoApunte(a);
-                        Utils.distpatcherServlet("./Controlador?accion=SubirApuntes&id="+idAlumno, request, response);
-                    } catch (Exception ex) {
-                        ControladorImplements.response("./Controlador?accion=SubirApuntes&id="+idAlumno, ex.getMessage(), Constants.CONFIG_ALERT_WARNING, request);
+                    if(archivoVacio == true){
+                        ControladorImplements.response("./Controlador?accion=SubirApuntes&id="+idAlumno, "Debe subir un archivo", Constants.CONFIG_ALERT_WARNING, request);
                         Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
                     }
+                    else{
+                        try {
+                            adao.AgregarNuevoApunte(a);
+                            Utils.distpatcherServlet("./Controlador?accion=SubirApuntes&id="+idAlumno, request, response);
+                        } catch (Exception ex) {
+                            ControladorImplements.response("./Controlador?accion=SubirApuntes&id="+idAlumno, ex.getMessage(), Constants.CONFIG_ALERT_WARNING, request);
+                            Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                        }
+                    }                    
                 }
             break;
 

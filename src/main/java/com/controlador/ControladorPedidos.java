@@ -86,18 +86,25 @@ public class ControladorPedidos extends HttpServlet {
                 }
                 break;
             case "Actualizar Valor":
-                Double valor = Double.valueOf(request.getParameter("precioFoto"));
-                PrecioFotocopia precioF = new PrecioFotocopia();
-                precioF.setValorFotocopia(valor);
-                precioF.setFechaDesdePrecio(Fecha.FechaBD());
-                PrecioFotocopiaDAO prDao = new PrecioFotocopiaDAO();
-                try {
-                    prDao.ActualizarPrecio(precioF);
-                    ControladorImplements.response(Constants.URL_ADMINPEDIDOS, Constants.MESSAGE_SUCCESS, Constants.CONFIG_ALERT_SUCCESS, request);
+                if (request.getParameter("precioFoto").equals("")){
+                    ControladorImplements.response(Constants.URL_ADMINPEDIDOS, "Debe ingresar un valor para la fotocopia", Constants.CONFIG_ALERT_WARNING, request);
                     Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
-                } catch (Exception ex) {
-                    ControladorImplements.response(Constants.URL_ADMINPEDIDOS, ex.getMessage(), Constants.CONFIG_ALERT_WARNING, request);
-                    Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                }
+                else{
+                    Double valor = Double.valueOf(request.getParameter("precioFoto"));
+                    PrecioFotocopia precioF = new PrecioFotocopia();
+                    precioF.setValorFotocopia(valor);
+                    precioF.setFechaDesdePrecio(Fecha.FechaBD());
+                    PrecioFotocopiaDAO prDao = new PrecioFotocopiaDAO();
+
+                    try {
+                        prDao.ActualizarPrecio(precioF);
+                        ControladorImplements.response(Constants.URL_ADMINPEDIDOS, Constants.MESSAGE_SUCCESS, Constants.CONFIG_ALERT_SUCCESS, request);
+                        Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                    } catch (Exception ex) {
+                        ControladorImplements.response(Constants.URL_ADMINPEDIDOS, ex.getMessage(), Constants.CONFIG_ALERT_WARNING, request);
+                        Utils.distpatcherServlet(Constants.URL_MESSAGE, request, response);
+                    }
                 }
                 break;       
         }
