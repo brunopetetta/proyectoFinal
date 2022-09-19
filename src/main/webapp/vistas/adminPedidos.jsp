@@ -86,8 +86,7 @@
                                 <th>Cod Pedido</th>
                                 <th>DNI</th>
                                 <th>Legajo</th>
-                                <th>Nombre</th>                                
-                                <th>Cod Pago</th>
+                                <th>Nombre</th>  
                                 <th>Fecha Pedido</th>
                                 <th>Importe</th>
                                 <th>Estado</th>
@@ -102,6 +101,7 @@
                                     <a href="./Controlador?accion=DetallePedidoAdmin&id=${com.getId()}" class="btn-outline-primary btn-sm"><i class="fas fa-list-ul"></i></a>
                                 </td>
                                 <td><input type="hidden" name="txtidcomp" value="${com.getId()}" class="form-control">
+                                    <input type="hidden" name="txtidpago" value="${com.getPago().getId()}" class="form-control">
                                     ${com.getId()}
                                 </td>
                                 <td>
@@ -112,10 +112,7 @@
                                 </td>
                                 <td><input type="hidden" name="txtidusu" value="${com.getUsuario().getId()}" class="form-control">
                                     ${com.getUsuario().getNombre()} ${com.getUsuario().getApellido()}
-                                </td>
-                                <td><input type="hidden" name="txtidpago" value="${com.getPago().getId()}" class="form-control">
-                                    ${com.getPago().getId()}
-                                </td>
+                                </td>                                
                                 <td><input type="hidden" name="txtfecha" value="${com.getFecha()}" class="form-control">
                                     ${com.getFecha()}
                                 </td>
@@ -123,17 +120,40 @@
                                         ${com.getMonto()} </i>
                                 </td>
                                 <td>
-                                    <select name="cboEstado" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                                        <option selected>${com.getEstado()}</option>
-                                        <option value="Solicitado">Solicitado</option>
-                                        <option value="En Proceso">En Proceso</option>
-                                        <option value="Listo para Retirar">Listo para Retirar</option>
-                                        <option value="Retirado">Retirado</option>
-                                        <option value="Cancelado">Cancelado</option>
-                                    </select>
+                                       <c:if test="${com.getEstado()=='Solicitado'}">
+                                        <select name="cboEstado" class="form-select form-select-sm" aria-label=".form-select-sm example">    
+                                            <option selected>${com.getEstado()}</option>
+                                            <option value="En Proceso">En Proceso</option>
+                                            <option value="Listo para Retirar">Listo para Retirar</option>
+                                            <option value="Retirado">Retirado</option>
+                                            <option value="Cancelado">Cancelado</option>
+                                        </select>
+                                        </c:if>
+                                        <c:if test="${com.getEstado()=='En Proceso'}">
+                                        <select name="cboEstado" class="form-select form-select-sm" aria-label=".form-select-sm example">    
+                                            <option selected>${com.getEstado()}</option>
+                                            <option value="Listo para Retirar">Listo para Retirar</option>
+                                            <option value="Retirado">Retirado</option>
+                                            <option value="Cancelado">Cancelado</option>
+                                        </select>
+                                        </c:if>
+                                        <c:if test="${com.getEstado()=='Listo para Retirar'}">
+                                        <select name="cboEstado" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                            <option selected>${com.getEstado()}</option>
+                                            <option value="Retirado">Retirado</option>
+                                        </select>
+                                        </c:if>
+                                        <c:if test="${com.getEstado()=='Retirado'}">
+                                            ${com.getEstado()}
+                                        </c:if>
+                                        <c:if test="${com.getEstado()=='Cancelado'}">
+                                            ${com.getEstado()}
+                                        </c:if>                                    
                                 </td>
-                                <td> 
-                                    <input type="submit" name="accion" value="Actualizar" class="btn-success btn-sm">
+                                <td>
+                                    <c:if test="${com.getEstado()!='Retirado' && com.getEstado()!='Cancelado'}">
+                                        <input type="submit" name="accion" value="Actualizar" class="btn-success btn-sm">
+                                    </c:if>
                                 </td>
                             </form>
                             </tr>
