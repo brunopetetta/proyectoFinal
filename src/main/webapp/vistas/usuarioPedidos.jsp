@@ -32,6 +32,7 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="./Controlador?accion=PerfilUsuario&id=${sessionScope.alumno.getId()}">Perfil</a></li>
                                 <li><a class="dropdown-item" href="./Controlador?accion=PedidosUsuario&id=${sessionScope.alumno.getId()}">Mis Pedidos</a></li>
+                                <li><a class="dropdown-item" target="_blank" href="https://drive.google.com/file/d/1aHDg4BBRv9h1a4QKBHBzHll76-QJ-xgI/view?usp=share_link"><i class="fas fa-circle-question"></i> Ayuda </a></li>
                                 <li><a class="dropdown-item" href="./Controlador?accion=Salir">Salir</a></li>     
                             </ul>
                         </li>                       

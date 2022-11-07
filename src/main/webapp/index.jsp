@@ -68,6 +68,7 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user-gear"></i> ${sessionScope.admin.getNombre()} </a>
                                 <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" target="_blank" href="https://drive.google.com/file/d/16NVt4gHf-nwjiWD1hEkPN6Ps5oGNiRtD/view?usp=share_link"><i class="fas fa-circle-question"></i> Ayuda </a></li> 
                                     <li><a class="dropdown-item" href="./Controlador?accion=Salir"> Salir </a></li>     
                                 </ul>
                             </li>
@@ -78,6 +79,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="./Controlador?accion=PerfilUsuario&id=${sessionScope.alumno.getId()}">Perfil</a></li>
                                     <li><a class="dropdown-item" href="./Controlador?accion=PedidosUsuario&id=${sessionScope.alumno.getId()}">Mis Pedidos</a></li>
+                                    <li><a class="dropdown-item" target="_blank" href="https://drive.google.com/file/d/1aHDg4BBRv9h1a4QKBHBzHll76-QJ-xgI/view?usp=share_link"><i class="fas fa-circle-question"></i> Ayuda </a></li>
                                     <li><a class="dropdown-item" href="./Controlador?accion=Salir">Salir</a></li>     
                                 </ul>
                             </li>
