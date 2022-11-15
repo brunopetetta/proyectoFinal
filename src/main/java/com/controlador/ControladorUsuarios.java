@@ -104,7 +104,7 @@ public class ControladorUsuarios extends HttpServlet {
                     usu2.setEmail(email);
                     usu2.setPassword(password);
                     usu2.setRol(rol);
-                    if(esadmin.equals("1")){
+                    if(esadmin!= null){
                         try {
                             udao.AgregarNuevoUsuario(usu2);
                             ControladorImplements.response("./Controlador?accion=ElegirAlumno", "Se registro su usuario con Éxito!", Constants.CONFIG_ALERT_SUCCESS, request);
